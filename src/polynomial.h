@@ -41,9 +41,18 @@ namespace ralg {
     void print(std::ostream& out) const {
       out << coeff();
       for (int i = 0; i < num_vars(); i++) {
-	out << "x" << i << "^" << power(i);
-	if (i != (num_vars() - 1)) {
-	  out << "*";
+
+	if (power(i) != 0) {
+
+	  out << "x_" << i;
+	  if (power(i) > 1) {
+	    out << "^" << power(i);
+	  }
+
+	  if (i != (num_vars() - 1)) {
+	    out << "*";
+	  }
+
 	}
       }
     }
@@ -180,11 +189,4 @@ namespace ralg {
     return out;
   }
 
-  // template<typename N, typename Comparator>
-  // bool poly_eq(Comparator eq,
-  // 	       const polynomial<N>& f,
-  // 	       const polynomial<N>& g) {
-  //   return f.equals(eq, g);
-  // }
-  
 }
