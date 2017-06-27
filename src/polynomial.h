@@ -88,31 +88,22 @@ namespace ralg {
       return true;
     }
 
+    void print(std::ostream& out) const {
+      
+      for (int i = 0; i < num_monos(); i++) {
+	out << "mono";
+	if (i != (num_monos() - 1)) {
+	  out << " + ";
+	}
+      }
+    }
+
   };
 
   struct division_result {
     std::vector<polynomial> as;
     polynomial remainder;
   };
-
-  // Add within_eps call
-  inline bool double_eq(const double l, const double r) {
-    return l == r;
-  }
-
-  // template<typename N>
-  // class field_impl {};
-
-  // template<>
-  // class field_impl<double> {
-  // public:
-  //   static double zero() { return 0.0; }
-
-  //   static polynomial<double> zero_polynomial(const int num_vars) {
-  //     return polynomial<double>({}, num_vars);
-  //   }
-
-  // };
 
   // template<int>
   // polynomial<double> zero_polynomial<double>(const int num_vars) {
@@ -151,6 +142,11 @@ namespace ralg {
 
   inline bool operator!=(const polynomial& l, const polynomial& r) {
     return !(l == r);
+  }
+
+  inline std::ostream& operator<<(std::ostream& out, const polynomial& p) {
+    p.print(out);
+    return out;
   }
 
   // template<typename N, typename Comparator>
