@@ -7,6 +7,8 @@
 
 namespace ralg {
 
+  class monomial zero_monomial(const int num_vars);
+
   class monomial {
     rational c;
     std::vector<int> powers;
@@ -23,6 +25,12 @@ namespace ralg {
     rational coeff() const { return c; }
     int num_vars() const { return nvars; }
     int power(const int i) const { return powers[i]; }
+
+    monomial scalar_times(const int i) const {
+      monomial copy = *this;
+      copy.c = copy.coeff().times({std::to_string(i)});
+      return copy;
+    }
 
     bool equals(const monomial& g) const {
       assert(g.num_vars() == num_vars());
@@ -69,6 +77,16 @@ namespace ralg {
     return monomial(x.coeff() + y.coeff(), vars, vars.size());
   }
 
+  inline monomial operator-(const monomial& x, const monomial& y) {
+    assert(x.num_vars() == y.num_vars());
+
+    std::vector<int> vars;
+    for (int i = 0; i < x.num_vars(); i++) {
+      vars.push_back(x.power(i));
+    }
+    return monomial(x.coeff() - y.coeff(), vars, vars.size());
+  }
+  
   inline bool same_powers(const monomial& x, const monomial& y) {
     assert(x.num_vars() == y.num_vars());
 
@@ -110,7 +128,16 @@ namespace ralg {
   public:
     polynomial(const std::vector<monomial> p_monos,
 	       const int p_num_vars) {
-      monos = p_monos;
+      for (auto& mono : p_monos) {
+	if (!is_zero(mono)) {
+	  monos.push_back(mono);
+	}
+      }
+
+      if (monos.size() == 0) {
+	monos.push_back(zero_monomial(p_num_vars));
+      }
+      //monos = p_monos;
       std::sort(begin(monos), end(monos), lexicographic_order);
       nvars = p_num_vars;
     }
@@ -180,10 +207,53 @@ namespace ralg {
       return polynomial(monos, num_vars());
     }
 
-    polynomial minus(const polynomial& p) const {
-      std::vector<class monomial> sum = monos;
 
+
+    inline bool is_zero(const class monomial& m) {
+      rational zr("0");
+      return m.coeff() == zr;
+    }
+
+    polynomial minus(const polynomial& other) const {
+      int this_ind = 0;
+      int other_ind = 0;
+
+      std::vector<class monomial> monos;
+      while ((this_ind < num_monos()) &&
+	     (other_ind < other.num_monos())) {
+	// std::cout << "this ind = " << this_ind << std::endl;
+	// std::cout << "other ind = " << this_ind << std::endl;
+
+	auto this_mono = monomial(this_ind);
+	auto other_mono = other.monomial(other_ind);
+
+	if (same_powers(this_mono, other_mono)) {
+	  monos.push_back(this_mono - other_mono);
+	  this_ind++;
+	  other_ind++;
+	} else if (lexicographic_order(this_mono, other_mono)) {
+	  monos.push_back(other_mono.scalar_times(-1));
+	  other_ind++;
+	} else {
+	  monos.push_back(this_mono);
+	  this_ind++;
+	}
+      }
+
+      std::cout << "Done with main adding" << std::endl;
+      std::cout << "other_ind = " << other_ind << std::endl;
+      std::cout << "this_ind = " << this_ind << std::endl;
+
+      for (; this_ind < num_monos(); this_ind++) {
+	monos.push_back(monomial(this_ind));
+      }
+
+      for (; other_ind < other.num_monos(); other_ind++) {
+	monos.push_back(other.monomial(other_ind).scalar_times(-1));
+      }
+      
       return polynomial(monos, num_vars());
+
     }
 
     polynomial times(const polynomial& other) const {
@@ -236,16 +306,6 @@ namespace ralg {
 
   //   return {{zero_monomial}, num_vars};
   // }
-
-  inline monomial zero_monomial(const int num_vars) {
-    rational z("0.0");
-    std::vector<int> coeffs;
-    for (int i = 0; i < num_vars; i++) {
-      coeffs.push_back(0);
-    }
-
-    return {z, coeffs, num_vars};
-  }
 
   inline polynomial zero_polynomial(const int num_vars) {
     monomial zm = zero_monomial(num_vars);

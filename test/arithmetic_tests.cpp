@@ -6,11 +6,12 @@ namespace ralg {
 
   TEST_CASE("Polynomial arithmetic") {
 
+    monomial two_x_sq({"2"}, {2, 0, 0}, 3);
+    monomial four_x_sq({"4"}, {2, 0, 0}, 3);
+    monomial mthree_x_y3({"-3"}, {1, 3, 0}, 3);
+    monomial m6_x_y3({"-6"}, {1, 3, 0}, 3);
+    
     SECTION("Adding polynomials") {
-      monomial two_x_sq({"2"}, {2, 0, 0}, 3);
-      monomial four_x_sq({"4"}, {2, 0, 0}, 3);
-      monomial mthree_x_y3({"-3"}, {1, 3, 0}, 3);
-      monomial m6_x_y3({"-6"}, {1, 3, 0}, 3);
 
       SECTION("with no common coefficients") {
 
@@ -34,6 +35,19 @@ namespace ralg {
 	REQUIRE(res == expected);
       }
     }
+
+    SECTION("Subtracting polynomials") {
+
+      SECTION("With identical coefficients") {
+	polynomial p({two_x_sq, m6_x_y3}, 3);
+	polynomial q({two_x_sq, m6_x_y3}, 3);
+
+	REQUIRE((p - q) == zero_polynomial(3));
+	REQUIRE((p - q) == (q - p));
+      }
+
+    }
+    
   }
 
 }
