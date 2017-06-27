@@ -1,5 +1,6 @@
 #pragma once
 
+#include "algorithm.h"
 #include "polynomial.h"
 
 namespace ralg {
@@ -41,7 +42,7 @@ namespace ralg {
 	    auto res = divide(sp, g_prime, ord);
 	    auto& r = res.remainder;
 
-	    if (!is_zero(r)) {
+	    if (!is_zero(r) && !elem(r, g)) {
 	      g.push_back(r);
 	    }
 	  }
