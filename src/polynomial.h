@@ -341,7 +341,6 @@ namespace ralg {
     return polynomial({zm}, num_vars);
   }
 
-
   inline bool operator==(const polynomial& l, const polynomial& r) {
     return l.equals(r);
   }
@@ -355,6 +354,10 @@ namespace ralg {
     return out;
   }
 
+  inline bool is_zero(const polynomial& m) {
+    return m == zero_polynomial(m.num_vars());
+  }
+    
   inline bool divides(const monomial& v, const monomial& to_divide) {
     assert(v.num_vars() == to_divide.num_vars());
 
