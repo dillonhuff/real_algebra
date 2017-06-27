@@ -38,6 +38,15 @@ namespace ralg {
       return true;
     }
     
+    void print(std::ostream& out) const {
+      out << coeff();
+      for (int i = 0; i < num_vars(); i++) {
+	out << "x" << i << "^" << power(i);
+	if (i != (num_vars() - 1)) {
+	  out << "*";
+	}
+      }
+    }
 
   };
 
@@ -58,6 +67,11 @@ namespace ralg {
   }
 
 
+  inline std::ostream& operator<<(std::ostream& out, const monomial& m) {
+    m.print(out);
+    return out;
+  }
+  
   class polynomial {
 
     std::vector<monomial> monos;
@@ -91,7 +105,7 @@ namespace ralg {
     void print(std::ostream& out) const {
       
       for (int i = 0; i < num_monos(); i++) {
-	out << "mono";
+	out << monomial(i);
 	if (i != (num_monos() - 1)) {
 	  out << " + ";
 	}
