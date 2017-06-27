@@ -12,9 +12,11 @@ SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${CXX_GMP_LINK_FLAGS}")
 INCLUDE_DIRECTORIES(./src/)
 
 SET(SRC_FILES ./src/polynomial.cpp
+	      ./src/groebner.cpp
 	      ./src/rational.cpp)
 
 SET(TEST_FILES ./test/division_tests.cpp
+	       ./test/groebner_tests.cpp
 	       ./test/arithmetic_tests.cpp)
 
 add_executable(all-tests ${TEST_FILES} ${SRC_FILES})
