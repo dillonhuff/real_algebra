@@ -44,7 +44,7 @@ namespace ralg {
 
 	if (power(i) != 0) {
 
-	  out << "x_" << i;
+	  out << " x_" << i;
 	  if (power(i) > 1) {
 	    out << "^" << power(i);
 	  }
