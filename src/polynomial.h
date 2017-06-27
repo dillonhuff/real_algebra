@@ -157,13 +157,17 @@ namespace ralg {
 	  this_ind++;
 	  other_ind++;
 	} else if (lexicographic_order(this_mono, other_mono)) {
+	  monos.push_back(other_mono);
 	  other_ind++;
 	} else {
+	  monos.push_back(this_mono);
 	  this_ind++;
 	}
       }
 
       std::cout << "Done with main adding" << std::endl;
+      std::cout << "other_ind = " << other_ind << std::endl;
+      std::cout << "this_ind = " << this_ind << std::endl;
 
       for (; this_ind < num_monos(); this_ind++) {
 	monos.push_back(monomial(this_ind));
