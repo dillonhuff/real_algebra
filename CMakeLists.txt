@@ -14,6 +14,7 @@ INCLUDE_DIRECTORIES(./src/)
 SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/rational.cpp)
 
-SET(TEST_FILES ./test/division_tests.cpp)
+SET(TEST_FILES ./test/division_tests.cpp
+	       ./test/arithmetic_tests.cpp)
 
 add_executable(all-tests ${TEST_FILES} ${SRC_FILES})
