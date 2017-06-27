@@ -111,6 +111,13 @@ namespace ralg {
       return true;
     }
 
+    template<typename MonomialOrder>
+    class monomial lt(MonomialOrder m) const {
+      std::vector<class monomial> ms = monos;
+      return *max_element(begin(ms), end(ms), m);
+    }
+  
+    
     void print(std::ostream& out) const {
       
       for (int i = 0; i < num_monos(); i++) {
@@ -168,7 +175,15 @@ namespace ralg {
     p.print(out);
     return out;
   }
-  
+
+  bool divides(const monomial& v, const monomial& to_divide) {
+    return false;
+  }
+
+  monomial quotient(const monomial& div, const monomial& dividor) {
+    assert(false);
+  }
+
   template<typename MonomialOrder>
   division_result divide(const polynomial& f,
 			 const std::vector<polynomial>& gs,
@@ -185,14 +200,21 @@ namespace ralg {
     while (p != zr) {
       bool divided = false;
       for (int i = 0; i < gs.size(); i++) {
-	if (divided) {
+	monomial lt_fi = (gs[i]).lt(m);//, gs[i]);
+	monomial lt_p = p.lt(m); //, p);
+
+	if (divides(lt_fi, lt_p)) {
+	  polynomial qr({quotient(lt_p, lt_fi)}, f.num_vars());
+	  as[i] = as[i] + qr;
+	  p = p - qr*f[i];
 	  divided = true;
 	  break;
 	}
       }
 
       if (!divided) {
-	//Update remainder
+	r = r + polynomial({p.lt(m)}, f.num_vars());
+	p = l - polynomial({p.lt(m)}, f.num_vars());
       }
     }
     // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
