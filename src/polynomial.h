@@ -157,9 +157,6 @@ namespace ralg {
 	  monos.push_back(mono);
 	}
 
-	// if (!is_zero(mono)) {
-	//   monos.push_back(mono);
-	// }
       }
 
       if (monos.size() == 0) {
@@ -359,11 +356,28 @@ namespace ralg {
   }
 
   inline bool divides(const monomial& v, const monomial& to_divide) {
-    return false;
+    assert(v.num_vars() == to_divide.num_vars());
+
+    rational zr{"0"};
+    if (v.coeff() == zr) { return false; }
+
+    for (int i = 0; i < v.num_vars(); i++) {
+      if (v.power(i) > to_divide.power(i)) { return false; }
+    }
+    return true;
   }
 
-  inline monomial quotient(const monomial& div, const monomial& dividor) {
-    assert(false);
+  inline monomial quotient(const monomial& div, const monomial& v) {
+    assert(v.num_vars() == div.num_vars());
+
+    rational c = div.coeff() / v.coeff();
+
+    std::vector<int> powers;
+    for (int i = 0; i < v.num_vars(); i++) {
+      powers.push_back(div.power(i) - v.power(i));
+    }
+    return monomial(c, powers, v.num_vars());
+
   }
 
   template<typename MonomialOrder>
@@ -380,15 +394,21 @@ namespace ralg {
     polynomial r = zero_polynomial(f.num_vars());
 
     while (p != zr) {
+      std::cout << "p = " << p << std::endl;
+
       bool divided = false;
       for (int i = 0; i < gs.size(); i++) {
 	monomial lt_fi = (gs[i]).lt(m);//, gs[i]);
 	monomial lt_p = p.lt(m); //, p);
 
+	std::cout << "Checking divide" << std::endl;
 	if (divides(lt_fi, lt_p)) {
+	  std::cout << "Divides" << std::endl;
+	  std::cout << lt_fi << " divides " << lt_p << std::endl;
 	  polynomial qr({quotient(lt_p, lt_fi)}, f.num_vars());
 	  as[i] = as[i] + qr;
 	  p = p - qr*gs[i];
+	  std::cout << "p after divide = " << p << std::endl;
 	  divided = true;
 	  break;
 	}
@@ -397,7 +417,7 @@ namespace ralg {
       if (!divided) {
 	r = r + polynomial({p.lt(m)}, f.num_vars());
 	p = p - polynomial({p.lt(m)}, f.num_vars());
-	std::cout << "p = " << p << std::endl;
+	std::cout << "p after reducex = " << p << std::endl;
       }
     }
     // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
