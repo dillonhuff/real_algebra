@@ -130,16 +130,33 @@ namespace ralg {
 
   //   return {{zero_monomial}, num_vars};
   // }
-  
+
+  inline monomial zero_monomial(const int num_vars) {
+    rational z("0.0");
+    std::vector<int> coeffs;
+    for (int i = 0; i < num_vars; i++) {
+      coeffs.push_back(0);
+    }
+
+    return {z, coeffs, num_vars};
+  }
+
+  inline polynomial zero_polynomial(const int num_vars) {
+    monomial zm = zero_monomial(num_vars);
+    return polynomial({zm}, num_vars);
+  }
 
   template<typename MonomialOrder>
   division_result divide(const polynomial& f,
 			 const std::vector<polynomial>& gs,
 			 MonomialOrder m) {
-    // std::vector<polynomial> as;
-    // for (unsigned i = 0; i < gs.size(); i++) {
-    //   as.push_back(field_impl<N>::zero_polynomial(f.num_vars()));
-    // }
+    std::vector<polynomial> as;
+    for (unsigned i = 0; i < gs.size(); i++) {
+      as.push_back(zero_polynomial(f.num_vars()));
+    }
+
+    polynomial a = f;
+    polynomial r = zero_polynomial(f.num_vars());
 
     // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
     // polynomial<N> p = f;
@@ -147,7 +164,7 @@ namespace ralg {
       
     // }
 
-    return division_result{{}, {{}, 2}};
+    return division_result{as, r};
   }
 
   inline bool operator==(const polynomial& l, const polynomial& r) {
