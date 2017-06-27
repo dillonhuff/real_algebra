@@ -31,7 +31,7 @@ namespace ralg {
       polynomial sum = zero_polynomial(2);
       for (int i = 0; i < res.as.size(); i++) {
 
-	cout << "a_" << i << " = " << res.as[i] << endl;
+	//cout << "a_" << i << " = " << res.as[i] << endl;
 
 	sum = sum + res.as[i]*g[i];
       }
