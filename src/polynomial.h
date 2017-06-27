@@ -59,6 +59,27 @@ namespace ralg {
 
   };
 
+  inline monomial operator+(const monomial& x, const monomial& y) {
+    assert(x.num_vars() == y.num_vars());
+
+    std::vector<int> vars;
+    for (int i = 0; i < x.num_vars(); i++) {
+      vars.push_back(x.power(i));
+    }
+    return monomial(x.coeff() + y.coeff(), vars, vars.size());
+  }
+
+  inline bool same_powers(const monomial& x, const monomial& y) {
+    assert(x.num_vars() == y.num_vars());
+
+    for (int i = 0; i < x.num_vars(); i++) {
+      if (x.power(i) != y.power(i)) {
+	return false;
+      }
+    }
+    return true;
+  }
+
   inline bool lexicographic_order(const monomial& x,
 				  const monomial& y) {
     assert(x.num_vars() == y.num_vars());
@@ -116,7 +137,57 @@ namespace ralg {
       std::vector<class monomial> ms = monos;
       return *max_element(begin(ms), end(ms), m);
     }
-  
+
+    // Fix this later
+    polynomial plus(const polynomial& other) const {
+      int this_ind = 0;
+      int other_ind = 0;
+
+      std::vector<class monomial> monos;
+      while ((this_ind < num_monos()) &&
+	     (other_ind < other.num_monos())) {
+	// std::cout << "this ind = " << this_ind << std::endl;
+	// std::cout << "other ind = " << this_ind << std::endl;
+
+	auto this_mono = monomial(this_ind);
+	auto other_mono = other.monomial(other_ind);
+
+	if (same_powers(this_mono, other_mono)) {
+	  monos.push_back(this_mono + other_mono);
+	  this_ind++;
+	  other_ind++;
+	} else if (lexicographic_order(this_mono, other_mono)) {
+	  other_ind++;
+	} else {
+	  this_ind++;
+	}
+      }
+
+      std::cout << "Done with main adding" << std::endl;
+
+      for (; this_ind < num_monos(); this_ind++) {
+	monos.push_back(monomial(this_ind));
+      }
+
+      for (; other_ind < other.num_monos(); other_ind++) {
+	monos.push_back(other.monomial(other_ind));
+      }
+      
+      return polynomial(monos, num_vars());
+    }
+
+    polynomial minus(const polynomial& p) const {
+      std::vector<class monomial> sum = monos;
+
+      return polynomial(monos, num_vars());
+    }
+
+    polynomial times(const polynomial& other) const {
+
+      std::vector<class monomial> sum = monos;
+
+      return polynomial(monos, num_vars());
+    }
     
     void print(std::ostream& out) const {
       
@@ -132,17 +203,17 @@ namespace ralg {
 
   inline polynomial operator+(const polynomial& x,
 			      const polynomial& y) {
-    assert(false);
+    return x.plus(y);
   }
 
   inline polynomial operator*(const polynomial& x,
 			      const polynomial& y) {
-    assert(false);
+    return x.times(y);
   }
   
   inline polynomial operator-(const polynomial& x,
 			      const polynomial& y) {
-    assert(false);
+    return x.minus(y);
   }
   
   struct division_result {
