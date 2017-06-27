@@ -39,7 +39,11 @@ namespace ralg {
 	  if (i != j) {
 
 	    polynomial sp = s_poly(ord, g_prime[i], g_prime[j]);
-	    auto res = divide(sp, g_prime, ord);
+
+	    // Should I divide by g or g_prime here? I feel like g is the
+	    // better choice, but Ideals, Varieties and algorithms says
+	    // to use g_prime
+	    auto res = divide(sp, g, ord);
 	    auto& r = res.remainder;
 
 	    if (!is_zero(r) && !elem(r, g)) {
