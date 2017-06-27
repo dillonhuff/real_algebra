@@ -124,6 +124,46 @@ namespace ralg {
     return false;
   }
 
+  inline int total_degree(const monomial& x) {
+    int tg = 0;
+
+    for (int i = 0; i < x.num_vars(); i++) {
+      tg += x.power(i);
+    }
+
+    return tg;
+  }
+
+  inline bool graded_lexicographic_order(const monomial& x,
+					 const monomial& y) {
+    assert(x.num_vars() == y.num_vars());
+
+    if (total_degree(x) < total_degree(y)) {
+      return true;
+    }
+
+    if (total_degree(x) > total_degree(y)) {
+      return false;
+    }
+
+    return lexicographic_order(x, y);
+  }
+  
+  inline bool graded_reverse_lexicographic_order(const monomial& x,
+						 const monomial& y) {
+    assert(x.num_vars() == y.num_vars());
+
+    if (total_degree(x) < total_degree(y)) {
+      return true;
+    }
+
+    if (total_degree(x) > total_degree(y)) {
+      return false;
+    }
+
+    return !lexicographic_order(x, y);
+  }
+
 
   inline std::ostream& operator<<(std::ostream& out, const monomial& m) {
     m.print(out);

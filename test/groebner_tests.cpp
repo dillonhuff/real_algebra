@@ -28,8 +28,13 @@ namespace ralg {
       polynomial p2({x_sq_y, m2_y_sq, x}, 2);
 
       vector<polynomial> basis =
-	buchberger({p1, p2}, lexicographic_order);
+	buchberger({p1, p2}, graded_lexicographic_order);
 
+
+      cout << "Basis in lex order" << endl;
+      for (auto& b : basis) {
+	cout << b << endl;
+      }
 
       REQUIRE(basis.size() == 5);
     }
