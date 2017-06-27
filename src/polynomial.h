@@ -139,9 +139,27 @@ namespace ralg {
     polynomial(const std::vector<monomial> p_monos,
 	       const int p_num_vars) {
       for (auto& mono : p_monos) {
-	if (!is_zero(mono)) {
+	if (is_zero(mono)) {
+	  continue;
+	}
+
+	bool added_to_existing = false;
+	for (int i = 0; i < monos.size(); i++) {
+	  auto& m = monos[i];
+	  if (same_powers(m, mono)) {
+	    monos[i] = monos[i] + mono;
+	    added_to_existing = true;
+	    break;
+	  }
+	}
+
+	if (!added_to_existing) {
 	  monos.push_back(mono);
 	}
+
+	// if (!is_zero(mono)) {
+	//   monos.push_back(mono);
+	// }
       }
 
       if (monos.size() == 0) {
@@ -379,6 +397,7 @@ namespace ralg {
       if (!divided) {
 	r = r + polynomial({p.lt(m)}, f.num_vars());
 	p = p - polynomial({p.lt(m)}, f.num_vars());
+	std::cout << "p = " << p << std::endl;
       }
     }
     // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
