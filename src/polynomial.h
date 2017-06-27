@@ -155,26 +155,6 @@ namespace ralg {
     return polynomial({zm}, num_vars);
   }
 
-  template<typename MonomialOrder>
-  division_result divide(const polynomial& f,
-			 const std::vector<polynomial>& gs,
-			 MonomialOrder m) {
-    std::vector<polynomial> as;
-    for (unsigned i = 0; i < gs.size(); i++) {
-      as.push_back(zero_polynomial(f.num_vars()));
-    }
-
-    polynomial a = f;
-    polynomial r = zero_polynomial(f.num_vars());
-
-    // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
-    // polynomial<N> p = f;
-    // while (!poly_eq(field_impl<N>::equals, zr, p)) {
-      
-    // }
-
-    return division_result{as, r};
-  }
 
   inline bool operator==(const polynomial& l, const polynomial& r) {
     return l.equals(r);
@@ -187,6 +167,41 @@ namespace ralg {
   inline std::ostream& operator<<(std::ostream& out, const polynomial& p) {
     p.print(out);
     return out;
+  }
+  
+  template<typename MonomialOrder>
+  division_result divide(const polynomial& f,
+			 const std::vector<polynomial>& gs,
+			 MonomialOrder m) {
+    std::vector<polynomial> as;
+    for (unsigned i = 0; i < gs.size(); i++) {
+      as.push_back(zero_polynomial(f.num_vars()));
+    }
+
+    polynomial zr = zero_polynomial(f.num_vars());
+    polynomial p = f;
+    polynomial r = zero_polynomial(f.num_vars());
+
+    while (p != zr) {
+      bool divided = false;
+      for (int i = 0; i < gs.size(); i++) {
+	if (divided) {
+	  divided = true;
+	  break;
+	}
+      }
+
+      if (!divided) {
+	//Update remainder
+      }
+    }
+    // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
+    // polynomial<N> p = f;
+    // while (!poly_eq(field_impl<N>::equals, zr, p)) {
+      
+    // }
+
+    return division_result{as, r};
   }
 
 }
