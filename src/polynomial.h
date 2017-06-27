@@ -130,6 +130,21 @@ namespace ralg {
 
   };
 
+  inline polynomial operator+(const polynomial& x,
+			      const polynomial& y) {
+    assert(false);
+  }
+
+  inline polynomial operator*(const polynomial& x,
+			      const polynomial& y) {
+    assert(false);
+  }
+  
+  inline polynomial operator-(const polynomial& x,
+			      const polynomial& y) {
+    assert(false);
+  }
+  
   struct division_result {
     std::vector<polynomial> as;
     polynomial remainder;
@@ -176,11 +191,11 @@ namespace ralg {
     return out;
   }
 
-  bool divides(const monomial& v, const monomial& to_divide) {
+  inline bool divides(const monomial& v, const monomial& to_divide) {
     return false;
   }
 
-  monomial quotient(const monomial& div, const monomial& dividor) {
+  inline monomial quotient(const monomial& div, const monomial& dividor) {
     assert(false);
   }
 
@@ -206,7 +221,7 @@ namespace ralg {
 	if (divides(lt_fi, lt_p)) {
 	  polynomial qr({quotient(lt_p, lt_fi)}, f.num_vars());
 	  as[i] = as[i] + qr;
-	  p = p - qr*f[i];
+	  p = p - qr*gs[i];
 	  divided = true;
 	  break;
 	}
@@ -214,7 +229,7 @@ namespace ralg {
 
       if (!divided) {
 	r = r + polynomial({p.lt(m)}, f.num_vars());
-	p = l - polynomial({p.lt(m)}, f.num_vars());
+	p = p - polynomial({p.lt(m)}, f.num_vars());
       }
     }
     // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
