@@ -24,11 +24,10 @@ namespace ralg {
     int num_vars() const { return nvars; }
     int power(const int i) const { return powers[i]; }
 
-    template<typename Comparator>
-    bool equals(Comparator eq, const monomial& g) const {
+    bool equals(const monomial& g) const {
       assert(g.num_vars() == num_vars());
 
-      if (!eq(g.coeff(), coeff())) { return false; }
+      if (!(g.coeff() == coeff())) { return false; }
 
       for (int i = 0; i < g.num_vars(); i++) {
 	if (g.power(i) != power(i)) {
@@ -77,12 +76,11 @@ namespace ralg {
 
     const monomial& monomial(const int i) const { return monos[i]; }
 
-    template<typename Comparator>
-    bool equals(Comparator eq, const polynomial& g) const {
+    bool equals(const polynomial& g) const {
       if (g.num_monos() != num_monos()) { return false; }
 
       for (unsigned i = 0; i < g.num_monos(); i++) {
-	if ( !g.monomial(i).equals(eq, monomial(i)) ) {
+	if ( !g.monomial(i).equals(monomial(i)) ) {
 	  return false;
 	}
       }
@@ -145,6 +143,14 @@ namespace ralg {
     // }
 
     return division_result{{}, {{}, 2}};
+  }
+
+  inline bool operator==(const polynomial& l, const polynomial& r) {
+    return l.equals(r);
+  }
+
+  inline bool operator!=(const polynomial& l, const polynomial& r) {
+    return !(l == r);
   }
 
   // template<typename N, typename Comparator>
