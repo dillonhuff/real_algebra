@@ -4,6 +4,8 @@
 
 #include "polynomial.h"
 
+using namespace std;
+
 namespace ralg {
 
   TEST_CASE("Polynomial division") {
@@ -17,7 +19,7 @@ namespace ralg {
 
     polynomial a1{{{{"1"}, {1, 0}, 2}}, 2};
     polynomial a2{{{{"-1"}, {0, 0}, 2}}, 2};
-    polynomial r{{{{"-1"}, {0, 1}, 2}, {{"-1"}, {0, 0}, 2}}, 2};
+    polynomial r{{{{"1"}, {0, 1}, 2}, {{"1"}, {0, 0}, 2}}, 2};
 
     std::vector<polynomial > as{a1, a2};
     division_result expected_result{as, r};
@@ -28,7 +30,10 @@ namespace ralg {
     SECTION("Result adds up to f") {
       polynomial sum = zero_polynomial(2);
       for (int i = 0; i < res.as.size(); i++) {
-	sum = sum + as[i]*g[i];
+
+	cout << "a_" << i << " = " << res.as[i] << endl;
+
+	sum = sum + res.as[i]*g[i];
       }
       sum = sum + res.remainder;
 

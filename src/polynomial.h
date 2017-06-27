@@ -217,9 +217,9 @@ namespace ralg {
 	}
       }
 
-      std::cout << "Done with main adding" << std::endl;
-      std::cout << "other_ind = " << other_ind << std::endl;
-      std::cout << "this_ind = " << this_ind << std::endl;
+      // std::cout << "Done with main adding" << std::endl;
+      // std::cout << "other_ind = " << other_ind << std::endl;
+      // std::cout << "this_ind = " << this_ind << std::endl;
 
       for (; this_ind < num_monos(); this_ind++) {
 	monos.push_back(monomial(this_ind));
