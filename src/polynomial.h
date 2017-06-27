@@ -86,6 +86,16 @@ namespace ralg {
     }
     return monomial(x.coeff() - y.coeff(), vars, vars.size());
   }
+
+  inline monomial operator*(const monomial& x, const monomial& y) {
+    assert(x.num_vars() == y.num_vars());
+
+    std::vector<int> vars;
+    for (int i = 0; i < x.num_vars(); i++) {
+      vars.push_back(x.power(i) + y.power(i));
+    }
+    return monomial(x.coeff() * y.coeff(), vars, vars.size());
+  }
   
   inline bool same_powers(const monomial& x, const monomial& y) {
     assert(x.num_vars() == y.num_vars());
@@ -257,10 +267,14 @@ namespace ralg {
     }
 
     polynomial times(const polynomial& other) const {
+      std::vector<class monomial> prod;
+      for (auto& other_mono : other.monos) {
+	for (auto& this_mono : monos) {
+	  prod.push_back(other_mono * this_mono);
+	}
+      }
 
-      std::vector<class monomial> sum = monos;
-
-      return polynomial(monos, num_vars());
+      return polynomial(prod, num_vars());
     }
     
     void print(std::ostream& out) const {

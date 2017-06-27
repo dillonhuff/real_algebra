@@ -7,6 +7,7 @@ namespace ralg {
   TEST_CASE("Polynomial arithmetic") {
 
     monomial two_x_sq({"2"}, {2, 0, 0}, 3);
+    monomial z_quart({"1"}, {0, 0, 4}, 3);
     monomial four_x_sq({"4"}, {2, 0, 0}, 3);
     monomial mthree_x_y3({"-3"}, {1, 3, 0}, 3);
     monomial m6_x_y3({"-6"}, {1, 3, 0}, 3);
@@ -46,6 +47,19 @@ namespace ralg {
 	REQUIRE((p - q) == (q - p));
       }
 
+    }
+
+    SECTION("Multiplying polynomials") {
+      SECTION("One term polynomials") {
+	polynomial p({two_x_sq}, 3);
+	polynomial q({z_quart}, 3);
+
+	polynomial res = p*q;
+
+	polynomial expected({{{"2"}, {2, 0, 4}, 3}}, 3);
+
+	REQUIRE(res == expected);
+      }
     }
     
   }
