@@ -265,9 +265,9 @@ namespace ralg {
 	}
       }
 
-      std::cout << "Done with main adding" << std::endl;
-      std::cout << "other_ind = " << other_ind << std::endl;
-      std::cout << "this_ind = " << this_ind << std::endl;
+      // std::cout << "Done with main adding" << std::endl;
+      // std::cout << "other_ind = " << other_ind << std::endl;
+      // std::cout << "this_ind = " << this_ind << std::endl;
 
       for (; this_ind < num_monos(); this_ind++) {
 	monos.push_back(monomial(this_ind));
@@ -394,21 +394,27 @@ namespace ralg {
     polynomial r = zero_polynomial(f.num_vars());
 
     while (p != zr) {
-      std::cout << "p = " << p << std::endl;
+
+      //std::cout << "p = " << p << std::endl;
 
       bool divided = false;
       for (int i = 0; i < gs.size(); i++) {
 	monomial lt_fi = (gs[i]).lt(m);//, gs[i]);
 	monomial lt_p = p.lt(m); //, p);
 
-	std::cout << "Checking divide" << std::endl;
+	//std::cout << "Checking divide" << std::endl;
+
 	if (divides(lt_fi, lt_p)) {
-	  std::cout << "Divides" << std::endl;
-	  std::cout << lt_fi << " divides " << lt_p << std::endl;
+
+	  //std::cout << "Divides" << std::endl;
+	  //std::cout << lt_fi << " divides " << lt_p << std::endl;
+
 	  polynomial qr({quotient(lt_p, lt_fi)}, f.num_vars());
 	  as[i] = as[i] + qr;
 	  p = p - qr*gs[i];
-	  std::cout << "p after divide = " << p << std::endl;
+
+	  //std::cout << "p after divide = " << p << std::endl;
+
 	  divided = true;
 	  break;
 	}
@@ -417,7 +423,8 @@ namespace ralg {
       if (!divided) {
 	r = r + polynomial({p.lt(m)}, f.num_vars());
 	p = p - polynomial({p.lt(m)}, f.num_vars());
-	std::cout << "p after reducex = " << p << std::endl;
+
+	//std::cout << "p after reducex = " << p << std::endl;
       }
     }
     // polynomial<N> zr = field_impl<N>::zero_polynomial(f.num_vars());
