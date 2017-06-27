@@ -5,6 +5,18 @@
 
 namespace ralg {
 
+  inline monomial lcm(const monomial& x, const monomial& y) {
+    assert(x.num_vars() == y.num_vars());
+
+    rational lcm_coeff = x.coeff().times(y.coeff());
+    std::vector<int> lcm_powers;
+    for (int i = 0; i < x.num_vars(); i++) {
+      lcm_powers.push_back(std::max(x.power(i), y.power(i)));
+    }
+
+    return monomial(lcm_coeff, lcm_powers, x.num_vars()); x*y; //lt_l * lt_r;
+  }
+
   template<typename MonomialOrder>
   polynomial s_poly(MonomialOrder ord,
 		    const polynomial& l,
@@ -12,7 +24,7 @@ namespace ralg {
     monomial lt_l = l.lt(ord);
     monomial lt_r = r.lt(ord);
     // Not actually the LCM
-    monomial lcm_lr = lt_l * lt_r;//lcm(lt_l, lt_r);
+    monomial lcm_lr = lcm(lt_l, lt_r);
 
     monomial cancel_r = quotient(lcm_lr, lt_r);
     monomial cancel_l = quotient(lcm_lr, lt_l);

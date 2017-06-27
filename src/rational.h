@@ -46,6 +46,13 @@ namespace ralg {
       return rational(prod);
     }
 
+    // rational lcm(const rational& l) const {
+    //   mpq_t prod;
+    //   mpq_init(prod);
+    //   mpq_lcm(prod, val, l.val);
+    //   return rational(prod);
+    // }
+
     rational divide(const rational& l) const {
       mpq_t prod;
       mpq_init(prod);

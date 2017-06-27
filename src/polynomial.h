@@ -58,7 +58,7 @@ namespace ralg {
 	  }
 
 	  if (i != (num_vars() - 1)) {
-	    out << "*";
+	    out << " *";
 	  }
 
 	}
