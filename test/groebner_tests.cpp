@@ -38,6 +38,23 @@ namespace ralg {
 
       REQUIRE(basis.size() == 5);
     }
+
+    SECTION("Basis for 2 polynomials that are already a basis") {
+      monomial x({"1"}, {1, 0, 0}, 3);
+      monomial y({"1"}, {0, 1, 0}, 3);
+
+      monomial my({"1"}, {0, 1, 0}, 3);
+      monomial mz({"1"}, {0, 0, 1}, 3);
+      
+      polynomial p1({x, my}, 3);
+      polynomial p2({y, mz}, 3);
+
+      vector<polynomial> basis =
+	buchberger({p1, p2}, lexicographic_order);
+
+      REQUIRE(basis.size() == 2);
+    }
+
   }
 
 }
