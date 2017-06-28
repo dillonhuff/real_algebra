@@ -31,11 +31,6 @@ namespace ralg {
 	buchberger({p1, p2}, graded_lexicographic_order);
 
 
-      cout << "Basis in lex order" << endl;
-      for (auto& b : basis) {
-	cout << b << endl;
-      }
-
       REQUIRE(basis.size() == 5);
 
       vector<polynomial> minimal_basis =
@@ -58,6 +53,33 @@ namespace ralg {
 	buchberger({p1, p2}, lexicographic_order);
 
       REQUIRE(basis.size() == 2);
+    }
+
+    SECTION("Basis for 4 polynomials in 3 variables") {
+      monomial x({"1"}, {1, 0, 0}, 3);
+      monomial y({"1"}, {0, 1, 0}, 3);
+      monomial z({"1"}, {0, 0, 1}, 3);
+      monomial one({"1"}, {0, 0, 0}, 3);
+
+      monomial x2 = x*x;
+      monomial y2 = y*y;
+      monomial z2 = z*z;
+
+      polynomial p1({x2, y, z, -one}, 3);
+      polynomial p2({x, y2, z, -one}, 3);
+      polynomial p3({x, y, z2, -one}, 3);
+
+      vector<polynomial> ps{p1, p2, p3};
+
+      auto minimal_basis =
+	minimal_groebner_basis(ps, lexicographic_order);
+
+      cout << "Minimal basis in lex order" << endl;
+      for (auto& b : minimal_basis) {
+	cout << b << endl;
+      }
+
+      REQUIRE(minimal_basis.size() == 4);
     }
 
   }

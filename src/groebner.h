@@ -109,4 +109,12 @@ namespace ralg {
     return g_prime;
   }
 
+  template<typename MonomialOrder>
+  std::vector<polynomial>
+  minimal_groebner_basis(const std::vector<polynomial>& g,
+			  MonomialOrder ord) {
+    auto basis = buchberger(g, ord);
+    return minimize_groebner_basis(basis, ord);
+  }
+
 }

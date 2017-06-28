@@ -87,6 +87,17 @@ namespace ralg {
     return monomial(x.coeff() - y.coeff(), vars, vars.size());
   }
 
+  inline monomial operator-(const monomial& x) {
+    std::vector<int> vars;
+    for (int i = 0; i < x.num_vars(); i++) {
+      vars.push_back(x.power(i));
+    }
+
+    rational minus_one{"-1"};
+    return monomial(minus_one*x.coeff(), vars, vars.size());
+    
+  }
+
   inline monomial operator*(const monomial& x, const monomial& y) {
     assert(x.num_vars() == y.num_vars());
 
