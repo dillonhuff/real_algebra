@@ -116,6 +116,23 @@ namespace ralg {
       REQUIRE(contains_one);
     }
 
+    SECTION("Reduced groebner basis") {
+      monomial x({"1"}, {1, 0}, 2);
+      monomial y({"1"}, {0, 1}, 2);
+
+      polynomial p1({x*x, x*y}, 2);
+      polynomial p2({x*y}, 2);
+      polynomial p3({2*y*y, -x}, 2);
+
+      auto reduced_basis =
+	reduced_groebner_basis({p1, p2, p3}, graded_reverse_lexicographic_order);
+
+      cout << "Reduced basis" << endl;
+      for (auto& b : reduced_basis) {
+	cout << b << endl;
+      }
+    }
+
   }
 
 }

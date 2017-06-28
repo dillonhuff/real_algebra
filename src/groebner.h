@@ -138,6 +138,7 @@ namespace ralg {
   reduce_groebner_basis(const std::vector<polynomial>& g,
 			MonomialOrder ord) {
     std::vector<polynomial> g_prime = g;
+
     for (int i = 0; i < g.size(); i++) {
       std::vector<polynomial> g_diff = g;
       remove(g[i], g_diff);
@@ -148,5 +149,13 @@ namespace ralg {
 
     return g_prime;
   }
-  
+
+  template<typename MonomialOrder>
+  std::vector<polynomial>
+  reduced_groebner_basis(const std::vector<polynomial>& g,
+			 MonomialOrder ord) {
+    auto min_basis = minimal_groebner_basis(g, ord);
+    return reduce_groebner_basis(g, ord);
+  }
+
 }
