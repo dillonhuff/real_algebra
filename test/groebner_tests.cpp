@@ -89,6 +89,33 @@ namespace ralg {
       REQUIRE(minimal_basis.size() == 4);
     }
 
+    SECTION("x = 0 and x + 1 = 0 never has a solution") {
+      monomial x({"1"}, {1}, 1);
+      monomial one({"1"}, {0}, 1);
+
+      polynomial xp({x}, 1);
+      polynomial xplus1p({x, one}, 1);
+
+      vector<polynomial> ps{xp, xplus1p};
+      auto minimal_basis = minimal_groebner_basis(ps, lexicographic_order);
+
+      cout << "Minimal basis" << endl;
+      for (auto& b : minimal_basis) {
+	cout << b << endl;
+      }
+
+      polynomial one_p({one}, 1);
+      bool contains_one = false;
+      for (auto& b : minimal_basis) {
+	if (b == one_p) {
+	  contains_one = true;
+	  break;
+	}
+      }
+
+      REQUIRE(contains_one);
+    }
+
   }
 
 }
