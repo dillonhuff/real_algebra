@@ -119,18 +119,24 @@ namespace ralg {
     SECTION("Reduced groebner basis") {
       monomial x({"1"}, {1, 0}, 2);
       monomial y({"1"}, {0, 1}, 2);
+      monomial half({"1/2"}, {0, 0}, 2);
 
       polynomial p1({x*x, x*y}, 2);
       polynomial p2({x*y}, 2);
-      polynomial p3({2*y*y, -x}, 2);
+      polynomial p3({y*y, -half*x}, 2);
 
       auto reduced_basis =
 	reduced_groebner_basis({p1, p2, p3}, graded_reverse_lexicographic_order);
 
       cout << "Reduced basis" << endl;
+
+      rational one_real("1");
       for (auto& b : reduced_basis) {
+	REQUIRE(one_real == b.lt(graded_reverse_lexicographic_order).coeff());
 	cout << b << endl;
       }
+      
+      REQUIRE(reduced_basis.size() == 3);
     }
 
   }

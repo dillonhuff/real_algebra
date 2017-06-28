@@ -140,7 +140,7 @@ namespace ralg {
     std::vector<polynomial> g_prime = g;
 
     for (int i = 0; i < g.size(); i++) {
-      std::vector<polynomial> g_diff = g;
+      std::vector<polynomial> g_diff = g_prime;
       remove(g[i], g_diff);
       auto div_res = divide(g[i], g_diff, ord);
       remove(g[i], g_prime);
