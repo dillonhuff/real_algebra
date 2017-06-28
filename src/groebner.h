@@ -106,6 +106,22 @@ namespace ralg {
       }
     }
 
+    rational one_real("1");
+    for (int i = 0; i < g_prime.size(); i++) {
+      auto& p = g_prime[i];
+      auto leading_coeff = p.lt(ord).coeff();
+      rational new_coeff = one_real / leading_coeff;
+
+      std::vector<int> vs;
+      for (int j = 0; j < p.num_vars(); j++) {
+	vs.push_back(0);
+      }
+      monomial m(new_coeff, vs, p.num_vars());
+      polynomial prod({m}, p.num_vars());
+
+      g_prime[i] = p*prod;
+    }
+
     return g_prime;
   }
 

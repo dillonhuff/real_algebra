@@ -36,6 +36,11 @@ namespace ralg {
       vector<polynomial> minimal_basis =
 	minimize_groebner_basis(basis, graded_lexicographic_order);
 
+      rational one_real("1");
+      for (auto& b : minimal_basis) {
+	REQUIRE(one_real == b.lt(graded_lexicographic_order).coeff());
+      }
+      
       REQUIRE(minimal_basis.size() == 3);
     }
 
@@ -75,7 +80,9 @@ namespace ralg {
 	minimal_groebner_basis(ps, lexicographic_order);
 
       cout << "Minimal basis in lex order" << endl;
+      rational one_real("1");
       for (auto& b : minimal_basis) {
+	REQUIRE(one_real == b.lt(lexicographic_order).coeff());
 	cout << b << endl;
       }
 
