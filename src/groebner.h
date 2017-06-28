@@ -69,4 +69,12 @@ namespace ralg {
     
     return g;
   }
+
+  template<typename MonomialOrder>
+  std::vector<polynomial>
+  minimize_groebner_basis(const std::vector<polynomial>& g,
+			  MonomialOrder ord) {
+    return g;
+  }
+
 }

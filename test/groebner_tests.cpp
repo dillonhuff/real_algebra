@@ -37,6 +37,11 @@ namespace ralg {
       }
 
       REQUIRE(basis.size() == 5);
+
+      vector<polynomial> minimal_basis =
+	minimize_groebner_basis(basis, graded_lexicographic_order);
+
+      REQUIRE(minimal_basis.size() == 3);
     }
 
     SECTION("Basis for 2 polynomials that are already a basis") {
