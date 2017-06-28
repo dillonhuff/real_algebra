@@ -74,7 +74,39 @@ namespace ralg {
   std::vector<polynomial>
   minimize_groebner_basis(const std::vector<polynomial>& g,
 			  MonomialOrder ord) {
-    return g;
+    std::vector<polynomial> g_prime = g;
+    bool deleted_elem = true;
+    while (deleted_elem) {
+
+      deleted_elem = false;
+
+      for (int i = 0; i < g_prime.size(); i++) {
+
+	auto lt_p = g_prime[i].lt(ord);
+
+	std::vector<monomial> mi;
+	for (int j = 0; j < g_prime.size(); j++) {
+	  if (i != j) {
+	    mi.push_back(g_prime[j].lt(ord));
+	  }
+	}
+
+	for (auto& m : mi) {
+	  if (divides(m, lt_p)) {
+	    remove(g_prime[i], g_prime);
+	    deleted_elem = true;
+	    break;
+	  }
+	}
+
+	if (deleted_elem) {
+	  break;
+	}
+
+      }
+    }
+
+    return g_prime;
   }
 
 }
