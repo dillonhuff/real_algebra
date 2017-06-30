@@ -70,6 +70,7 @@ namespace ralg {
     monomial x({"1"}, {1, 0, 0}, 3);
     monomial y({"1"}, {0, 1, 0}, 3);
     monomial z({"1"}, {0, 0, 1}, 3);
+    monomial one({"1"}, {0, 0, 0}, 3);
 
     SECTION("x coefficients wrt x") {
       polynomial x_poly({x}, 3);
@@ -103,11 +104,32 @@ namespace ralg {
 
       SECTION("Derivatives with respect to different variables") {
 	polynomial pp = xy2pypzp1;
-	polynomial dx = derivative_wrt(0, pp);
 
-	polynomial expected({y*y}, 2);
+	SECTION("Derivative wrt x") {
+	  polynomial dx = derivative_wrt(0, pp);
 
-	REQUIRE(expected == dx);
+	  polynomial expected({y*y}, 3);
+
+	  REQUIRE(expected == dx);
+	}
+
+	// xy^2 + y^2 + y + z + 1 wrt y
+	SECTION("Derivative wrt y") {
+	  polynomial dy = derivative_wrt(1, pp);
+
+	  polynomial expected({2*x*y, 2*y, one}, 3);
+
+	  REQUIRE(expected == dy);
+	}
+
+	SECTION("Derivative wrt z") {
+	  polynomial dz = derivative_wrt(2, pp);
+
+	  polynomial expected({one}, 3);
+
+	  REQUIRE(expected == dz);
+	}
+	
       }
     }
 
