@@ -47,18 +47,18 @@ namespace ralg {
     }
     
     void print(std::ostream& out) const {
-      out << coeff();
+      out << coeff() << " ";
       for (int i = 0; i < num_vars(); i++) {
 
 	if (power(i) != 0) {
 
-	  out << " x_" << i;
+	  out << "x_" << i;
 	  if (power(i) > 1) {
 	    out << "^" << power(i);
 	  }
 
 	  if (i != (num_vars() - 1)) {
-	    out << " *";
+	    out << " ";
 	  }
 
 	}
