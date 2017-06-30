@@ -83,6 +83,21 @@ namespace ralg {
 
       REQUIRE(ps.front() == one_poly);
     }
+
+    SECTION("xy^2 + y^2 + y + z + 1 wrt y") {
+      monomial one_3({"3"}, {0, 0, 0}, 3);
+      polynomial xy2pypzp1({x*y*y, y*y, y, z, one_3}, 3);
+
+      auto ps = coefficients_wrt(xy2pypzp1, 1);
+
+      REQUIRE(ps.size() == 3);
+
+      monomial x_2({"1"}, {1, 0}, 2);
+      monomial one_2({"1"}, {0, 0}, 2);
+      polynomial y_coeff({x_2, one_2}, 2);
+
+      REQUIRE(ps[2] == y_coeff);
+    }
   }
 
 }
