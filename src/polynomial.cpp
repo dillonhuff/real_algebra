@@ -59,5 +59,30 @@ namespace ralg {
     return polys;
   }
 
+  monomial derivative_wrt(const int var_num,
+			  const monomial& p) {
+    vector<int> vars;
+    for (int i = 0; i < p.num_vars(); i++) {
+      if (i == var_num) {
+	vars.push_back(p.power(i) - 1);
+      } else {
+	vars.push_back(p.power(i));
+      }
+    }
+    return monomial(rational(p.power(var_num))*p.coeff(), vars, p.num_vars());
+  }
+  
+  polynomial derivative_wrt(const int var_num,
+			    const polynomial& p) {
+    vector<monomial> monos;
+    for (int i = 0; i < p.num_monos(); i++) {
+      monomial md = derivative_wrt(var_num, p.monomial(i));
+      if (!is_zero(md)) {
+	monos.push_back(md);
+      }
+    }
+    return polynomial(monos, p.num_vars());
+  }
+
   
 }

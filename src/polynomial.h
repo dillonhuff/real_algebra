@@ -191,6 +191,12 @@ namespace ralg {
     m.print(out);
     return out;
   }
+
+  inline bool is_zero(const class monomial& m) {
+    rational zr("0");
+    return m.coeff() == zr;
+  }
+
   
   class polynomial {
 
@@ -292,13 +298,6 @@ namespace ralg {
       }
       
       return polynomial(monos, num_vars());
-    }
-
-
-
-    inline bool is_zero(const class monomial& m) {
-      rational zr("0");
-      return m.coeff() == zr;
     }
 
     polynomial minus(const polynomial& other) const {
@@ -503,5 +502,8 @@ namespace ralg {
 
   std::vector<polynomial> coefficients_wrt(const polynomial& p,
 					   const int var_num);
+
+  polynomial derivative_wrt(const int var_num,
+			    const polynomial& p);
 
 }

@@ -88,16 +88,29 @@ namespace ralg {
       monomial one_3({"3"}, {0, 0, 0}, 3);
       polynomial xy2pypzp1({x*y*y, y*y, y, z, one_3}, 3);
 
-      auto ps = coefficients_wrt(xy2pypzp1, 1);
+      SECTION("Extracting coefficients") {
+	auto ps = coefficients_wrt(xy2pypzp1, 1);
 
-      REQUIRE(ps.size() == 3);
+	REQUIRE(ps.size() == 3);
 
-      monomial x_2({"1"}, {1, 0}, 2);
-      monomial one_2({"1"}, {0, 0}, 2);
-      polynomial y_coeff({x_2, one_2}, 2);
+	monomial x_2({"1"}, {1, 0}, 2);
+	monomial one_2({"1"}, {0, 0}, 2);
+	polynomial y_coeff({x_2, one_2}, 2);
 
-      REQUIRE(ps[2] == y_coeff);
+	REQUIRE(ps[2] == y_coeff);
+      }
+
+
+      SECTION("Derivatives with respect to different variables") {
+	polynomial pp = xy2pypzp1;
+	polynomial dx = derivative_wrt(0, pp);
+
+	polynomial expected({y*y}, 2);
+
+	REQUIRE(expected == dx);
+      }
     }
+
   }
 
 }

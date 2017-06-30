@@ -17,6 +17,12 @@ namespace ralg {
       mpq_canonicalize(val);
     }
 
+    rational(const int value) {
+      mpq_init(val);
+      mpq_set_str(val, std::to_string(value).c_str(), 10);
+      mpq_canonicalize(val);
+    }
+    
     rational(const std::string& value) {
       mpq_init(val);
       mpq_set_str(val, value.c_str(), 10);
