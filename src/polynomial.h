@@ -501,4 +501,7 @@ namespace ralg {
     return division_result{as, r};
   }
 
+  std::vector<polynomial> coefficients_wrt(const polynomial& p,
+					   const int var_num);
+
 }

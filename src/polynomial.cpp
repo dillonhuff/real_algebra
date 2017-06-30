@@ -12,6 +12,10 @@ namespace ralg {
     return {z, coeffs, num_vars};
   }
 
+  std::vector<polynomial> coefficients_wrt(const polynomial& p,
+					   const int var_num) {
+    return {};
+  }
 
   
 }

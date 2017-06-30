@@ -2,6 +2,8 @@
 
 #include "polynomial.h"
 
+using namespace std;
+
 namespace ralg {
 
   TEST_CASE("Polynomial arithmetic") {
@@ -62,6 +64,19 @@ namespace ralg {
       }
     }
     
+  }
+
+  TEST_CASE("Rearranging polynomials") {
+    monomial x({"1"}, {1, 0, 0}, 3);
+    monomial y({"1"}, {0, 1, 0}, 3);
+    monomial z({"1"}, {0, 0, 1}, 3);
+
+    SECTION("x coefficients wrt x") {
+      polynomial x_poly({x}, 3);
+      vector<polynomial> ps = coefficients_wrt(x_poly, 0);
+
+      REQUIRE(ps.size() == 1);
+    }
   }
 
 }

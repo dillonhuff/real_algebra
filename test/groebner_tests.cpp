@@ -135,7 +135,7 @@ namespace ralg {
 	REQUIRE(one_real == b.lt(graded_reverse_lexicographic_order).coeff());
 	cout << b << endl;
       }
-      
+
       REQUIRE(reduced_basis.size() == 3);
     }
 
