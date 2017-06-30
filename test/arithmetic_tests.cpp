@@ -76,6 +76,12 @@ namespace ralg {
       vector<polynomial> ps = coefficients_wrt(x_poly, 0);
 
       REQUIRE(ps.size() == 1);
+
+      monomial one_mono({"1"}, {0, 0}, 2);
+
+      polynomial one_poly({one_mono}, 2);
+
+      REQUIRE(ps.front() == one_poly);
     }
   }
 
