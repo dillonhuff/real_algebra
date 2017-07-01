@@ -79,11 +79,9 @@ namespace ralg {
       auto minimal_basis =
 	minimal_groebner_basis(ps, lexicographic_order);
 
-      cout << "Minimal basis in lex order" << endl;
       rational one_real("1");
       for (auto& b : minimal_basis) {
 	REQUIRE(one_real == b.lt(lexicographic_order).coeff());
-	cout << b << endl;
       }
 
       REQUIRE(minimal_basis.size() == 4);
@@ -98,11 +96,6 @@ namespace ralg {
 
       vector<polynomial> ps{xp, xplus1p};
       auto minimal_basis = minimal_groebner_basis(ps, lexicographic_order);
-
-      cout << "Minimal basis" << endl;
-      for (auto& b : minimal_basis) {
-	cout << b << endl;
-      }
 
       polynomial one_p({one}, 1);
       bool contains_one = false;
@@ -128,12 +121,9 @@ namespace ralg {
       auto reduced_basis =
 	reduced_groebner_basis({p1, p2, p3}, graded_reverse_lexicographic_order);
 
-      cout << "Reduced basis" << endl;
-
       rational one_real("1");
       for (auto& b : reduced_basis) {
 	REQUIRE(one_real == b.lt(graded_reverse_lexicographic_order).coeff());
-	cout << b << endl;
       }
 
       REQUIRE(reduced_basis.size() == 3);

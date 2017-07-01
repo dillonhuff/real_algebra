@@ -33,7 +33,6 @@ namespace ralg {
     }
 
     void set(const int r, const int c, const polynomial& e) {
-      std::cout << "Setting r = " << r << ", c = " << c << std::endl;
       elems[r + c*n_rows] = e;
     }
 
@@ -41,8 +40,22 @@ namespace ralg {
     int num_cols() const { return n_rows; }
   };
 
-  inline matrix minor(const int i, const matrix& m) {
+  inline matrix minor(const int col_num, const matrix& m) {
     matrix minor_i(m.num_rows() - 1, m.num_cols() - 1, m.num_vars());
+    for (int j = 0; j < m.num_cols(); j++) {
+      if (j < col_num) {
+	for (int i = 0; i < m.num_rows() - 1; i++) {
+	  minor_i.set(i, j, m.get(i, j));
+	}
+      }
+
+      if (j > col_num) {
+	for (int i = 0; i < m.num_rows() - 1; i++) {
+	  minor_i.set(i, j - 1, m.get(i, j));
+	}
+      }
+
+    }
     return minor_i;
   }
 
