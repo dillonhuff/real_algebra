@@ -11,7 +11,7 @@ namespace ralg {
   protected:
     int n_rows;
     int n_cols;
-    int num_vars;
+    int n_vars;
     std::vector<polynomial> elems;
     
   public:
@@ -19,12 +19,14 @@ namespace ralg {
     matrix(const int p_n_rows,
 	   const int p_n_cols,
 	   const int p_num_vars) :
-      n_rows(p_n_rows), n_cols(p_n_cols), num_vars(p_num_vars) {
+      n_rows(p_n_rows), n_cols(p_n_cols), n_vars(p_num_vars) {
 
       for (int j = 0; j < n_rows*n_cols; j++) {
-	elems.push_back(zero_polynomial(num_vars));
+	elems.push_back(zero_polynomial(num_vars()));
       }
     }
+
+    int num_vars() const { return n_vars; }
 
     const polynomial& get(const int r, const int c) const {
       return elems[r + c*n_rows];
@@ -39,6 +41,11 @@ namespace ralg {
     int num_cols() const { return n_rows; }
   };
 
+  inline matrix minor(const int i, const matrix& m) {
+    matrix minor_i(m.num_rows() - 1, m.num_cols() - 1, m.num_vars());
+    return minor_i;
+  }
+
   inline polynomial determinant(const matrix& m) {
     assert(m.num_rows() == m.num_cols());
     
@@ -46,11 +53,13 @@ namespace ralg {
       return m.get(0, 0) * m.get(1, 1) - m.get(0, 1)*m.get(1, 0);
     }
 
-    polynomial determinant = zero_polynomial(m.get(0, 0).num_vars());
+    polynomial det = zero_polynomial(m.get(0, 0).num_vars());
     for (int i = 0; i < m.num_cols(); i++) {
+      matrix A_i = minor(i, m);
+      det = det + determinant(A_i);
     }
 
-    return determinant;
+    return det;
   }
 
 }

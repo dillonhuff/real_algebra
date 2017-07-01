@@ -500,6 +500,15 @@ namespace ralg {
     return division_result{as, r};
   }
 
+  inline polynomial const_poly(const int coeff, const int num_vars) {
+    std::vector<int> zeros;
+    for (int i = 0; i < num_vars; i++) {
+      zeros.push_back(0);
+    }
+    monomial cm({coeff}, zeros, num_vars);
+    return polynomial({cm}, num_vars);
+  }
+
   std::vector<polynomial> coefficients_wrt(const polynomial& p,
 					   const int var_num);
 
