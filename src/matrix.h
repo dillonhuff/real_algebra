@@ -44,14 +44,14 @@ namespace ralg {
     matrix minor_i(m.num_rows() - 1, m.num_cols() - 1, m.num_vars());
     for (int j = 0; j < m.num_cols(); j++) {
       if (j < col_num) {
-	for (int i = 0; i < m.num_rows() - 1; i++) {
-	  minor_i.set(i, j, m.get(i, j));
+	for (int i = 1; i < m.num_rows(); i++) {
+	  minor_i.set(i - 1, j, m.get(i, j));
 	}
       }
 
       if (j > col_num) {
-	for (int i = 0; i < m.num_rows() - 1; i++) {
-	  minor_i.set(i, j - 1, m.get(i, j));
+	for (int i = 1; i < m.num_rows(); i++) {
+	  minor_i.set(i - 1, j - 1, m.get(i, j));
 	}
       }
 
