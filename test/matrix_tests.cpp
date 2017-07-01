@@ -18,7 +18,7 @@ namespace ralg {
 
       //cout << "Setting values" << endl;
 
-      m.set(0, 0, one);
+      m.set(0, 0, const_poly(1, 1));
       m.set(0, 1, one);
       m.set(1, 0, one);
       m.set(1, 1, one);
