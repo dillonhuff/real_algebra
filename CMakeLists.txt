@@ -13,7 +13,8 @@ INCLUDE_DIRECTORIES(./src/)
 
 SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/groebner.cpp
-	      ./src/rational.cpp)
+	      ./src/rational.cpp
+	      ./src/matrix.cpp)
 
 SET(TEST_FILES ./test/division_tests.cpp
 	       ./test/groebner_tests.cpp
