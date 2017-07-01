@@ -11,7 +11,7 @@ namespace ralg {
   TEST_CASE("Computing the determinant") {
 
     SECTION("Base case: two by two matrix") {
-      matrix m(2, 2);
+      matrix m(2, 2, 1);
 
       monomial one_m({"1"}, {0}, 1);
       polynomial one({one_m}, 1);
@@ -32,7 +32,7 @@ namespace ralg {
     }
 
     SECTION("3 by 3 matrix") {
-      matrix m(3, 3);
+      matrix m(3, 3, 1);
 
       // m.set(0, 0, -3);
       // m.set(0, 1, 2);
