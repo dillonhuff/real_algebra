@@ -39,7 +39,11 @@ namespace ralg {
       return m.get(0, 0) * m.get(1, 1) - m.get(0, 1)*m.get(1, 0);
     }
 
-    assert(false);
+    T determinant;
+    for (int i = 0; i < m.num_cols(); i++) {
+      matrix<T> minor_i = minor(i, m);
+      
+    }
   }
 
 }
