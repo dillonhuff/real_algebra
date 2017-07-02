@@ -12,7 +12,7 @@ namespace ralg {
 			const polynomial& f,
 			const polynomial& g) {
     assert(f.num_vars() == g.num_vars());
-    assert(degree_wrt(var_num, f) > degree_wrt(var_num, g));
+    assert(degree_wrt(var_num, f) >= degree_wrt(var_num, g));
 
     int m = degree_wrt(var_num, f);
     int n = degree_wrt(var_num, g);
@@ -134,9 +134,7 @@ namespace ralg {
     polynomial d = zero_polynomial(f.num_vars());
 
     polynomial factor = one_polynomial(f.num_vars());
-    //var_polynomial(var_num, f.num_vars());
-    //    for (int k = m_i.num_rows() - ind; k <= m_i.num_rows(); k++) {
-    //for (int k = m_i.num_cols() - ind; k <= m_i.num_cols(); k++) {
+
     for (int k = m_i.num_cols(); k >= m_i.num_cols() - ind; k--) {
 
       matrix m_i_k = build_k_subsection(k, m_i);
@@ -147,7 +145,7 @@ namespace ralg {
 
       factor = factor * var_polynomial(var_num, f.num_vars());
     }
-    return d; //determinant(m_i);
+    return d;
   }
 
 }

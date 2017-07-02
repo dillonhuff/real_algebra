@@ -33,7 +33,46 @@ namespace ralg {
 
     return psc(var_num, k, sub);
   }
-  
+
+  std::vector<polynomial> projection_3(const int var_num,
+				       const std::vector<polynomial>& polys) {
+    vector<polynomial> p3;
+
+    for (int i = 0; i < polys.size(); i++) {
+      for (int j = i + 1; j < polys.size(); j++) {
+	auto& f = polys[i];
+	auto& g = polys[j];
+
+	for (int k_i = 0; k_i <= degree_wrt(var_num, f); k_i++) {
+	  for (int k_j = 0; k_j <= degree_wrt(var_num, g); k_j++) {
+	    int m_bound = min(k_i, k_j);
+
+	    polynomial f_k = reductum(var_num, k_i, f);
+	    polynomial g_k = reductum(var_num, k_j, g);
+
+	    for (int m = 0; m <= m_bound; m++) {
+	      if (degree_wrt(var_num, f_k) >= degree_wrt(var_num, g_k)) {
+		auto ps = psck(var_num, m, f_k, g_k);
+		if (!ps.is_constant()) {
+		  p3.push_back(ps);
+		}
+	      } else {
+		auto ps = psck(var_num, m, g_k, f_k);
+		if (!ps.is_constant()) {
+		  p3.push_back(ps);
+		}
+	      }
+
+	    }
+
+	  }
+	}
+      }
+    }
+
+    return p3;
+  }  
+
   std::vector<polynomial> projection_2(const int var_num,
 				       const std::vector<polynomial>& polys) {
     vector<polynomial> p2;
@@ -78,6 +117,8 @@ namespace ralg {
       projection_1(var_num, polys);
 
     concat(proj1, projection_2(var_num, polys));
+    concat(proj1, projection_3(var_num, polys));
+
     return proj1;
   }
   

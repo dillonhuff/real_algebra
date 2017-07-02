@@ -51,6 +51,15 @@ namespace ralg {
     
     REQUIRE(elem(result, projection_set));
 
+    vector<polynomial> proj_sq =
+      project(1, projection_set);
+
+    cout << "Projection squared" << endl;
+    for (auto& p : proj_sq) {
+      cout << p << endl;
+    }
+    
+    REQUIRE(proj_sq.size() == 5);
 
   }
 
