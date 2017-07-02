@@ -70,7 +70,11 @@ namespace ralg {
 
     cout << "p2_1 = " << p2_1 << endl;
 
+    polynomial p2_2 =
+      const_poly(16, 1)*(xp*xp*xp*xp - const_poly(8, 1)*xp*xp*xp + const_poly(30, 1)*xp*xp - const_poly(56, 1)*xp + const_poly(113, 1));
+
     REQUIRE(elem(p2_1, proj_sq));
+    REQUIRE(elem(p2_2, proj_sq));
     
   }
 
