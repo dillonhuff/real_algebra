@@ -104,6 +104,13 @@ namespace ralg {
 	REQUIRE(p == expected);
       }
 
+      SECTION("S_2") {
+	polynomial p = subresultant(0, 2, f, g);
+
+	polynomial expected({263*x*x, -5*x, 7*one}, 1);
+	REQUIRE(p == expected);
+      }
+      
     }
   }
 
