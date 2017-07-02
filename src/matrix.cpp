@@ -18,11 +18,13 @@ namespace ralg {
     int n = degree_wrt(var_num, g);
 
     int nrows = (m - k) + (n - k);
-    int ncols = (m - k - 1)*n;
+    int ncols = (m - k) + n;
     matrix M_k(nrows, ncols, f.num_vars() - 1);
 
     vector<polynomial> f_coeffs = coefficients_wrt(f, var_num);
     reverse(f_coeffs);
+
+    cout << "Setting top" << endl;
 
     int col_offset = 0;
     for (int i = 0; i < n - k; i++) {
@@ -32,11 +34,9 @@ namespace ralg {
 	k++;
       }
       col_offset++;
-      // for (int j = i; j < M_k.num_cols(); j++) {
-      // 	M_k.set(i, j, f_coeffs[j - i]);
-      // }
     }
 
+    cout << "set top of M" << endl;
     vector<polynomial> g_coeffs = coefficients_wrt(g, var_num);
     reverse(g_coeffs);
     col_offset = 0;

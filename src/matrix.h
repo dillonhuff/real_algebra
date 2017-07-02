@@ -37,7 +37,7 @@ namespace ralg {
     }
 
     int num_rows() const { return n_rows; }
-    int num_cols() const { return n_rows; }
+    int num_cols() const { return n_cols; }
   };
 
   inline matrix minor(const int col_num, const matrix& m) {
