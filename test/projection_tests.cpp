@@ -19,24 +19,9 @@ namespace ralg {
     polynomial one_poly({one}, 3);
     
     polynomial f = x1p*x1p + x2p*x2p + x3p*x3p - one_poly;
-    cout << "f = " << f << endl;
-    // polynomial f({x1*x1, -4*x1, 4*one,
-    // 	  x2*x2, -4*x2, 4*one,
-    // 	  x3*x3, -4*x3, 4*one, -one}, 3);
 
     vector<polynomial> projection_set =
       project(2, {f});
-
-    cout << "Projection" << endl;
-    for (auto& p : projection_set) {
-      cout << p << endl;
-    }
-
-    // auto p2 = project(1, {projection_set.front()});
-    // cout << "P2" << endl;
-    // for (auto& p : p2) {
-    //   cout << p << endl;
-    // }
 
     REQUIRE(projection_set.size() == 2);
     
@@ -54,12 +39,6 @@ namespace ralg {
     vector<polynomial> proj_sq =
       project(1, projection_set);
 
-    cout << "Projection squared" << endl;
-    for (auto& p : proj_sq) {
-      cout << p << endl;
-    }
-
-
     REQUIRE(proj_sq.size() == 5);
 
     monomial xz({"1"}, {1}, 1);
@@ -68,34 +47,23 @@ namespace ralg {
     polynomial p2_1 =
       const_poly(4, 1)*(xp - const_poly(1, 1))*(xp - const_poly(3, 1))*(xp*xp - const_poly(4, 1)*xp + const_poly(19, 1));
 
-    cout << "p2_1 = " << p2_1 << endl;
-
     polynomial p2_2 =
       const_poly(16, 1)*(xp*xp*xp*xp - const_poly(8, 1)*xp*xp*xp + const_poly(30, 1)*xp*xp - const_poly(56, 1)*xp + const_poly(113, 1));
-
-    cout << "p2_2 = " << p2_2 << endl;
 
     polynomial p2_3 =
       const_poly(4, 1)*(xp*xp - const_poly(4, 1)*xp + const_poly(7, 1));
 
-    cout << "p2_3 = " << p2_3 << endl;
-
     polynomial p2_4 =
       xp*xp - const_poly(4, 1)*xp + const_poly(11, 1);
-
-    cout << "p2_4 = " << p2_4 << endl;
 
     polynomial p2_5 =
       const_poly(256, 1)*(xp*xp - const_poly(4, 1)*xp + const_poly(3, 1));
 
-    cout << "p2_5 = " << p2_5 << endl;
-    
     REQUIRE(elem(p2_1, proj_sq));
     REQUIRE(elem(p2_2, proj_sq));
     REQUIRE(elem(p2_3, proj_sq));
     REQUIRE(elem(p2_4, proj_sq));
     REQUIRE(elem(p2_5, proj_sq));
-    
   }
 
 }
