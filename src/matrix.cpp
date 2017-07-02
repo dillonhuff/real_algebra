@@ -51,4 +51,35 @@ namespace ralg {
 
     return M_k;
   }
+
+  polynomial var_polynomial(const int var_num,
+			    const int num_vars) {
+    rational coeff(1);
+    vector<int> vars;
+    for (int i = 0; i < num_vars; i++) {
+      if (i == var_num) {
+	vars.push_back(1);
+      } else {
+	vars.push_back(0);
+      }
+    }
+    monomial var_mono(coeff, vars, num_vars);
+    return polynomial({var_mono}, num_vars);
+  }
+
+  polynomial subresultant(const int var_num,
+			  const int ind,
+			  const polynomial& f,
+			  const polynomial& g) {
+    matrix m_i = build_M_matrix(var_num, ind, f, g);
+
+    polynomial d = zero_polynomial(f.num_vars());
+
+    polynomial factor = var_polynomial(var_num, f.num_vars());
+    for (int k = m_i.num_rows() - ind; k <= m_i.num_rows(); k++) {
+      
+    }
+    return determinant(m_i);
+  }
+
 }

@@ -84,4 +84,9 @@ namespace ralg {
 			const polynomial& f,
 			const polynomial& g);
 
+  polynomial subresultant(const int var_num,
+			  const int i,
+			  const polynomial& f,
+			  const polynomial& g);
+
 }

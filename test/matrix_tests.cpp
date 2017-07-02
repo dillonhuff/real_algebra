@@ -48,7 +48,6 @@ namespace ralg {
       
       polynomial det = determinant(m);
 
-      cout << "Determinant = " << det << endl;
       REQUIRE(det == const_poly(103, 1));
     }
   }
@@ -89,10 +88,16 @@ namespace ralg {
       REQUIRE(m.get(3, 2) == const_poly(3, 0));
       REQUIRE(m.get(3, 5) == const_poly(9, 0));
 
-      // REQUIRE(m.get(0, 6) == polynomial({0*one_c}, 0));
-      // REQUIRE(m.get(4, 3) == polynomial({7*one_c}, 0));
     }
 
+    SECTION("Subresultant tests") {
+
+      SECTION("S_0") {
+	polynomial p = subresultant(0, 0, f, g);
+	REQUIRE(p == const_poly(616149, 1));
+      }
+    }
   }
+
 
 }
