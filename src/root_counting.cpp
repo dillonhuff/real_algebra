@@ -46,7 +46,7 @@ namespace ralg {
     for (int i = 0; i < p.num_monos(); i++) {
       auto m = p.monomial(i);
 
-      rational res(1);
+      rational res = m.coeff();
       for (int j = 0; j < m.power(0); j++) {
 	res = res*val;
       }
