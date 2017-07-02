@@ -14,11 +14,14 @@ INCLUDE_DIRECTORIES(./src/)
 SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/groebner.cpp
 	      ./src/rational.cpp
-	      ./src/matrix.cpp)
+	      ./src/matrix.cpp
+	      ./src/projection.cpp)
 
-SET(TEST_FILES ./test/division_tests.cpp
+SET(TEST_FILES ./test/projection_tests.cpp
+	       ./test/division_tests.cpp
 	       ./test/groebner_tests.cpp
 	       ./test/arithmetic_tests.cpp
 	       ./test/matrix_tests.cpp)
+
 
 add_executable(all-tests ${TEST_FILES} ${SRC_FILES})
