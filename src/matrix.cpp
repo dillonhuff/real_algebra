@@ -69,7 +69,7 @@ namespace ralg {
 
   matrix build_k_subsection(const int k,
 			    const matrix& m) {
-    matrix m_k(k, k, m.num_vars());
+    matrix m_k(m.num_rows(), m.num_rows(), m.num_vars());
     for (int j = 0; j < m_k.num_cols() - 1; j++) {
       for (int i = 0; i < m_k.num_rows(); i++) {
 	m_k.set(i, j, m.get(i, j));

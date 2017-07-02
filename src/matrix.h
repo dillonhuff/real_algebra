@@ -89,4 +89,7 @@ namespace ralg {
 			  const polynomial& f,
 			  const polynomial& g);
 
+  matrix build_k_subsection(const int k,
+			    const matrix& m);
+
 }

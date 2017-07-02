@@ -90,6 +90,20 @@ namespace ralg {
 
     }
 
+    SECTION("Matrix subsections") {
+      matrix m_i = build_M_matrix(0, 2, f, g);
+      matrix m_i_k = build_k_subsection(6, m_i);
+
+      REQUIRE(m_i_k.num_rows() == 4);
+      REQUIRE(m_i_k.num_cols() == 4);
+
+      REQUIRE(m_i_k.get(3, 3) == const_poly(9, 0));
+
+      auto det = determinant(m_i_k);
+
+      REQUIRE(det == const_poly(711, 0));
+    }
+
     SECTION("Subresultant tests") {
 
       SECTION("S_0") {
@@ -107,7 +121,7 @@ namespace ralg {
       SECTION("S_2") {
 	polynomial p = subresultant(0, 2, f, g);
 
-	polynomial expected({263*x*x, -5*x, 7*one}, 1);
+	polynomial expected({263*x*x, -5*x, 711*one}, 1);
 	REQUIRE(p == expected);
       }
       
