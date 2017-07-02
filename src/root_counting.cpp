@@ -17,11 +17,9 @@ namespace ralg {
   }
 
   int sign_at_infinity(const polynomial& p) {
-    if (degree_wrt(0, p) % 2 == 0) {
-      return 1;
-    }
+    monomial m = p.max_monomial_wrt(0);
+    return m.coeff().sign();
 
-    return 1;
   }
   
   vector<int>

@@ -244,6 +244,13 @@ namespace ralg {
       nvars = p_num_vars;
     }
 
+    monomial max_monomial_wrt(const int var_num) const {
+      return max_e(monos,
+		   [var_num](const class monomial& m) {
+		     return m.power(var_num);
+		   });
+    }
+
     polynomial reductum(const int var_num, const int k) const {
       std::vector<class monomial> ms = monos;
       delete_if(ms, [var_num, k](const class monomial& m) {
