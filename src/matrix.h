@@ -68,12 +68,14 @@ namespace ralg {
 
     polynomial det = zero_polynomial(m.num_vars());
     for (int i = 0; i < m.num_cols(); i++) {
-      matrix A_i = minor(i, m);
-      int prod = (i % 2) == 0 ? 1 : -1;
+      if (!is_zero(m.get(0, i))) {
+	matrix A_i = minor(i, m);
+	int prod = (i % 2) == 0 ? 1 : -1;
 
-      polynomial coeff =
-	const_poly(prod, m.num_vars()) * m.get(0, i);
-      det = det + coeff*determinant(A_i);
+	polynomial coeff =
+	  const_poly(prod, m.num_vars()) * m.get(0, i);
+	det = det + coeff*determinant(A_i);
+      }
     }
 
     return det;
