@@ -138,12 +138,11 @@ namespace ralg {
     //    for (int k = m_i.num_rows() - ind; k <= m_i.num_rows(); k++) {
     //for (int k = m_i.num_cols() - ind; k <= m_i.num_cols(); k++) {
     for (int k = m_i.num_cols(); k >= m_i.num_cols() - ind; k--) {
-      cout << "k = " << k << endl;
+
       matrix m_i_k = build_k_subsection(k, m_i);
 
       auto pd = determinant(m_i_k);
-      cout << "pd = " << pd << endl;
-      cout << "extened pd = " << extend(var_num, pd) << endl;
+
       d = d + extend(var_num, determinant(m_i_k))*factor;
 
       factor = factor * var_polynomial(var_num, f.num_vars());

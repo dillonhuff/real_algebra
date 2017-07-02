@@ -29,9 +29,8 @@ namespace ralg {
 		  const int k,
 		  const polynomial f,
 		  const polynomial g) {
-    cout << "k = " << k << endl;
     polynomial sub = subresultant(var_num, k, f, g);
-    cout << "Subresultant = " << sub << endl;
+
     return psc(var_num, k, sub);
   }
   
@@ -47,15 +46,9 @@ namespace ralg {
 
 	polynomial d_f_k = derivative_wrt(var_num, f_k);
 
-	//polynomial sub = subresultant(var_num, k, f_k, d_f_k);
-
-	//cout << "Subresultant_" << k << " = " << sub << endl;
-
 	for (int l = 0; l < k; l++) {
-	  cout << "f_k = " << f_k << endl;
-	  cout << "d_f_k = " << d_f_k << endl;
 
-	  auto f_k_l = psck(var_num, l, f_k, d_f_k); //sub));
+	  auto f_k_l = psck(var_num, l, f_k, d_f_k);
 	  if (!f_k_l.is_constant()) {
 	    p2.push_back(f_k_l);
 	  }
