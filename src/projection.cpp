@@ -119,7 +119,14 @@ namespace ralg {
     concat(proj1, projection_2(var_num, polys));
     concat(proj1, projection_3(var_num, polys));
 
-    return proj1;
+    vector<polynomial> final;
+    for (auto& p : proj1) {
+      if (!elem(p, final)) {
+	final.push_back(p);
+      }
+    }
+    
+    return final;
   }
   
 }
