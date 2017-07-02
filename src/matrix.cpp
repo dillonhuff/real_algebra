@@ -23,15 +23,23 @@ namespace ralg {
 
     vector<polynomial> f_coeffs = coefficients_wrt(f, var_num);
     reverse(f_coeffs);
+
+    int col_offset = 0;
     for (int i = 0; i < n - k; i++) {
-      for (int j = i; j < M_k.num_cols(); j++) {
-	M_k.set(i, j, f_coeffs[j - i]);
+      int k = col_offset;
+      for (auto& f : f_coeffs) {
+	M_k.set(i, k, f);
+	k++;
       }
+      col_offset++;
+      // for (int j = i; j < M_k.num_cols(); j++) {
+      // 	M_k.set(i, j, f_coeffs[j - i]);
+      // }
     }
 
     vector<polynomial> g_coeffs = coefficients_wrt(g, var_num);
     reverse(g_coeffs);
-    int col_offset = 0;
+    col_offset = 0;
     for (int i = n - k; i < (m - k) + (n - k); i++) {
       int k = col_offset;
       for (auto& g : g_coeffs) {
