@@ -79,7 +79,7 @@ namespace ralg {
     for (int k = m_i.num_rows() - ind; k <= m_i.num_rows(); k++) {
       
     }
-    return determinant(m_i);
+    return d; //determinant(m_i);
   }
 
 }
