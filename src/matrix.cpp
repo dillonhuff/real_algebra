@@ -31,7 +31,15 @@ namespace ralg {
 
     vector<polynomial> g_coeffs = coefficients_wrt(g, var_num);
     reverse(g_coeffs);
-    for (int i = n - k; i < m - k; i++) {
+    int col_offset = 0;
+    for (int i = n - k; i < (m - k) + (n - k); i++) {
+      int k = col_offset;
+      for (auto& g : g_coeffs) {
+	M_k.set(i, k, g);
+	k++;
+      }
+
+      col_offset++;
     }
     
 

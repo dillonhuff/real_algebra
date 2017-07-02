@@ -72,6 +72,9 @@ namespace ralg {
     cout << "one_poly num vars = " << one_poly.num_vars() << endl;
 
     REQUIRE(m.get(2, 2) == one_poly);
+
+    REQUIRE(m.get(3, 0) == polynomial({3*one_c}, 0));
+    REQUIRE(m.get(4, 3) == polynomial({7*one_c}, 0));
   }
 
 }
