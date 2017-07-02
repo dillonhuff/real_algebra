@@ -515,4 +515,6 @@ namespace ralg {
   polynomial derivative_wrt(const int var_num,
 			    const polynomial& p);
 
+  int degree_wrt(const int var_num, const polynomial& p);
+
 }

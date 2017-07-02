@@ -79,4 +79,9 @@ namespace ralg {
     return det;
   }
 
+  matrix build_M_matrix(const int var_num,
+			const int k,
+			const polynomial& f,
+			const polynomial& g);
+
 }

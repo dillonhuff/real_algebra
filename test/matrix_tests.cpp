@@ -57,6 +57,12 @@ namespace ralg {
     monomial x({"1"}, {1}, 1);
     monomial one({"1"}, {0}, 1);
     polynomial f({x*x*x*x*x, -2*x*x*x*x, 3*x*x*x, -4*x*x, 5*x, -6*one}, 1);
+    polynomial g({3*x*x*x, 5*x*x, 7*x, 9*one}, 1);
+
+    matrix m = build_M_matrix(0, 0, f, g);
+
+    REQUIRE(m.num_rows() == 8);
+    REQUIRE(m.num_cols() == 8);
   }
 
 }
