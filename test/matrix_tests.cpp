@@ -53,4 +53,10 @@ namespace ralg {
     }
   }
 
+  TEST_CASE("M matrix generation") {
+    monomial x({"1"}, {1}, 1);
+    monomial one({"1"}, {0}, 1);
+    polynomial f({x*x*x*x*x, -2*x*x*x*x, 3*x*x*x, -4*x*x, 5*x, -6*one}, 1);
+  }
+
 }
