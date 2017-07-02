@@ -19,7 +19,6 @@ namespace ralg {
   int sign_at_infinity(const polynomial& p) {
     monomial m = p.max_monomial_wrt(0);
     return m.coeff().sign();
-
   }
   
   vector<int>
@@ -53,12 +52,8 @@ namespace ralg {
     }
     return num_changes;
   }
-  
-  int num_real_roots(const polynomial& p) {
-    assert(p.num_vars() == 1);
 
-    if (degree_wrt(0, p) == 0) { return 0; }
-
+  vector<polynomial> sturm_chain(const polynomial& p) {
     polynomial rp = p;
     polynomial p2 = derivative_wrt(0, rp);
     vector<polynomial> sequence{rp, p2};
@@ -71,10 +66,31 @@ namespace ralg {
       sequence.push_back(const_poly(-1, 1)*div_res.remainder);
     }
 
-    cout << "Sequence" << endl;
-    for (auto& p : sequence) {
-      cout << p << endl;
-    }
+    return sequence;
+  }
+
+  int num_real_roots(const polynomial& p) {
+    assert(p.num_vars() == 1);
+
+    if (degree_wrt(0, p) == 0) { return 0; }
+
+    auto sequence = sturm_chain(p);
+    // polynomial rp = p;
+    // polynomial p2 = derivative_wrt(0, rp);
+    // vector<polynomial> sequence{rp, p2};
+    // while (degree_wrt(0, sequence.back()) > 0) {
+    //   auto div_res =
+    // 	divide(sequence[sequence.size() - 2],
+    // 	       {sequence.back()},
+    // 	       lexicographic_order);
+
+    //   sequence.push_back(const_poly(-1, 1)*div_res.remainder);
+    // }
+
+    // cout << "Sequence" << endl;
+    // for (auto& p : sequence) {
+    //   cout << p << endl;
+    // }
     vector<int> neg_signs = signs_at_minus_infinity(sequence);
     cout << "Neg signs" << endl;
     for (auto s : neg_signs) {
@@ -94,6 +110,55 @@ namespace ralg {
     cout << "pos changes = " << pos_changes << endl;
 
     return neg_changes - pos_changes;
+  }
+
+  interval_pt neg_inf() {
+    return {false, true, {0}};
+  }
+
+  interval_pt pos_inf() {
+    return {true, false, {0}};
+  }
+
+  interval_pt ipt(const int r) {
+    return {true, false, {r}};
+  }
+
+  vector<interval> split_interval(const interval& it) {
+    return {};
+  }
+
+  int num_roots_in_interval(const interval& it,
+			    const std::vector<polynomial>& sturm_chain) {
+    return 0;
+  }
+
+  std::vector<interval> isolate_roots(const polynomial& p) {
+    assert(p.num_vars() == 1);
+
+    auto chain = sturm_chain(p);
+    
+    vector<interval> isolated;
+    vector<interval> in_progress{{neg_inf(), ipt(-1)},
+	{ipt(-1), ipt(1)}, {ipt(1), pos_inf()}};
+
+
+    while (in_progress.size() > 0) {
+      interval it = in_progress.back();
+      in_progress.pop_back();
+
+      int nroots = num_roots_in_interval(it, chain);
+      if (nroots == 0) {
+	continue;
+      } else if (nroots == 1) {
+	isolated.push_back(it);
+      } else {
+	vector<interval> split = split_interval(it);
+	concat(in_progress, split);
+      }
+    }
+    
+    return isolated;
   }
 
 }

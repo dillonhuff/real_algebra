@@ -2,6 +2,8 @@
 
 #include "root_counting.h"
 
+using namespace std;
+
 namespace ralg {
 
   TEST_CASE("Root counting") {
@@ -16,8 +18,19 @@ namespace ralg {
 
     SECTION("Polynomial with one real root") {
       polynomial p = const_poly(-4, 1)*x + const_poly(11, 1);
-      
-      REQUIRE(num_real_roots(p) == 1);
+
+      SECTION("One root counted") {
+	REQUIRE(num_real_roots(p) == 1);
+      }
+
+
+      SECTION("Isolation produces one interval") {
+	vector<interval> intervals =
+	  isolate_roots(p);
+
+	REQUIRE(intervals.size() == 1);
+      }
+
     }
     
   }
