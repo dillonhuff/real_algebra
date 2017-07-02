@@ -198,6 +198,14 @@ namespace ralg {
     return m.coeff() == zr;
   }
 
+  inline bool is_constant(const class monomial& m) {
+    for (int i = 0; i < m.num_vars(); i++) {
+      if (m.power(i) != 0) {
+  	return false;
+      }
+    }
+    return true;
+  }
   
   class polynomial {
 
@@ -307,6 +315,10 @@ namespace ralg {
       }
       
       return polynomial(monos, num_vars());
+    }
+
+    inline bool is_constant() const {
+      return all_of(monos, ralg::is_constant);
     }
 
     polynomial minus(const polynomial& other) const {
@@ -527,4 +539,5 @@ namespace ralg {
   int degree_wrt(const int var_num, const polynomial& p);
 
   monomial delete_var(const int var_num, const monomial& m);
+
 }

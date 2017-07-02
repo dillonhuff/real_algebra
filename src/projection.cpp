@@ -29,7 +29,9 @@ namespace ralg {
 		  const int k,
 		  const polynomial f,
 		  const polynomial g) {
+    cout << "k = " << k << endl;
     polynomial sub = subresultant(var_num, k, f, g);
+    cout << "Subresultant = " << sub << endl;
     return psc(var_num, k, sub);
   }
   
@@ -37,22 +39,26 @@ namespace ralg {
 				       const std::vector<polynomial>& polys) {
     vector<polynomial> p2;
     for (auto& f : polys) {
-      for (int k = 0; k <= degree_wrt(var_num, f) - 1; k++) {
+      // Believe that the description of proj2 in Mats Jirstrands
+      // introduction has a typo, should be k <= d_i, not k <= d_i - 1
+      for (int k = 0; k <= degree_wrt(var_num, f); k++) {
 
 	polynomial f_k = reductum(var_num, k, f);
 
-	cout << "f_k = " << f_k << endl;
-
 	polynomial d_f_k = derivative_wrt(var_num, f_k);
-
-	cout << "d_f_k = " << d_f_k << endl;
 
 	//polynomial sub = subresultant(var_num, k, f_k, d_f_k);
 
 	//cout << "Subresultant_" << k << " = " << sub << endl;
 
 	for (int l = 0; l < k; l++) {
-	  p2.push_back(psck(var_num, l, f_k, d_f_k)); //sub));
+	  cout << "f_k = " << f_k << endl;
+	  cout << "d_f_k = " << d_f_k << endl;
+
+	  auto f_k_l = psck(var_num, l, f_k, d_f_k); //sub));
+	  if (!f_k_l.is_constant()) {
+	    p2.push_back(f_k_l);
+	  }
 	}
       }
     }
@@ -64,7 +70,11 @@ namespace ralg {
 				       const std::vector<polynomial>& polys) {
     vector<polynomial> p1;
     for (auto& p : polys) {
-      concat(p1, coefficients_wrt(p, var_num));
+      for (auto& c : coefficients_wrt(p, var_num)) {
+	if (!c.is_constant()) {
+	  p1.push_back(c);
+	}
+      }
     }
     return p1;
   }

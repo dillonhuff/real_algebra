@@ -32,13 +32,25 @@ namespace ralg {
       cout << p << endl;
     }
 
-    auto p2 = project(1, {projection_set.front()});
-    cout << "P2" << endl;
-    for (auto& p : p2) {
-      cout << p << endl;
-    }
+    // auto p2 = project(1, {projection_set.front()});
+    // cout << "P2" << endl;
+    // for (auto& p : p2) {
+    //   cout << p << endl;
+    // }
 
     REQUIRE(projection_set.size() == 2);
+    
+    monomial x1_d({"1"}, {1, 0}, 2);
+    monomial x2_d({"1"}, {0, 1}, 2);
+    monomial one_d({"1"}, {0, 0}, 2);
+    polynomial x1p_2({x1_d, -2*one_d}, 2);
+    polynomial x2p_2({x2_d, -2*one_d}, 2);
+    auto x1sq = x1p_2*x1p_2;
+    auto x2sq = x2p_2*x2p_2;
+    polynomial result = const_poly(4, 2)*(x1sq + x2sq - const_poly(1, 2));
+    
+    REQUIRE(elem(result, projection_set));
+
 
   }
 
