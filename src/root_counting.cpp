@@ -39,11 +39,32 @@ namespace ralg {
     return sgs;
   }
 
+  rational evaluate_at(const rational& val, const polynomial& p) {
+    assert(p.num_vars() == 1);
+
+    rational sum(0);
+    for (int i = 0; i < p.num_monos(); i++) {
+      auto m = p.monomial(i);
+
+      rational res(1);
+      for (int j = 0; j < m.power(0); j++) {
+	res = res*val;
+      }
+
+      sum = sum + res;
+    }
+    return sum;
+  }
+
   vector<int> signs_at(const interval_pt& pt, const std::vector<polynomial>& p) {
     if (pt.is_inf) { return signs_at_infinity(p); }
     if (pt.is_neg_inf) { return signs_at_minus_infinity(p); }
 
-    assert(false);
+    vector<int> sgs;
+    for (auto& poly : p) {
+      sgs.push_back(evaluate_at(pt.value, poly).sign());
+    }
+    return sgs;
   }
 
   int num_sign_changes(const std::vector<int>& signs) {
@@ -128,7 +149,7 @@ namespace ralg {
   }
 
   interval_pt ipt(const int r) {
-    return {true, false, {r}};
+    return {false, false, {r}};
   }
 
   vector<interval> split_interval(const interval& it) {

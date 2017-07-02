@@ -32,6 +32,26 @@ namespace ralg {
       }
 
     }
+
+    SECTION("x^2") {
+      polynomial p = x*x;
+
+      SECTION("One root counted") {
+	REQUIRE(num_real_roots(p) == 1);
+      }
+
+      SECTION("One root is on (-1, 1)") {
+	REQUIRE(num_roots_in_interval({ipt(-1), ipt(1)}, sturm_chain(p)) == 1);
+      }
+
+      SECTION("Isolation produces one interval") {
+	vector<interval> intervals =
+	  isolate_roots(p);
+
+	REQUIRE(intervals.size() == 1);
+      }
+
+    }
     
   }
 
