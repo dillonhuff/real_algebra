@@ -25,21 +25,34 @@ namespace ralg {
     return polynomial(monos, sub.num_vars() - 1);
   }
 
+  polynomial psck(const int var_num,
+		  const int k,
+		  const polynomial f,
+		  const polynomial g) {
+    polynomial sub = subresultant(var_num, k, f, g);
+    return psc(var_num, k, sub);
+  }
+  
   std::vector<polynomial> projection_2(const int var_num,
 				       const std::vector<polynomial>& polys) {
     vector<polynomial> p2;
     for (auto& f : polys) {
       for (int k = 0; k <= degree_wrt(var_num, f) - 1; k++) {
-	polynomial f_k = reductum(var_num, k, f);
-	cout << "f_k = " << f_k << endl;
-	polynomial d_f_k = derivative_wrt(var_num, f_k);
-	cout << "d_f_k = " << d_f_k << endl;
-	polynomial sub = subresultant(var_num, k, f_k, d_f_k);
 
-	cout << "Subresultant_" << k << " = " << sub << endl;
+	polynomial f_k = reductum(var_num, k, f);
+
+	cout << "f_k = " << f_k << endl;
+
+	polynomial d_f_k = derivative_wrt(var_num, f_k);
+
+	cout << "d_f_k = " << d_f_k << endl;
+
+	//polynomial sub = subresultant(var_num, k, f_k, d_f_k);
+
+	//cout << "Subresultant_" << k << " = " << sub << endl;
 
 	for (int l = 0; l < k; l++) {
-	  p2.push_back(psc(var_num, l, sub));
+	  p2.push_back(psck(var_num, l, f_k, d_f_k)); //sub));
 	}
       }
     }
