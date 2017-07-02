@@ -39,6 +39,13 @@ namespace ralg {
     return sgs;
   }
 
+  vector<int> signs_at(const interval_pt& pt, const std::vector<polynomial>& p) {
+    if (pt.is_inf) { return signs_at_infinity(p); }
+    if (pt.is_neg_inf) { return signs_at_minus_infinity(p); }
+
+    assert(false);
+  }
+
   int num_sign_changes(const std::vector<int>& signs) {
     if (signs.size() < 2) {
       return 0;
@@ -130,7 +137,26 @@ namespace ralg {
 
   int num_roots_in_interval(const interval& it,
 			    const std::vector<polynomial>& sturm_chain) {
-    return 0;
+    vector<int> neg_signs = signs_at(it.start, sturm_chain);
+    cout << "Neg signs" << endl;
+    for (auto s : neg_signs) {
+      cout << s << endl;
+    }
+
+    vector<int> pos_signs = signs_at(it.end, sturm_chain);
+    cout << "Pos signs" << endl;
+    for (auto s : pos_signs) {
+      cout << s << endl;
+    }
+
+    int neg_changes = num_sign_changes(neg_signs);
+    int pos_changes = num_sign_changes(pos_signs);
+
+    cout << "neg changes = " << neg_changes << endl;
+    cout << "pos changes = " << pos_changes << endl;
+
+    return neg_changes - pos_changes;
+
   }
 
   std::vector<interval> isolate_roots(const polynomial& p) {
