@@ -73,8 +73,28 @@ namespace ralg {
     polynomial p2_2 =
       const_poly(16, 1)*(xp*xp*xp*xp - const_poly(8, 1)*xp*xp*xp + const_poly(30, 1)*xp*xp - const_poly(56, 1)*xp + const_poly(113, 1));
 
+    cout << "p2_2 = " << p2_2 << endl;
+
+    polynomial p2_3 =
+      const_poly(4, 1)*(xp*xp - const_poly(4, 1)*xp + const_poly(7, 1));
+
+    cout << "p2_3 = " << p2_3 << endl;
+
+    polynomial p2_4 =
+      xp*xp - const_poly(4, 1)*xp + const_poly(11, 1);
+
+    cout << "p2_4 = " << p2_4 << endl;
+
+    polynomial p2_5 =
+      const_poly(256, 1)*(xp*xp - const_poly(4, 1)*xp + const_poly(3, 1));
+
+    cout << "p2_5 = " << p2_5 << endl;
+    
     REQUIRE(elem(p2_1, proj_sq));
     REQUIRE(elem(p2_2, proj_sq));
+    REQUIRE(elem(p2_3, proj_sq));
+    REQUIRE(elem(p2_4, proj_sq));
+    REQUIRE(elem(p2_5, proj_sq));
     
   }
 
