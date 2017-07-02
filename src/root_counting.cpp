@@ -103,39 +103,28 @@ namespace ralg {
     if (degree_wrt(0, p) == 0) { return 0; }
 
     auto sequence = sturm_chain(p);
-    // polynomial rp = p;
-    // polynomial p2 = derivative_wrt(0, rp);
-    // vector<polynomial> sequence{rp, p2};
-    // while (degree_wrt(0, sequence.back()) > 0) {
-    //   auto div_res =
-    // 	divide(sequence[sequence.size() - 2],
-    // 	       {sequence.back()},
-    // 	       lexicographic_order);
-
-    //   sequence.push_back(const_poly(-1, 1)*div_res.remainder);
-    // }
 
     // cout << "Sequence" << endl;
     // for (auto& p : sequence) {
     //   cout << p << endl;
     // }
     vector<int> neg_signs = signs_at_minus_infinity(sequence);
-    cout << "Neg signs" << endl;
-    for (auto s : neg_signs) {
-      cout << s << endl;
-    }
+    // cout << "Neg signs" << endl;
+    // for (auto s : neg_signs) {
+    //   cout << s << endl;
+    // }
 
     vector<int> pos_signs = signs_at_infinity(sequence);
-    cout << "Pos signs" << endl;
-    for (auto s : pos_signs) {
-      cout << s << endl;
-    }
+    // cout << "Pos signs" << endl;
+    // for (auto s : pos_signs) {
+    //   cout << s << endl;
+    // }
 
     int neg_changes = num_sign_changes(neg_signs);
     int pos_changes = num_sign_changes(pos_signs);
 
-    cout << "neg changes = " << neg_changes << endl;
-    cout << "pos changes = " << pos_changes << endl;
+    // cout << "neg changes = " << neg_changes << endl;
+    // cout << "pos changes = " << pos_changes << endl;
 
     return neg_changes - pos_changes;
   }
@@ -159,22 +148,22 @@ namespace ralg {
   int num_roots_in_interval(const interval& it,
 			    const std::vector<polynomial>& sturm_chain) {
     vector<int> neg_signs = signs_at(it.start, sturm_chain);
-    cout << "Neg signs" << endl;
-    for (auto s : neg_signs) {
-      cout << s << endl;
-    }
+    // cout << "Neg signs" << endl;
+    // for (auto s : neg_signs) {
+    //   cout << s << endl;
+    // }
 
     vector<int> pos_signs = signs_at(it.end, sturm_chain);
-    cout << "Pos signs" << endl;
-    for (auto s : pos_signs) {
-      cout << s << endl;
-    }
+    // cout << "Pos signs" << endl;
+    // for (auto s : pos_signs) {
+    //   cout << s << endl;
+    // }
 
     int neg_changes = num_sign_changes(neg_signs);
     int pos_changes = num_sign_changes(pos_signs);
 
-    cout << "neg changes = " << neg_changes << endl;
-    cout << "pos changes = " << pos_changes << endl;
+    // cout << "neg changes = " << neg_changes << endl;
+    // cout << "pos changes = " << pos_changes << endl;
 
     return neg_changes - pos_changes;
 
