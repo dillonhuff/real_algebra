@@ -96,6 +96,14 @@ namespace ralg {
 	polynomial p = subresultant(0, 0, f, g);
 	REQUIRE(p == const_poly(616149, 1));
       }
+
+      SECTION("S_1") {
+	polynomial p = subresultant(0, 1, f, g);
+
+	polynomial expected({-2598*x, -11967*one}, 1);
+	REQUIRE(p == expected);
+      }
+
     }
   }
 
