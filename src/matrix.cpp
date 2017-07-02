@@ -1,5 +1,9 @@
 #include "matrix.h"
 
+#include "algorithm.h"
+
+using namespace std;
+
 namespace ralg {
 
 
@@ -15,7 +19,20 @@ namespace ralg {
 
     int nrows = (m - k) + (n - k);
     int ncols = (m - k - 1)*n;
-    matrix M_k(nrows, ncols, f.num_vars());
+    matrix M_k(nrows, ncols, f.num_vars() - 1);
+
+    vector<polynomial> f_coeffs = coefficients_wrt(f, var_num);
+    reverse(f_coeffs);
+    for (int i = 0; i < n - k; i++) {
+      for (int j = i; j < M_k.num_cols(); j++) {
+	M_k.set(i, j, f_coeffs[j - i]);
+      }
+    }
+
+    vector<polynomial> g_coeffs = coefficients_wrt(g, var_num);
+    for (int i = n - k; i < m - k; i++) {
+    }
+    
 
     return M_k;
   }

@@ -56,6 +56,7 @@ namespace ralg {
   TEST_CASE("M matrix generation") {
     monomial x({"1"}, {1}, 1);
     monomial one({"1"}, {0}, 1);
+    monomial one_c({"1"}, {0}, 0);
     polynomial f({x*x*x*x*x, -2*x*x*x*x, 3*x*x*x, -4*x*x, 5*x, -6*one}, 1);
     polynomial g({3*x*x*x, 5*x*x, 7*x, 9*one}, 1);
 
@@ -63,6 +64,14 @@ namespace ralg {
 
     REQUIRE(m.num_rows() == 8);
     REQUIRE(m.num_cols() == 8);
+
+    auto p22 = m.get(2, 2);
+    cout << "p22 = " << p22 << endl;
+    cout << "p22 num vars = " << p22.num_vars() << endl;
+    polynomial one_poly({one_c}, 0);
+    cout << "one_poly num vars = " << one_poly.num_vars() << endl;
+
+    REQUIRE(m.get(2, 2) == one_poly);
   }
 
 }
