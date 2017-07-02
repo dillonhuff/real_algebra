@@ -18,7 +18,7 @@ namespace ralg {
     polynomial x3p({x3, -2*one}, 3);
     polynomial one_poly({one}, 3);
     
-    polynomial f = x1p*x1p + x2p*x2p + x3p*x3p + one_poly;
+    polynomial f = x1p*x1p + x2p*x2p + x3p*x3p - one_poly;
     cout << "f = " << f << endl;
     // polynomial f({x1*x1, -4*x1, 4*one,
     // 	  x2*x2, -4*x2, 4*one,
@@ -32,7 +32,14 @@ namespace ralg {
       cout << p << endl;
     }
 
+    auto p2 = project(1, {projection_set.front()});
+    cout << "P2" << endl;
+    for (auto& p : p2) {
+      cout << p << endl;
+    }
+
     REQUIRE(projection_set.size() == 2);
+
   }
 
 }
