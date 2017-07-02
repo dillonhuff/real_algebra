@@ -58,9 +58,20 @@ namespace ralg {
     for (auto& p : proj_sq) {
       cout << p << endl;
     }
-    
+
+
     REQUIRE(proj_sq.size() == 5);
 
+    monomial xz({"1"}, {1}, 1);
+    polynomial xp({xz}, 1);
+
+    polynomial p2_1 =
+      const_poly(4, 1)*(xp - const_poly(1, 1))*(xp - const_poly(3, 1))*(xp*xp - const_poly(4, 1)*xp + const_poly(19, 1));
+
+    cout << "p2_1 = " << p2_1 << endl;
+
+    REQUIRE(elem(p2_1, proj_sq));
+    
   }
 
 }
