@@ -54,6 +54,8 @@ namespace ralg {
     for (auto& ms : monomial_groups) {
       if (ms.size() > 0) {
 	polys.push_back(polynomial(ms, p.num_vars() - 1));
+      } else {
+	polys.push_back(zero_polynomial(p.num_vars() - 1));
       }
     }
     return polys;

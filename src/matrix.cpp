@@ -30,6 +30,7 @@ namespace ralg {
     }
 
     vector<polynomial> g_coeffs = coefficients_wrt(g, var_num);
+    reverse(g_coeffs);
     for (int i = n - k; i < m - k; i++) {
     }
     

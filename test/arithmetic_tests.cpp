@@ -76,13 +76,13 @@ namespace ralg {
       polynomial x_poly({x}, 3);
       vector<polynomial> ps = coefficients_wrt(x_poly, 0);
 
-      REQUIRE(ps.size() == 1);
+      REQUIRE(ps.size() == 2);
 
       monomial one_mono({"1"}, {0, 0}, 2);
 
       polynomial one_poly({one_mono}, 2);
 
-      REQUIRE(ps.front() == one_poly);
+      REQUIRE(ps.back() == one_poly);
     }
 
     SECTION("xy^2 + y^2 + y + z + 1 wrt y") {
