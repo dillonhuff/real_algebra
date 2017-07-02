@@ -121,6 +121,14 @@ namespace ralg {
 			  const int ind,
 			  const polynomial& f,
 			  const polynomial& g) {
+    if (ind == degree_wrt(var_num, g) + 1) {
+      return f;
+    }
+
+    if (ind == degree_wrt(var_num, g)) {
+      return g;
+    }
+    
     matrix m_i = build_M_matrix(var_num, ind, f, g);
 
     polynomial d = zero_polynomial(f.num_vars());

@@ -3,6 +3,7 @@
 #include <cassert>
 #include <vector>
 
+#include "algorithm.h"
 #include "rational.h"
 
 namespace ralg {
@@ -233,6 +234,14 @@ namespace ralg {
       //monos = p_monos;
       std::sort(begin(monos), end(monos), lexicographic_order);
       nvars = p_num_vars;
+    }
+
+    polynomial reductum(const int var_num, const int k) const {
+      std::vector<class monomial> ms = monos;
+      delete_if(ms, [var_num, k](const class monomial& m) {
+	  return m.power(var_num) > k;
+	});
+      return polynomial(ms, num_vars());
     }
 
     int num_monos() const { return monos.size(); }
@@ -517,4 +526,5 @@ namespace ralg {
 
   int degree_wrt(const int var_num, const polynomial& p);
 
+  monomial delete_var(const int var_num, const monomial& m);
 }
