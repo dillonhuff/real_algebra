@@ -67,6 +67,56 @@ namespace ralg {
     return polynomial({var_mono}, num_vars);
   }
 
+  matrix build_k_subsection(const int k,
+			    const matrix& m) {
+    matrix m_k(k, k, m.num_vars());
+    for (int j = 0; j < m_k.num_cols() - 1; j++) {
+      for (int i = 0; i < m_k.num_rows(); i++) {
+	m_k.set(i, j, m.get(i, j));
+      }
+    }
+
+    for (int i = 0; i < m_k.num_rows(); i++) {
+      m_k.set(i, m_k.num_cols() - 1, m.get(i, k - 1));
+    }
+
+    return m_k;
+  }
+
+  polynomial one_polynomial(const int num_vars) {
+    rational c(1);
+    vector<int> zv;
+    for (int i = 0; i < num_vars; i++) {
+      zv.push_back(0);
+    }
+    monomial om(c, zv, num_vars);
+    return polynomial({om}, num_vars);
+  }
+
+  monomial extend(const int var_insert_index, const monomial& m) {
+    std::vector<int> vars;
+    bool inserted = false;
+    for (int i = 0; i < m.num_vars(); i++) {
+      if (i == var_insert_index) {
+	vars.push_back(0);
+      } else {
+	vars.push_back(m.power(i));
+      }
+    }
+    if (!inserted) {
+      vars.push_back(0);
+    }
+    return monomial(m.coeff(), vars, m.num_vars() + 1);
+  }
+
+  polynomial extend(const int var_insert_index, const polynomial& p) {
+    vector<monomial> ms;
+    for (int i = 0; i < p.num_monos(); i++) {
+      ms.push_back(extend(var_insert_index, p.monomial(i)));
+    }
+    return polynomial(ms, p.num_vars() + 1);
+  }
+
   polynomial subresultant(const int var_num,
 			  const int ind,
 			  const polynomial& f,
@@ -75,9 +125,18 @@ namespace ralg {
 
     polynomial d = zero_polynomial(f.num_vars());
 
-    polynomial factor = var_polynomial(var_num, f.num_vars());
+    polynomial factor = one_polynomial(f.num_vars());
+    //var_polynomial(var_num, f.num_vars());
     for (int k = m_i.num_rows() - ind; k <= m_i.num_rows(); k++) {
-      
+      cout << "k = " << k << endl;
+      matrix m_i_k = build_k_subsection(k, m_i);
+
+      auto pd = determinant(m_i_k);
+      cout << "pd = " << pd << endl;
+      cout << "extened pd = " << extend(var_num, pd) << endl;
+      d = d + extend(var_num, determinant(m_i_k))*factor;
+
+      factor = factor * var_polynomial(var_num, f.num_vars());
     }
     return d; //determinant(m_i);
   }
