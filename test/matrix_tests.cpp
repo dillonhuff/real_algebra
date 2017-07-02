@@ -82,8 +82,13 @@ namespace ralg {
       REQUIRE(m.num_cols() == 6);
 
       REQUIRE(m.get(2, 2) == const_poly(5, 0));
+      REQUIRE(m.get(2, 3) == const_poly(7, 0));
+      REQUIRE(m.get(2, 4) == const_poly(9, 0));
 
-      // REQUIRE(m.get(3, 0) == polynomial({3*one_c}, 0));
+      REQUIRE(m.get(3, 0) == const_poly(0, 0));
+      REQUIRE(m.get(3, 2) == const_poly(3, 0));
+      REQUIRE(m.get(3, 5) == const_poly(9, 0));
+
       // REQUIRE(m.get(0, 6) == polynomial({0*one_c}, 0));
       // REQUIRE(m.get(4, 3) == polynomial({7*one_c}, 0));
     }

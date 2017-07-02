@@ -24,8 +24,6 @@ namespace ralg {
     vector<polynomial> f_coeffs = coefficients_wrt(f, var_num);
     reverse(f_coeffs);
 
-    cout << "Setting top" << endl;
-
     int col_offset = 0;
     for (int i = 0; i < n - k; i++) {
       int k = col_offset;
@@ -36,9 +34,9 @@ namespace ralg {
       col_offset++;
     }
 
-    cout << "set top of M" << endl;
     vector<polynomial> g_coeffs = coefficients_wrt(g, var_num);
     reverse(g_coeffs);
+
     col_offset = 0;
     for (int i = n - k; i < (m - k) + (n - k); i++) {
       int k = col_offset;
