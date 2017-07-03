@@ -67,15 +67,15 @@ namespace ralg {
     REQUIRE(elem(p2_5, proj_sq));
 
 
-    rational max_interval_width("1/100000");
-    for (auto& p : {p2_1, p2_2, p2_3, p2_4, p2_5}) {
-      cout << "-- Isolating roots of " << p << endl;
-      auto its = isolate_roots(p, max_interval_width);
-      for (auto& it : its) {
-	cout << "( " << it.start.value.to_double() << " , " << it.end.value.to_double() << " )" << endl;
+    // rational max_interval_width("1/100000");
+    // for (auto& p : {p2_1, p2_2, p2_3, p2_4, p2_5}) {
+    //   cout << "-- Isolating roots of " << p << endl;
+    //   auto its = isolate_roots(p, max_interval_width);
+    //   for (auto& it : its) {
+    // 	cout << "( " << it.start.value.to_double() << " , " << it.end.value.to_double() << " )" << endl;
 
-      }
-    }
+    //   }
+    // }
 
   }
 

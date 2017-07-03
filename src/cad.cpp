@@ -32,6 +32,41 @@ namespace ralg {
     return (r.end.value + r.start.value) / two;
   }
 
+  // Assumes cells are sorted along the last dimension
+  std::vector<cell> insert_mid_cells(const std::vector<cell>& base_cells) {
+    assert(base_cells.size() > 0);
+
+    vector<cell> mcells;
+
+    cell neg_inf = base_cells.front();
+    neg_inf.test_pt[neg_inf.test_pt.size() - 1] =
+      neg_inf.test_pt[neg_inf.test_pt.size() - 1] - 1;
+    mcells.push_back(neg_inf);
+
+    rational two(2);
+    for (int i = 0; i < base_cells.size(); i++) {
+      mcells.push_back(base_cells[i]);
+      if (i < base_cells.size() - 1) {
+	auto ci = base_cells[i].test_pt;
+	auto cj = base_cells[i + 1].test_pt;
+
+	auto c_mid = ci;
+	c_mid[c_mid.size() - 1] = (ci[ci.size() - 1] + cj[cj.size() - 1]) / two;
+	mcells.push_back({c_mid});
+      }
+    }
+
+    cell pos_inf = base_cells.back();
+    pos_inf.test_pt[pos_inf.test_pt.size() - 1] =
+      pos_inf.test_pt[pos_inf.test_pt.size() - 1] + 1;
+    mcells.push_back(pos_inf);
+    
+    
+    assert(mcells.size() == (2*base_cells.size() + 1));
+
+    return mcells;
+  }
+
   std::vector<cell>
   solve_base_projection_set(const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
@@ -60,12 +95,12 @@ namespace ralg {
       cout << r.to_double() << endl;
     }
 
-    // vector<cell> base_cells;
-    // for (auto& it : root_intervals) {
-    //   base_cells.push_back({{midpoint(it)}});
-    // }
+    vector<cell> base_cells;
+    for (auto& r : roots) {
+      base_cells.push_back({{r}});
+    }
 
-    return {}; //base_cells;
+    return insert_mid_cells(base_cells);
   }
   
   std::vector<cell> extend_cells(const std::vector<cell>& previous_cells,
@@ -84,6 +119,11 @@ namespace ralg {
     // Base phase
     std::vector<cell> cells =
       solve_base_projection_set(projection_sets[0]);
+
+    cout << "# of base cells = " << cells.size() << endl;
+    for (auto& bc : cells) {
+      cout << bc.test_pt.back().to_double() << endl;
+    }
 
     // Extension phase
     for (int i = 1; i < projection_sets.size(); i++) {
