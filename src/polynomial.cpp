@@ -86,5 +86,22 @@ namespace ralg {
     return polynomial(monos, p.num_vars());
   }
 
-  
+
+  rational evaluate_at(const rational& val, const polynomial& p) {
+    assert(p.num_vars() == 1);
+
+    rational sum(0);
+    for (int i = 0; i < p.num_monos(); i++) {
+      auto m = p.monomial(i);
+
+      rational res = m.coeff();
+      for (int j = 0; j < m.power(0); j++) {
+	res = res*val;
+      }
+
+      sum = sum + res;
+    }
+    return sum;
+  }
+
 }

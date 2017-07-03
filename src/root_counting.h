@@ -15,6 +15,7 @@ namespace ralg {
   interval_pt pos_inf();
 
   interval_pt ipt(const int r);
+  interval_pt ipt(const rational r);
   
   struct interval {
     interval_pt start;
@@ -29,5 +30,8 @@ namespace ralg {
   std::vector<interval> isolate_roots(const polynomial& p);
 
   int num_real_roots(const polynomial& p);
+
+  std::ostream& operator<<(std::ostream& out, const interval_pt& pt);
+  std::ostream& operator<<(std::ostream& out, const interval& it);
 
 }

@@ -39,23 +39,6 @@ namespace ralg {
     return sgs;
   }
 
-  rational evaluate_at(const rational& val, const polynomial& p) {
-    assert(p.num_vars() == 1);
-
-    rational sum(0);
-    for (int i = 0; i < p.num_monos(); i++) {
-      auto m = p.monomial(i);
-
-      rational res = m.coeff();
-      for (int j = 0; j < m.power(0); j++) {
-	res = res*val;
-      }
-
-      sum = sum + res;
-    }
-    return sum;
-  }
-
   vector<int> signs_at(const interval_pt& pt, const std::vector<polynomial>& p) {
     if (pt.is_inf) { return signs_at_infinity(p); }
     if (pt.is_neg_inf) { return signs_at_minus_infinity(p); }
@@ -141,8 +124,24 @@ namespace ralg {
     return {false, false, {r}};
   }
 
+  interval_pt ipt(const rational r) {
+    return {false, false, r};
+  }
+  
   vector<interval> split_interval(const interval& it) {
-    return {};
+    if (it.end.is_inf) {
+      interval_pt mid = ipt(2*it.start.value);
+      return {{it.start, mid}, {mid, it.end}};
+    }
+
+    if (it.end.is_neg_inf) {
+      cout << it << endl;
+      assert(false);
+    }
+
+    rational two(2);
+    auto mid = ipt((it.start.value + it.end.value) / two);
+    return {{it.start, mid}, {mid, it.end}};
   }
 
   int num_roots_in_interval(const interval& it,
@@ -173,7 +172,20 @@ namespace ralg {
     assert(p.num_vars() == 1);
 
     auto chain = sturm_chain(p);
-    
+
+    cout << "----- Sturm chain" << endl;
+    for (auto& c : chain) {
+      cout << c << endl;
+    }
+
+    cout << "----- Signs at inf" << endl;
+    auto sgs = signs_at_infinity(chain);
+    for (auto& s : sgs) {
+      cout << s << endl;
+    }
+
+    cout << endl;
+
     vector<interval> isolated;
     vector<interval> in_progress{{neg_inf(), ipt(-1)},
 	{ipt(-1), ipt(1)}, {ipt(1), pos_inf()}};
@@ -187,14 +199,32 @@ namespace ralg {
       if (nroots == 0) {
 	continue;
       } else if (nroots == 1) {
+	cout << "1 root in " << it << endl;
 	isolated.push_back(it);
       } else {
 	vector<interval> split = split_interval(it);
 	concat(in_progress, split);
       }
     }
-    
+
     return isolated;
   }
 
+  std::ostream& operator<<(std::ostream& out, const interval_pt& pt) {
+    if (pt.is_inf) {
+      out << "inf";
+    } else if (pt.is_neg_inf) {
+      out << "-inf";
+    } else {
+      out << pt.value;
+    }
+
+    return out;
+  }
+
+  std::ostream& operator<<(std::ostream& out, const interval& it) {
+    out << "( " << it.start << " , " << it.end << " )";
+    return out;
+  }
+  
 }

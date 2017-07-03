@@ -52,6 +52,32 @@ namespace ralg {
       }
 
     }
+
+    SECTION("x^2 - 7x + 12") {
+      polynomial p = x*x - 7*x + const_poly(12, 1);
+
+      auto its = isolate_roots(p);
+      REQUIRE(its.size() == 2);
+    }
+
+    SECTION("(x^2 - 7x + 12)*(x - 7)") {
+      cout << "----- (x^2 - 7x + 12)*(x - 7)" << endl;
+      polynomial p1 = x*x - 7*x + const_poly(12, 1);
+      polynomial p2 = (x - const_poly(7, 1));
+      polynomial p = p1*p2;
+
+      auto its = isolate_roots(p);
+      for (auto& it : its) {
+	cout << it << endl;
+      }
+
+      REQUIRE(its.size() == 3);
+
+      for (auto& it : its) {
+	REQUIRE(evaluate_at(it.start.value, p) != 0);
+	REQUIRE(evaluate_at(it.end.value, p) != 0);
+      }
+    }
     
   }
 

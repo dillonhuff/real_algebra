@@ -393,6 +393,15 @@ namespace ralg {
 
   };
 
+  inline polynomial const_poly(const int coeff, const int num_vars) {
+    std::vector<int> zeros;
+    for (int i = 0; i < num_vars; i++) {
+      zeros.push_back(0);
+    }
+    monomial cm({coeff}, zeros, num_vars);
+    return polynomial({cm}, num_vars);
+  }
+
   inline polynomial operator+(const polynomial& x,
 			      const polynomial& y) {
     return x.plus(y);
@@ -401,6 +410,11 @@ namespace ralg {
   inline polynomial operator*(const polynomial& x,
 			      const polynomial& y) {
     return x.times(y);
+  }
+
+  inline polynomial operator*(const int c,
+			      const polynomial& y) {
+    return const_poly(c, y.num_vars())*y;
   }
   
   inline polynomial operator-(const polynomial& x,
@@ -528,15 +542,6 @@ namespace ralg {
     return division_result{as, r};
   }
 
-  inline polynomial const_poly(const int coeff, const int num_vars) {
-    std::vector<int> zeros;
-    for (int i = 0; i < num_vars; i++) {
-      zeros.push_back(0);
-    }
-    monomial cm({coeff}, zeros, num_vars);
-    return polynomial({cm}, num_vars);
-  }
-
   std::vector<polynomial> coefficients_wrt(const polynomial& p,
 					   const int var_num);
 
@@ -546,5 +551,7 @@ namespace ralg {
   int degree_wrt(const int var_num, const polynomial& p);
 
   monomial delete_var(const int var_num, const monomial& m);
+
+  rational evaluate_at(const rational& val, const polynomial& p);
 
 }
