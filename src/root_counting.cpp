@@ -289,6 +289,13 @@ namespace ralg {
     return finitize_intervals(isolated, chain);
   }
 
+  std::vector<interval> isolate_roots(const polynomial& p,
+				      const rational& max_interval_width) {
+    auto its = isolate_roots(p);
+
+    return its;
+  }
+  
   std::ostream& operator<<(std::ostream& out, const interval_pt& pt) {
     if (pt.is_inf) {
       out << "inf";

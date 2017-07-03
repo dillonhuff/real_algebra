@@ -65,7 +65,11 @@ namespace ralg {
       mpq_div(prod, val, l.val);
       return rational(prod);
     }
-    
+
+    int cmp(const rational& other) const {
+      return mpq_cmp(val, other.val);
+    }
+
     void print(std::ostream& out) const {
       out << val;
     }
@@ -85,6 +89,11 @@ namespace ralg {
     return l.plus(r);
   }
 
+  inline bool operator<(const rational& l, const rational& r) {
+    int v = l.cmp(r);
+    return v < 0;
+  }
+  
   inline rational operator*(const rational& l, const rational& r) {
     return l.times(r);
   }

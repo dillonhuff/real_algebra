@@ -32,6 +32,9 @@ namespace ralg {
   
   std::vector<interval> isolate_roots(const polynomial& p);
 
+  std::vector<interval> isolate_roots(const polynomial& p,
+				      const rational& max_interval_width);
+  
   int num_real_roots(const polynomial& p);
 
   std::ostream& operator<<(std::ostream& out, const interval_pt& pt);

@@ -84,17 +84,35 @@ namespace ralg {
       polynomial p2 = (x - const_poly(16, 1));
       polynomial p = p1*p2;
 
-      auto its = isolate_roots(p);
+      SECTION("Isolate finite intervals") {
+	auto its = isolate_roots(p);
 
-      REQUIRE(its.size() == 3);
+	REQUIRE(its.size() == 3);
 
-      for (auto& it : its) {
-	//cout << it << endl;
+	for (auto& it : its) {
+	  cout << "( " << it.start.value.to_double() << " , " << it.end.value.to_double() << " )" << endl;
 
-	cout << "( " << it.start.value.to_double() << " , " << it.end.value.to_double() << " )" << endl;
-	REQUIRE(is_finite(it));
-	REQUIRE(evaluate_at(it.start.value, p) != rational(0));
-	REQUIRE(evaluate_at(it.end.value, p) != rational(0));
+	  REQUIRE(is_finite(it));
+	  REQUIRE(evaluate_at(it.start.value, p) != rational(0));
+	  REQUIRE(evaluate_at(it.end.value, p) != rational(0));
+	}
+
+      }
+
+      SECTION("Isolate and refine intervals") {
+
+	rational max_interval_width("1/100000");
+	auto its = isolate_roots(p, max_interval_width);
+
+	REQUIRE(its.size() == 3);
+
+	for (auto& it : its) {
+	  cout << "( " << it.start.value.to_double() << " , " << it.end.value.to_double() << " )" << endl;
+
+	  REQUIRE(is_finite(it));
+	  REQUIRE((it.end.value - it.start.value) < max_interval_width);
+	}
+
       }
 
     }
