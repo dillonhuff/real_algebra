@@ -89,7 +89,9 @@ namespace ralg {
       REQUIRE(its.size() == 3);
 
       for (auto& it : its) {
-	cout << it << endl;
+	//cout << it << endl;
+
+	cout << "( " << it.start.value.to_double() << " , " << it.end.value.to_double() << " )" << endl;
 	REQUIRE(is_finite(it));
 	REQUIRE(evaluate_at(it.start.value, p) != rational(0));
 	REQUIRE(evaluate_at(it.end.value, p) != rational(0));

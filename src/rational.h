@@ -69,6 +69,10 @@ namespace ralg {
     void print(std::ostream& out) const {
       out << val;
     }
+
+    double to_double() const {
+      return mpq_get_d(val);
+    }
     
   };
 
