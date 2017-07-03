@@ -190,6 +190,47 @@ namespace ralg {
 
   }
 
+  interval
+  finitize_interval(const interval& it,
+		    const std::vector<polynomial>& chain) {
+    if (is_finite(it)) { return it; }
+
+    rational two(2);
+    if (it.end.is_inf) {
+      rational mid = two*it.start.value;
+      interval finite{it.start, ipt(mid)};
+
+      while (num_roots_in_interval(finite, chain) < 1) {
+	mid = two*mid;
+	finite = {it.start, ipt(mid)};
+      }
+      return finite;
+    }
+
+    if (it.start.is_neg_inf) {
+      rational mid = two*it.end.value;
+      interval finite{ipt(mid), it.end};
+
+      while (num_roots_in_interval(finite, chain) < 1) {
+	mid = two*mid;
+	finite = {ipt(mid), it.end};
+      }
+      return finite;
+    }
+
+    assert(false);
+  }
+
+  std::vector<interval>
+  finitize_intervals(const std::vector<interval>& its,
+		     const std::vector<polynomial>& chain) {
+    vector<interval> fts;
+    for (auto& it : its) {
+      fts.push_back(finitize_interval(it, chain));
+    }
+    return fts;
+  }
+
   std::vector<interval> isolate_roots(const polynomial& p) {
     assert(p.num_vars() == 1);
 
@@ -245,7 +286,7 @@ namespace ralg {
       }
     }
 
-    return isolated;
+    return finitize_intervals(isolated, chain);
   }
 
   std::ostream& operator<<(std::ostream& out, const interval_pt& pt) {

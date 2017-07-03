@@ -78,6 +78,24 @@ namespace ralg {
       }
 
     }
+
+    SECTION("(x^2 + 3x + 2)*(x + 16)") {
+      polynomial p1 = x*x + 3*x + const_poly(2, 1);
+      polynomial p2 = (x - const_poly(16, 1));
+      polynomial p = p1*p2;
+
+      auto its = isolate_roots(p);
+
+      REQUIRE(its.size() == 3);
+
+      for (auto& it : its) {
+	cout << it << endl;
+	REQUIRE(is_finite(it));
+	REQUIRE(evaluate_at(it.start.value, p) != rational(0));
+	REQUIRE(evaluate_at(it.end.value, p) != rational(0));
+      }
+
+    }
     
   }
 

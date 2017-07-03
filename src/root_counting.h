@@ -23,6 +23,7 @@ namespace ralg {
   };
 
   bool is_finite(const interval& it);
+  bool is_finite(const interval_pt& pt);
 
   int num_roots_in_interval(const interval& it,
 			    const std::vector<polynomial>& sturm_chain);
