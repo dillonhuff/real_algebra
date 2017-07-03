@@ -1,6 +1,7 @@
 #include "cad.h"
 
 #include "projection.h"
+#include "root_counting.h"
 
 using namespace std;
 
@@ -16,20 +17,37 @@ namespace ralg {
 
     vector<vector<polynomial> > projected;
     vector<polynomial> to_project = polys;
-    for (int i = n_vars - 1; i >= 0; i--) {
+    for (int i = n_vars - 1; i > 0; i--) {
       cout << "To project size = " << to_project.size() << endl;
       projected.push_back(project(i, to_project));
       to_project = projected.back();
     }
 
+    reverse(projected);
     return projected;
+  }
+
+  rational midpoint(const interval& r) {
+    rational two(2);
+    return (r.end.value - r.start.value) / two;
   }
 
   std::vector<cell>
   solve_base_projection_set(const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
 
-    return {};
+    rational tol("1/10000");
+    vector<interval> root_intervals;
+    for (auto& p : polys) {
+      concat(root_intervals, isolate_roots(p, tol));
+    }
+
+    vector<cell> base_cells;
+    for (auto& it : root_intervals) {
+      base_cells.push_back({{midpoint(it)}});
+    }
+
+    return base_cells;
   }
   
   std::vector<cell> extend_cells(const std::vector<cell>& previous_cells,
