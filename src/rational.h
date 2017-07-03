@@ -93,6 +93,11 @@ namespace ralg {
     int v = l.cmp(r);
     return v < 0;
   }
+
+  inline bool operator>(const rational& l, const rational& r) {
+    int v = l.cmp(r);
+    return v > 0;
+  }
   
   inline rational operator*(const rational& l, const rational& r) {
     return l.times(r);
