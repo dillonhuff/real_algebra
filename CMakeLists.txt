@@ -16,9 +16,11 @@ SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/rational.cpp
 	      ./src/matrix.cpp
 	      ./src/projection.cpp
-	      ./src/root_counting.cpp)
+	      ./src/root_counting.cpp
+	      ./src/cad.cpp)
 
-SET(TEST_FILES ./test/root_isolation_tests.cpp
+SET(TEST_FILES ./test/cad_tests.cpp
+	       ./test/root_isolation_tests.cpp
 	       ./test/projection_tests.cpp
 	       ./test/division_tests.cpp
 	       ./test/groebner_tests.cpp
