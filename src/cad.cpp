@@ -1,21 +1,41 @@
 #include "cad.h"
 
+#include "projection.h"
+
 using namespace std;
 
 namespace ralg {
 
   vector<vector<polynomial> >
   build_projection_sets(const std::vector<polynomial>& polys) {
-    return {};
+    assert(polys.size() > 0);
+
+    int n_vars = polys.front().num_vars();
+
+    assert(n_vars > 0);
+
+    vector<vector<polynomial> > projected;
+    vector<polynomial> to_project = polys;
+    for (int i = n_vars - 1; i >= 0; i--) {
+      cout << "To project size = " << to_project.size() << endl;
+      projected.push_back(project(i, to_project));
+      to_project = projected.back();
+    }
+
+    return projected;
   }
 
   std::vector<cell>
   solve_base_projection_set(const std::vector<polynomial>& polys) {
+    assert(polys.size() > 0);
+
     return {};
   }
   
   std::vector<cell> extend_cells(const std::vector<cell>& previous_cells,
 				 const std::vector<polynomial>& polys) {
+    assert(polys.size() > 0);
+
     return {};
   }
 
