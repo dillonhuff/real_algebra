@@ -74,6 +74,10 @@ namespace ralg {
 	       {sequence.back()},
 	       lexicographic_order);
 
+      if (is_zero(div_res.remainder)) {
+	break;
+      }
+
       sequence.push_back(const_poly(-1, 1)*div_res.remainder);
     }
 
@@ -204,23 +208,39 @@ namespace ralg {
 
     cout << endl;
 
+    rational lend("-11233 / 11230");
+    rational lstart("11237 / 11230");
+    
     vector<interval> isolated;
-    vector<interval> in_progress{{neg_inf(), ipt(-1)},
-	{ipt(-1), ipt(1)}, {ipt(1), pos_inf()}};
+    vector<interval> in_progress{{neg_inf(), ipt(lend)},
+	{ipt(lend), ipt(lstart)}, {ipt(lstart), pos_inf()}};
 
+    cout << "Initial intervals" << endl;
+    for (auto& it : in_progress) {
+      cout << it << endl;
+    }
 
     while (in_progress.size() > 0) {
       interval it = in_progress.back();
       in_progress.pop_back();
 
       int nroots = num_roots_in_interval(it, chain);
+      cout << p << " has " << nroots << " roots in " << it << endl;
       if (nroots == 0) {
+	cout << "No roots in " << it << endl;
 	continue;
       } else if (nroots == 1) {
 	cout << "1 root in " << it << endl;
 	isolated.push_back(it);
       } else {
 	vector<interval> split = split_interval(it, p);
+
+	cout << "Split " << it << " into ";
+	for (auto& it : split) {
+	  cout << it << " ";
+	}
+	cout << endl;
+
 	concat(in_progress, split);
       }
     }
