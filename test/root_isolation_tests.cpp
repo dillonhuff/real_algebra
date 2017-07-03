@@ -67,15 +67,13 @@ namespace ralg {
       polynomial p = p1*p2;
 
       auto its = isolate_roots(p);
-      for (auto& it : its) {
-	cout << it << endl;
-      }
 
       REQUIRE(its.size() == 3);
 
       for (auto& it : its) {
-	REQUIRE(evaluate_at(it.start.value, p) != 0);
-	REQUIRE(evaluate_at(it.end.value, p) != 0);
+	cout << it << endl;
+	REQUIRE(evaluate_at(it.start.value, p) != rational(0));
+	REQUIRE(evaluate_at(it.end.value, p) != rational(0));
       }
     }
     

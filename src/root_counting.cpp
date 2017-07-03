@@ -128,20 +128,33 @@ namespace ralg {
     return {false, false, r};
   }
   
-  vector<interval> split_interval(const interval& it) {
+  vector<interval> split_interval(const interval& it, const polynomial& p) {
+    interval_pt left_mid = ipt(0); // Dummy value
+    interval_pt right_mid = ipt(0); // Dummy value
+    std::vector<interval> fresh_intervals;
+
     if (it.end.is_inf) {
-      interval_pt mid = ipt(2*it.start.value);
-      return {{it.start, mid}, {mid, it.end}};
-    }
-
-    if (it.end.is_neg_inf) {
-      cout << it << endl;
+      left_mid = ipt(2*it.start.value);
+      right_mid = ipt(2*it.start.value);
+    } else if (it.end.is_neg_inf) {
+      left_mid = ipt(2*it.end.value);
+      right_mid = ipt(2*it.end.value);
       assert(false);
+    } else {
+      rational two(2);
+      left_mid = ipt((it.start.value + it.end.value) / two);
+      right_mid = left_mid;
     }
+    //    return {{it.start, mid}, {mid, it.end}};
 
-    rational two(2);
-    auto mid = ipt((it.start.value + it.end.value) / two);
-    return {{it.start, mid}, {mid, it.end}};
+    if (evaluate_at(left_mid.value, p) == rational(0)) {
+      
+    }
+    concat(fresh_intervals, {{it.start, left_mid}, {right_mid, it.end}});
+
+    assert(fresh_intervals.size() == 2);
+
+    return fresh_intervals;
   }
 
   int num_roots_in_interval(const interval& it,
@@ -202,7 +215,7 @@ namespace ralg {
 	cout << "1 root in " << it << endl;
 	isolated.push_back(it);
       } else {
-	vector<interval> split = split_interval(it);
+	vector<interval> split = split_interval(it, p);
 	concat(in_progress, split);
       }
     }
