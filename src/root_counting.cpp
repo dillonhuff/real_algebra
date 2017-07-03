@@ -236,18 +236,20 @@ namespace ralg {
 
     auto chain = sturm_chain(p);
 
-    cout << "----- Sturm chain" << endl;
-    for (auto& c : chain) {
-      cout << c << endl;
-    }
+    // cout << "----- Sturm chain" << endl;
+    // for (auto& c : chain) {
+    //   cout << c << endl;
+    // }
 
-    cout << "----- Signs at inf" << endl;
+    //cout << "----- Signs at inf" << endl;
+
     auto sgs = signs_at_infinity(chain);
-    for (auto& s : sgs) {
-      cout << s << endl;
-    }
 
-    cout << endl;
+    // for (auto& s : sgs) {
+    //   cout << s << endl;
+    // }
+
+    // cout << endl;
 
     rational lend("-11233 / 11230");
     rational lstart("11237 / 11230");
@@ -256,31 +258,34 @@ namespace ralg {
     vector<interval> in_progress{{neg_inf(), ipt(lend)},
 	{ipt(lend), ipt(lstart)}, {ipt(lstart), pos_inf()}};
 
-    cout << "Initial intervals" << endl;
-    for (auto& it : in_progress) {
-      cout << it << endl;
-    }
+    // cout << "Initial intervals" << endl;
+    // for (auto& it : in_progress) {
+    //   cout << it << endl;
+    // }
 
     while (in_progress.size() > 0) {
       interval it = in_progress.back();
       in_progress.pop_back();
 
       int nroots = num_roots_in_interval(it, chain);
-      cout << p << " has " << nroots << " roots in " << it << endl;
+
+      //cout << p << " has " << nroots << " roots in " << it << endl;
+
       if (nroots == 0) {
-	cout << "No roots in " << it << endl;
+	//cout << "No roots in " << it << endl;
 	continue;
       } else if (nroots == 1) {
-	cout << "1 root in " << it << endl;
+	//cout << "1 root in " << it << endl;
+
 	isolated.push_back(it);
       } else {
 	vector<interval> split = split_interval(it, p);
 
-	cout << "Split " << it << " into ";
-	for (auto& it : split) {
-	  cout << it << " ";
-	}
-	cout << endl;
+	// cout << "Split " << it << " into ";
+	// for (auto& it : split) {
+	//   cout << it << " ";
+	// }
+	// cout << endl;
 
 	concat(in_progress, split);
       }
