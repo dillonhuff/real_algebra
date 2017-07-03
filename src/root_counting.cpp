@@ -133,6 +133,8 @@ namespace ralg {
     interval_pt right_mid = ipt(0); // Dummy value
     std::vector<interval> fresh_intervals;
 
+    rational two(2);
+    
     if (it.end.is_inf) {
       left_mid = ipt(2*it.start.value);
       right_mid = ipt(2*it.start.value);
@@ -141,18 +143,21 @@ namespace ralg {
       right_mid = ipt(2*it.end.value);
       assert(false);
     } else {
-      rational two(2);
       left_mid = ipt((it.start.value + it.end.value) / two);
       right_mid = left_mid;
     }
     //    return {{it.start, mid}, {mid, it.end}};
 
-    if (evaluate_at(left_mid.value, p) == rational(0)) {
-      
-    }
+    // if (evaluate_at(left_mid.value, p) == rational(0)) {
+    //   auto lmm = ipt((it.start.value + left_mid.value) / two);
+    //   auto rmm = ipt((it.end.value + left_mid.value) / two);
+    //   fresh_intervals.push_back({lmm, rmm});
+    //   left_mid = lmm;
+    //   right_mid = rmm;
+    // }
     concat(fresh_intervals, {{it.start, left_mid}, {right_mid, it.end}});
 
-    assert(fresh_intervals.size() == 2);
+    //    assert(fresh_intervals.size() == 2);
 
     return fresh_intervals;
   }
