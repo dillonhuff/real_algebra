@@ -264,5 +264,12 @@ namespace ralg {
     out << "( " << it.start << " , " << it.end << " )";
     return out;
   }
-  
+
+  bool is_finite(const interval_pt& pt) {
+    return !pt.is_inf && !pt.is_neg_inf;
+  }
+
+  bool is_finite(const interval& it) {
+    return is_finite(it.start) && is_finite(it.end);
+  }
 }

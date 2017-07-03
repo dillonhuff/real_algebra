@@ -72,9 +72,11 @@ namespace ralg {
 
       for (auto& it : its) {
 	cout << it << endl;
+	REQUIRE(is_finite(it));
 	REQUIRE(evaluate_at(it.start.value, p) != rational(0));
 	REQUIRE(evaluate_at(it.end.value, p) != rational(0));
       }
+
     }
     
   }
