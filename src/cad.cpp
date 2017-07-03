@@ -29,7 +29,7 @@ namespace ralg {
 
   rational midpoint(const interval& r) {
     rational two(2);
-    return (r.end.value - r.start.value) / two;
+    return (r.end.value + r.start.value) / two;
   }
 
   std::vector<cell>
@@ -42,12 +42,30 @@ namespace ralg {
       concat(root_intervals, isolate_roots(p, tol));
     }
 
-    vector<cell> base_cells;
+    vector<rational> roots;
     for (auto& it : root_intervals) {
-      base_cells.push_back({{midpoint(it)}});
+      roots.push_back(midpoint(it));
     }
 
-    return base_cells;
+    sort(begin(roots), end(roots));
+    auto last =
+      unique(begin(roots), end(roots),
+	     [tol](const rational& l, const rational& r) {
+	       return (r - l).abs() < tol;
+	     });
+    roots.erase(last, roots.end());
+
+    cout << "roots" << endl;
+    for (auto& r : roots) {
+      cout << r.to_double() << endl;
+    }
+
+    // vector<cell> base_cells;
+    // for (auto& it : root_intervals) {
+    //   base_cells.push_back({{midpoint(it)}});
+    // }
+
+    return {}; //base_cells;
   }
   
   std::vector<cell> extend_cells(const std::vector<cell>& previous_cells,

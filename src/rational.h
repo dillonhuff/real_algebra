@@ -77,6 +77,13 @@ namespace ralg {
     double to_double() const {
       return mpq_get_d(val);
     }
+
+    rational abs() const {
+      mpq_t prod;
+      mpq_init(prod);
+      mpq_abs(prod, val);
+      return rational(prod);
+    }
     
   };
 
