@@ -150,7 +150,7 @@ namespace ralg {
 				const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
     
-    cout << "Extending cells of" << polys.size() << " polynomials" << endl;
+    cout << "Extending cells of " << polys.size() << " polynomials" << endl;
 
     vector<polynomial> upolys;
     for (auto& p : polys) {
@@ -189,6 +189,8 @@ namespace ralg {
     for (auto& cell : previous_cells) {
       concat(new_cells, extend_cell(cell, polys));
     }
+
+    cout << "new cells size = " << new_cells.size() << endl;
     return new_cells;
   }
 
