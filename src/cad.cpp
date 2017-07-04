@@ -34,9 +34,11 @@ namespace ralg {
 
   // Assumes cells are sorted along the last dimension
   std::vector<cell> insert_mid_cells(const std::vector<cell>& base_cells) {
-    
+    cout << "Inserting mid cells" << endl;
     //assert(base_cells.size() > 0);
     if (base_cells.size() == 0) { return {}; }
+
+    cout << "creating mid cells" << endl;
 
     vector<cell> mcells;
 
@@ -101,6 +103,8 @@ namespace ralg {
     for (auto& r : roots) {
       base_cells.push_back({{r}});
     }
+
+    cout << "# of base cells = " << base_cells.size() << endl;
 
     return insert_mid_cells(base_cells);
   }
@@ -175,6 +179,7 @@ namespace ralg {
     for (auto& c : cell_tops) {
       cell new_c = previous_cell;
       new_c.test_pt.push_back(c.test_pt.back());
+      cells.push_back(new_c);
     }
 
     return cells;
