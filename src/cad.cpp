@@ -34,7 +34,9 @@ namespace ralg {
 
   // Assumes cells are sorted along the last dimension
   std::vector<cell> insert_mid_cells(const std::vector<cell>& base_cells) {
-    assert(base_cells.size() > 0);
+    
+    //assert(base_cells.size() > 0);
+    if (base_cells.size() == 0) { return {}; }
 
     vector<cell> mcells;
 
@@ -102,17 +104,92 @@ namespace ralg {
 
     return insert_mid_cells(base_cells);
   }
-  
+
+  monomial evaluate_at(const std::vector<rational>& test_pt,
+		       const monomial& m) {
+    rational res = m.coeff();
+
+    for (int i = 0; i < test_pt.size(); i++) {
+      rational val = test_pt[i];
+      for (int j = 0; j < m.power(i); j++) {
+	res = res*val;
+      }
+    }
+
+    return monomial(res, {m.power(m.num_vars() - 1)}, 1);
+  }
+
+  polynomial evaluate_at(const std::vector<rational>& test_pt,
+			 const polynomial& p) {
+    assert(test_pt.size() == (p.num_vars() - 1));
+
+    polynomial sum = zero_polynomial(1);
+
+    for (int i = 0; i < p.num_monos(); i++) {
+      monomial m = evaluate_at(test_pt, p.monomial(i));
+      sum = sum + polynomial({m}, 1);
+
+      // auto m = p.monomial(i);
+
+
+      // polynomial sum_mono();
+      // sum = sum + res;
+    }
+
+    return sum;
+  }
+
+  std::ostream& operator<<(std::ostream& out, const cell& c) {
+    for (auto& t : c.test_pt) {
+      out << t << ", ";
+    }
+    return out;
+  }
+
+  std::vector<cell> extend_cell(const cell& previous_cell,
+				const std::vector<polynomial>& polys) {
+    assert(polys.size() > 0);
+    
+    cout << "Extending cells of" << polys.size() << " polynomials" << endl;
+
+    vector<polynomial> upolys;
+    for (auto& p : polys) {
+      auto up = evaluate_at(previous_cell.test_pt, p);
+
+      cout << "p evaluates to " << up << endl;
+      for (int i = 0; i < up.num_monos(); i++) {
+	auto m = up.monomial(i);
+	cout << "coefficient = " << m.coeff().to_double() << endl;
+      }
+
+      upolys.push_back(up);
+    }
+
+    auto cell_tops = solve_base_projection_set(upolys);
+    cout << "*********** cell tops " << endl;
+    for (auto& c : cell_tops) {
+      cout << c << endl;
+    }
+    
+    vector<cell> cells;
+    for (auto& c : cell_tops) {
+      cell new_c = previous_cell;
+      new_c.test_pt.push_back(c.test_pt.back());
+    }
+
+    return cells;
+  }
+
   std::vector<cell> extend_cells(const std::vector<cell>& previous_cells,
 				 const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
 
-    // Add evaluation of polys at the prior cell points
+    vector<cell> new_cells;
 
-    // Add root isolation for the resulting 1D polynomials
-
-    // Add cell extension, and midpoint / infinity point insertion
-    return {};
+    for (auto& cell : previous_cells) {
+      concat(new_cells, extend_cell(cell, polys));
+    }
+    return new_cells;
   }
 
   std::vector<cell> build_CAD(const std::vector<polynomial>& polys) {
