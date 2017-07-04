@@ -107,6 +107,11 @@ namespace ralg {
 				 const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
 
+    // Add evaluation of polys at the prior cell points
+
+    // Add root isolation for the resulting 1D polynomials
+
+    // Add cell extension, and midpoint / infinity point insertion
     return {};
   }
 
