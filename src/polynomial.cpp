@@ -1,4 +1,4 @@
-#include "polynomial.h"
+#include <ralg/polynomial.h>
 
 using namespace std;
 

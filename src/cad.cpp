@@ -1,7 +1,7 @@
-#include "cad.h"
+#include <ralg/cad.h>
 
-#include "projection.h"
-#include "root_counting.h"
+#include <ralg/projection.h>
+#include <ralg/root_counting.h>
 
 using namespace std;
 

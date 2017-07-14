@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "groebner.h"
+#include <ralg/groebner.h>
 
 using namespace std;
 

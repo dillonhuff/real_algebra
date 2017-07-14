@@ -9,7 +9,7 @@ SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${EXTRA_CXX_COMPILE_FLAGS}")
 SET(CXX_GMP_LINK_FLAGS "-lgmpxx -lgmp")
 SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${CXX_GMP_LINK_FLAGS}")
 
-INCLUDE_DIRECTORIES(./src/)
+INCLUDE_DIRECTORIES(./include/)
 
 SET(RALG_HEADERS ./include/ralg/polynomial.h
 	      ./include/ralg/groebner.h

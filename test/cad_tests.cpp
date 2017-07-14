@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "cad.h"
+#include <ralg/cad.h>
 
 using namespace std;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "polynomial.h"
+#include <ralg/polynomial.h>
 
 namespace ralg {
 

@@ -1,6 +1,6 @@
-#include "matrix.h"
+#include <ralg/matrix.h>
 
-#include "algorithm.h"
+#include <ralg/algorithm.h>
 
 using namespace std;
 

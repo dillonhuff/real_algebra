@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "root_counting.h"
+#include <ralg/root_counting.h>
 
 using namespace std;
 

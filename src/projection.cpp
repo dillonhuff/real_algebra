@@ -1,7 +1,7 @@
-#include "projection.h"
+#include <ralg/projection.h>
 
-#include "algorithm.h"
-#include "matrix.h"
+#include <ralg/algorithm.h>
+#include <ralg/matrix.h>
 
 using namespace std;
 

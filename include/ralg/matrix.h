@@ -3,7 +3,7 @@
 #include <cassert>
 #include <vector>
 
-#include "polynomial.h"
+#include <ralg/polynomial.h>
 
 namespace ralg {
 

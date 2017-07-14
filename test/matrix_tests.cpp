@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "matrix.h"
+#include <ralg/matrix.h>
 
 #include <iostream>
 

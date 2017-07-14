@@ -3,8 +3,8 @@
 #include <cassert>
 #include <vector>
 
-#include "algorithm.h"
-#include "rational.h"
+#include <ralg/algorithm.h>
+#include <ralg/rational.h>
 
 namespace ralg {
 

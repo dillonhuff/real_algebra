@@ -1,7 +1,7 @@
 #pragma once
 
-#include "algorithm.h"
-#include "polynomial.h"
+#include <ralg/algorithm.h>
+#include <ralg/polynomial.h>
 
 namespace ralg {
 

@@ -10,7 +10,7 @@
 #include <utility>
 #include <vector>
 
-#include "check.h"
+#include <ralg/check.h>
 
 namespace ralg {
 
