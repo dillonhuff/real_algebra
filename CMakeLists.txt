@@ -42,4 +42,4 @@ add_executable(all-tests ${TEST_FILES})
 target_link_libraries(all-tests ralg)
 
 install(TARGETS ralg DESTINATION lib)
-install(FILES ${RALG_HEADERS} DESTINATION include)
+install(FILES ${RALG_HEADERS} DESTINATION include/ralg)
