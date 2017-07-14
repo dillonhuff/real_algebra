@@ -11,13 +11,13 @@ SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${CXX_GMP_LINK_FLAGS}")
 
 INCLUDE_DIRECTORIES(./src/)
 
-SET(RALG_HEADERS ./src/polynomial.h
-	      ./src/groebner.h
-	      ./src/rational.h
-	      ./src/matrix.h
-	      ./src/projection.h
-	      ./src/root_counting.h
-	      ./src/cad.h)
+SET(RALG_HEADERS ./include/ralg/polynomial.h
+	      ./include/ralg/groebner.h
+	      ./include/ralg/rational.h
+	      ./include/ralg/matrix.h
+	      ./include/ralg/projection.h
+	      ./include/ralg/root_counting.h
+	      ./include/ralg/cad.h)
 
 SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/groebner.cpp
