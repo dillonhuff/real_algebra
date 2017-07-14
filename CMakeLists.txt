@@ -11,6 +11,14 @@ SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${CXX_GMP_LINK_FLAGS}")
 
 INCLUDE_DIRECTORIES(./src/)
 
+SET(RALG_HEADERS ./src/polynomial.h
+	      ./src/groebner.h
+	      ./src/rational.h
+	      ./src/matrix.h
+	      ./src/projection.h
+	      ./src/root_counting.h
+	      ./src/cad.h)
+
 SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/groebner.cpp
 	      ./src/rational.cpp
@@ -18,6 +26,8 @@ SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/projection.cpp
 	      ./src/root_counting.cpp
 	      ./src/cad.cpp)
+
+add_library(ralg ${SRC_FILES})
 
 SET(TEST_FILES ./test/cad_tests.cpp
 	       ./test/root_isolation_tests.cpp
@@ -28,4 +38,8 @@ SET(TEST_FILES ./test/cad_tests.cpp
 	       ./test/matrix_tests.cpp)
 
 
-add_executable(all-tests ${TEST_FILES} ${SRC_FILES})
+add_executable(all-tests ${TEST_FILES})
+target_link_libraries(all-tests ralg)
+
+install(TARGETS ralg DESTINATION lib)
+install(FILES ${RALG_HEADERS} DESTINATION include)
