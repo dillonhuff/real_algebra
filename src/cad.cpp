@@ -109,40 +109,6 @@ namespace ralg {
     return insert_mid_cells(base_cells);
   }
 
-  monomial evaluate_at(const std::vector<rational>& test_pt,
-		       const monomial& m) {
-    rational res = m.coeff();
-
-    for (int i = 0; i < test_pt.size(); i++) {
-      rational val = test_pt[i];
-      for (int j = 0; j < m.power(i); j++) {
-	res = res*val;
-      }
-    }
-
-    return monomial(res, {m.power(m.num_vars() - 1)}, 1);
-  }
-
-  polynomial evaluate_at(const std::vector<rational>& test_pt,
-			 const polynomial& p) {
-    assert(test_pt.size() == (p.num_vars() - 1));
-
-    polynomial sum = zero_polynomial(1);
-
-    for (int i = 0; i < p.num_monos(); i++) {
-      monomial m = evaluate_at(test_pt, p.monomial(i));
-      sum = sum + polynomial({m}, 1);
-
-      // auto m = p.monomial(i);
-
-
-      // polynomial sum_mono();
-      // sum = sum + res;
-    }
-
-    return sum;
-  }
-
   std::ostream& operator<<(std::ostream& out, const cell& c) {
     for (auto& t : c.test_pt) {
       out << t << ", ";
