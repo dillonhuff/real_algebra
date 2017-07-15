@@ -6,10 +6,18 @@ using namespace std;
 
 namespace ralg {
 
+
   TEST_CASE("Root counting") {
     monomial xv({"1"}, {1}, 1);
     polynomial x({xv}, 1);
 
+    SECTION("Constant polynomial") {
+      polynomial p = const_poly(8, 1);
+      vector<interval> roots = isolate_roots(p);
+
+      REQUIRE(roots.size() == 0);
+    }
+    
     SECTION("Polynomial with no real roots") {
       polynomial p = x*x + const_poly(-4, 1)*x + const_poly(11, 1);
       

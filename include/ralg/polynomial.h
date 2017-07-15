@@ -236,9 +236,14 @@ namespace ralg {
 
       }
 
+      delete_if(monos, [](const class monomial& m) {
+	  return is_zero(m);
+	});
+      
       if (monos.size() == 0) {
 	monos.push_back(zero_monomial(p_num_vars));
       }
+
       //monos = p_monos;
       std::sort(begin(monos), end(monos), lexicographic_order);
       nvars = p_num_vars;

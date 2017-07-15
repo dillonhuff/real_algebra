@@ -15,6 +15,17 @@ namespace ralg {
     REQUIRE(r == f);
   }
 
+  TEST_CASE("Constructing polynomial of that should become 8") {
+    monomial eight(8, {0}, 1);
+    monomial px(1, {1}, 1);
+    monomial mx(-1, {1}, 1);
+
+    polynomial p({px, mx, eight}, 1);
+    polynomial expected = const_poly(8, 1);
+
+    REQUIRE(p == expected);
+  }
+
   TEST_CASE("Polynomial arithmetic") {
 
     monomial two_x_sq({"2"}, {2, 0, 0}, 3);
