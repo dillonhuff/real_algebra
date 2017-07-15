@@ -6,6 +6,15 @@ using namespace std;
 
 namespace ralg {
 
+  TEST_CASE("Defining rationals with doubles") {
+    double d = 1.5;
+    rational r(d);
+
+    rational f("3/2");
+
+    REQUIRE(r == f);
+  }
+
   TEST_CASE("Polynomial arithmetic") {
 
     monomial two_x_sq({"2"}, {2, 0, 0}, 3);
