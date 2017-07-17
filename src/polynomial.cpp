@@ -138,4 +138,12 @@ namespace ralg {
     return sum;
   }
 
+  polynomial pow(const polynomial& p, const int exp) {
+    assert(exp >= 0);
+    polynomial res = const_poly(1, p.num_vars());
+    for (int i = 0; i < exp; i++) {
+      res = res*p;
+    }
+    return res;
+  }
 }

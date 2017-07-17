@@ -155,4 +155,14 @@ namespace ralg {
 
   }
 
+  TEST_CASE("Exponents") {
+    monomial m_x(1, {1, 0, 0}, 3);
+    polynomial x({m_x}, 3);
+
+    polynomial res = x*x*x;
+
+    REQUIRE(pow(x, 3.0) == res);
+  }
+	     
+
 }

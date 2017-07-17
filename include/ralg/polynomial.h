@@ -547,6 +547,8 @@ namespace ralg {
     return division_result{as, r};
   }
 
+  polynomial pow(const polynomial& p, const int exp);
+
   std::vector<polynomial> coefficients_wrt(const polynomial& p,
 					   const int var_num);
 
