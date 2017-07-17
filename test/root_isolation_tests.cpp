@@ -127,4 +127,44 @@ namespace ralg {
 
   }
 
+  TEST_CASE("roots of quadratic -391  + -6 x_0 + 1 x_0^2") {
+    monomial m_x(1, {1}, 1);
+    polynomial x({m_x}, 1);
+
+    polynomial q = x*x - const_poly(6, 1)*x - const_poly(391, 1);
+
+    rational max_interval_width("1/100000");
+    auto its = isolate_roots(q, max_interval_width);
+
+    REQUIRE(its.size() == 2);
+
+    rational twenty_three(23);
+    bool contains_23 = false;
+    for (auto& it : its) {
+      cout << it << endl;
+      cout << "Start = " << it.start.value.to_double() << endl;
+      cout << "End   = " << it.end.value.to_double() << endl;
+
+      if (it.start.value <= twenty_three &&
+	  twenty_three <= it.end.value) {
+	contains_23 = true;
+      }
+    }
+
+    REQUIRE(contains_23);
+  }
+
+  TEST_CASE("Isolating roots for 8  + 6 x_0 + 1 x_0^2") {
+    monomial m_x(1, {1}, 1);
+    polynomial x({m_x}, 1);
+
+    polynomial p = x*x + 6*x + 8;
+
+    rational max_width(0.0001);
+    auto its = isolate_roots(p, max_width);
+
+    REQUIRE(its.size() == 2);
+    
+  }
+
 }

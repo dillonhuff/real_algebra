@@ -412,6 +412,11 @@ namespace ralg {
     return x.plus(y);
   }
 
+  inline polynomial operator+(const polynomial& x,
+			      const int z) {
+    return x + const_poly(z, x.num_vars());
+  }
+  
   inline polynomial operator*(const polynomial& x,
 			      const polynomial& y) {
     return x.times(y);
