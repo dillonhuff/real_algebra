@@ -141,9 +141,6 @@ namespace ralg {
     rational twenty_three(23);
     bool contains_23 = false;
     for (auto& it : its) {
-      cout << it << endl;
-      cout << "Start = " << it.start.value.to_double() << endl;
-      cout << "End   = " << it.end.value.to_double() << endl;
 
       if (it.start.value <= twenty_three &&
 	  twenty_three <= it.end.value) {
@@ -163,6 +160,13 @@ namespace ralg {
     rational max_width(0.0001);
     auto its = isolate_roots(p, max_width);
 
+    for (auto& it : its) {
+      cout << it << endl;
+      cout << "Start = " << it.start.value.to_double() << endl;
+      cout << "End   = " << it.end.value.to_double() << endl;
+
+    }
+    
     REQUIRE(its.size() == 2);
     
   }
