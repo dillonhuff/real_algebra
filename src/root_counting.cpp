@@ -138,13 +138,15 @@ namespace ralg {
     std::vector<interval> fresh_intervals;
 
     rational two(2);
-    
+
+    cout << "Splitting interval " << it << endl;
     if (it.end.is_inf) {
       left_mid = ipt(2*it.start.value);
       right_mid = ipt(2*it.start.value);
-    } else if (it.end.is_neg_inf) {
+    } else if (it.start.is_neg_inf) {
       left_mid = ipt(2*it.end.value);
       right_mid = ipt(2*it.end.value);
+    } else if (it.start.is_inf || it.end.is_neg_inf) {
       assert(false);
     } else {
       left_mid = ipt((it.start.value + it.end.value) / two);
@@ -234,6 +236,8 @@ namespace ralg {
   std::vector<interval> isolate_roots(const polynomial& p) {
     assert(p.num_vars() == 1);
 
+    cout << "Starting to isolate roots of " << p << endl;
+
     auto chain = sturm_chain(p);
 
     // cout << "----- Sturm chain" << endl;
@@ -269,7 +273,8 @@ namespace ralg {
 
       int nroots = num_roots_in_interval(it, chain);
 
-      //cout << p << " has " << nroots << " roots in " << it << endl;
+      cout << p << " has " << nroots << " roots in " << it << endl;
+      
 
       if (nroots == 0) {
 	//cout << "No roots in " << it << endl;
@@ -291,6 +296,8 @@ namespace ralg {
       }
     }
 
+    cout << "Done isolating roots" << endl;
+    
     return finitize_intervals(isolated, chain);
   }
 
