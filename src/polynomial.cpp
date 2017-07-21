@@ -146,4 +146,26 @@ namespace ralg {
     }
     return res;
   }
+
+  rational condition_number(const int coeff_num,
+			    const rational& root,
+			    const polynomial& p) {
+    assert(coeff_num > 0);
+    assert(p.num_vars() == 1);
+
+    rational a_i = coefficients_wrt(p, 0)[coeff_num].monomial(0).coeff();
+
+    cout << "a_i = " << a_i << endl;
+
+    polynomial dv = derivative_wrt(0, p);
+
+    cout << "dv = " << dv << endl;
+
+    rational deriv = evaluate_at(root, dv);
+
+    cout << "deriv = " << deriv << endl;
+
+    return ((a_i + pow(root, coeff_num - 1)) / deriv).abs();
+  }
+
 }

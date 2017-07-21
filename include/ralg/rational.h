@@ -134,6 +134,15 @@ namespace ralg {
     return l.times({"-1"});
   }
 
+  inline rational pow(const rational& l, const int exp) {
+    rational r(1);
+    for (int i = 0; i < exp; i++) {
+      r = r*l;
+    }
+
+    return r;
+  }
+
   inline rational operator-(const rational& l, const rational& r) {
     return l.plus(-r);
   }

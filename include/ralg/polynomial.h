@@ -416,7 +416,7 @@ namespace ralg {
 			      const int z) {
     return x + const_poly(z, x.num_vars());
   }
-  
+
   inline polynomial operator*(const polynomial& x,
 			      const polynomial& y) {
     return x.times(y);
@@ -430,6 +430,11 @@ namespace ralg {
   inline polynomial operator-(const polynomial& x,
 			      const polynomial& y) {
     return x.minus(y);
+  }
+
+  inline polynomial operator-(const polynomial& x,
+			      const int z) {
+    return x - const_poly(z, x.num_vars());
   }
   
   struct division_result {
@@ -568,5 +573,7 @@ namespace ralg {
 
   polynomial evaluate_at(const std::vector<rational>& test_pt,
 			 const polynomial& p);
+
+  rational condition_number(const int coeff_num, const rational& root, const polynomial& p);
 
 }

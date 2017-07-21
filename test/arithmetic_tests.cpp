@@ -163,6 +163,18 @@ namespace ralg {
 
     REQUIRE(pow(x, 3.0) == res);
   }
+
+  TEST_CASE("Condition numbers") {
+    monomial m_x(1, {1}, 1);
+    polynomial x({m_x}, 1);
+
+    polynomial res = x*x*x - 3*x*x + 3*x - 1;
+
+    // rational condition_num =
+    //   condition_number(1, rational(1.0), res);
+
+    // cout << "Condition number = " << condition_num << endl;
+  }
 	     
 
 }
