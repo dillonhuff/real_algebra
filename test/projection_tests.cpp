@@ -7,6 +7,28 @@ using namespace std;
 
 namespace ralg {
 
+  TEST_CASE("Ellipse-Circle Intersection") {
+    monomial a_m(1, {1, 0, 0, 0, 0, 0, 0, 0, 0}, 9);
+    monomial b_m(1, {0, 1, 0, 0, 0, 0, 0, 0, 0}, 9);
+    monomial r_m(1, {0, 0, 1, 0, 0, 0, 0, 0, 0}, 9);
+    monomial c_m(1, {0, 0, 0, 1, 0, 0, 0, 0, 0}, 9);
+    monomial d_m(1, {0, 0, 0, 0, 1, 0, 0, 0, 0}, 9);
+    monomial h_m(1, {0, 0, 0, 0, 0, 1, 0, 0, 0}, 9);
+    monomial k_m(1, {0, 0, 0, 0, 0, 0, 1, 0, 0}, 9);
+    monomial x_m(1, {0, 0, 0, 0, 0, 0, 0, 1, 0}, 9);
+    monomial y_m(1, {0, 0, 0, 0, 0, 0, 0, 0, 1}, 9);
+
+    polynomial a({a_m}, 9);
+    polynomial b({b_m}, 9);
+    polynomial r({r_m}, 9);
+    polynomial c({c_m}, 9);
+    polynomial d({d_m}, 9);
+    polynomial h({h_m}, 9);
+    polynomial k({k_m}, 9);
+    polynomial x({x_m}, 9);
+    polynomial y({y_m}, 9);
+  }
+
   TEST_CASE("One polynomial example") {
     monomial x1({"1"}, {1, 0, 0}, 3);
     monomial x2({"1"}, {0, 1, 0}, 3);
