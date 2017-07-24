@@ -27,6 +27,22 @@ namespace ralg {
     polynomial k({k_m}, 9);
     polynomial x({x_m}, 9);
     polynomial y({y_m}, 9);
+
+    polynomial circle = pow(x - a, 2) + pow(y - b, 2) - pow(r, 2);
+
+    cout << "circle = " << circle << endl;
+
+    polynomial ellipse =
+      k*k*pow(x - c, 2) + h*h*pow(y - d, 2) - k*k*h*h;
+
+    cout << "Ellipse = " << ellipse << endl;
+
+    auto ps = project(7, project(8, {circle, ellipse}));
+
+    cout << "Projection" << endl;
+    for (auto& p : ps) {
+      cout << p << endl;
+    }
   }
 
   TEST_CASE("One polynomial example") {
