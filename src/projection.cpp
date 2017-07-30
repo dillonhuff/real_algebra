@@ -53,11 +53,13 @@ namespace ralg {
 	    for (int m = 0; m <= m_bound; m++) {
 	      if (degree_wrt(var_num, f_k) >= degree_wrt(var_num, g_k)) {
 		auto ps = psck(var_num, m, f_k, g_k);
+
 		if (!ps.is_constant()) {
 		  p3.push_back(ps);
 		}
 	      } else {
 		auto ps = psck(var_num, m, g_k, f_k);
+
 		if (!ps.is_constant()) {
 		  p3.push_back(ps);
 		}
@@ -127,6 +129,30 @@ namespace ralg {
     }
     
     return final;
+  }
+
+  std::vector<polynomial>
+  discriminants(const int var_num,
+		const std::vector<polynomial>& polys) {
+    return {};
+  }  
+
+  std::vector<polynomial>
+  resultants(const int var_num,
+	     const std::vector<polynomial>& polys) {
+    return {};
+  }  
+  
+  std::vector<polynomial>
+  mccallum_project(const int var_num,
+		   const std::vector<polynomial>& polys) {
+    vector<polynomial> proj1 =
+      projection_1(var_num, polys);
+
+    concat(proj1, discriminants(var_num, polys));
+    concat(proj1, resultants(var_num, polys));
+
+    return proj1;
   }
   
 }

@@ -37,7 +37,7 @@ namespace ralg {
 
     cout << "Ellipse = " << ellipse << endl;
 
-    auto ps = project(7, project(8, {circle, ellipse}));
+    auto ps = project(8, {circle, ellipse});
 
     cout << "Projection" << endl;
     for (auto& p : ps) {
