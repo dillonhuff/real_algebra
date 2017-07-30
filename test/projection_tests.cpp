@@ -41,6 +41,8 @@ namespace ralg {
 
     cout << "McCallum Projection Size = " << ps.size() << endl;
 
+    auto ps2 = mccallum_project(7, ps);
+
     auto pcs = project(8, {circle, ellipse});
 
     cout << "Collins projection size = " << pcs.size() << endl;

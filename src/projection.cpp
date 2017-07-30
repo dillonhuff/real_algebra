@@ -181,7 +181,12 @@ namespace ralg {
     vector<polynomial> proj1 =
       projection_1(var_num, polys);
 
+    cout << "Computed lcofs" << endl;
+
     concat(proj1, discriminants(var_num, polys));
+
+    cout << "Computed disc" << endl;
+
     concat(proj1, resultants(var_num, polys));
 
     return proj1;
