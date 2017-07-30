@@ -149,7 +149,7 @@ namespace ralg {
 		const std::vector<polynomial>& polys) {
     vector<polynomial> discs;
     for (auto& p : polys) {
-      discs.push_back(discriminant(var_num, p));
+      discs.push_back(delete_var(var_num, discriminant(var_num, p)));
     }
     return discs;
   }  
@@ -164,9 +164,9 @@ namespace ralg {
 	if (i != j) {
 	  if (degree_wrt(var_num, polys[i]) >=
 	      degree_wrt(var_num, polys[j])) {
-	    ps.push_back(resultant(var_num, polys[i], polys[j]));
+	    ps.push_back(delete_var(var_num, resultant(var_num, polys[i], polys[j])));
 	  } else {
-	    ps.push_back(resultant(var_num, polys[j], polys[i]));
+	    ps.push_back(delete_var(var_num, resultant(var_num, polys[j], polys[i])));
 	  }
 	}
       }
@@ -182,6 +182,10 @@ namespace ralg {
       projection_1(var_num, polys);
 
     cout << "Computed lcofs" << endl;
+    cout << "# of vars in lcofs = " << endl;
+    for (auto& p : proj1) {
+      cout << p.num_vars() << endl;
+    }
 
     concat(proj1, discriminants(var_num, polys));
 

@@ -40,12 +40,15 @@ namespace ralg {
     auto ps = mccallum_project(8, {circle, ellipse});
 
     cout << "McCallum Projection Size = " << ps.size() << endl;
+    
+    REQUIRE(ps.size() > 0);
+
+    for (auto& p : ps) {
+      cout << p << endl;
+      REQUIRE(p.num_vars() == 8);
+    }
 
     auto ps2 = mccallum_project(7, ps);
-
-    auto pcs = project(8, {circle, ellipse});
-
-    cout << "Collins projection size = " << pcs.size() << endl;
   }
 
   TEST_CASE("One polynomial example") {

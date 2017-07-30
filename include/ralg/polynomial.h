@@ -569,6 +569,8 @@ namespace ralg {
 
   monomial delete_var(const int var_num, const monomial& m);
 
+  polynomial delete_var(const int var_num, const polynomial& m);
+
   rational evaluate_at(const rational& val, const polynomial& p);
 
   polynomial evaluate_at(const std::vector<rational>& test_pt,

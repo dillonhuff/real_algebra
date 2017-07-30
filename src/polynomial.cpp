@@ -168,4 +168,13 @@ namespace ralg {
     return ((a_i + pow(root, coeff_num - 1)) / deriv).abs();
   }
 
+  polynomial delete_var(const int var_num, const polynomial& p) {
+    vector<monomial> ms;
+    for (int i = 0; i < p.num_monos(); i++) {
+      const class monomial& m = p.monomial(i);
+      ms.push_back(delete_var(var_num, m));
+    }
+    return polynomial{ms, p.num_vars() - 1};
+  }
+
 }
