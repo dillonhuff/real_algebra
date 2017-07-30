@@ -37,12 +37,13 @@ namespace ralg {
 
     cout << "Ellipse = " << ellipse << endl;
 
-    auto ps = project(8, {circle, ellipse});
+    auto ps = mccallum_project(8, {circle, ellipse});
 
-    cout << "Projection" << endl;
-    for (auto& p : ps) {
-      cout << p << endl;
-    }
+    cout << "McCallum Projection Size = " << ps.size() << endl;
+
+    auto pcs = project(8, {circle, ellipse});
+
+    cout << "Collins projection size = " << pcs.size() << endl;
   }
 
   TEST_CASE("One polynomial example") {
