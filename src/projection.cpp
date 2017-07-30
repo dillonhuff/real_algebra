@@ -157,7 +157,22 @@ namespace ralg {
   std::vector<polynomial>
   resultants(const int var_num,
 	     const std::vector<polynomial>& polys) {
-    return {};
+    vector<polynomial> ps;
+
+    for (int i = 0; i < polys.size(); i++) {
+      for (int j = i + 1; j < polys.size(); j++) {
+	if (i != j) {
+	  if (degree_wrt(var_num, polys[i]) >=
+	      degree_wrt(var_num, polys[j])) {
+	    ps.push_back(resultant(var_num, polys[i], polys[j]));
+	  } else {
+	    ps.push_back(resultant(var_num, polys[j], polys[i]));
+	  }
+	}
+      }
+    }
+
+    return ps;
   }  
   
   std::vector<polynomial>
