@@ -131,10 +131,27 @@ namespace ralg {
     return final;
   }
 
+  polynomial resultant(const int var_num,
+		       const polynomial& f,
+		       const polynomial& g) {
+    polynomial sub = subresultant(var_num, 0, f, g);
+    return sub;
+  }
+
+  polynomial discriminant(const int var_num, const polynomial& p) {
+    polynomial dp = derivative_wrt(var_num, p);
+
+    return resultant(var_num, p, dp);
+  }
+
   std::vector<polynomial>
   discriminants(const int var_num,
 		const std::vector<polynomial>& polys) {
-    return {};
+    vector<polynomial> discs;
+    for (auto& p : polys) {
+      discs.push_back(discriminant(var_num, p));
+    }
+    return discs;
   }  
 
   std::vector<polynomial>
