@@ -40,19 +40,40 @@ namespace ralg {
     return {circle, ellipse};
   }
 
-  vector<cell> ce_cad(const double a, const double b, const double c, const double d, const double h, const double k, const double l ) {
+  vector<cell> ce_cad(const double a,
+		      const double b,
+		      const double c,
+		      const double d,
+		      const double h,
+		      const double k,
+		      const double l) {
     vector<polynomial> ps = ce_polynomials();
+    vector<vector<polynomial> > projection_sets{project(8, ps)};
 
-    vector<rational> rs{{a}, {b}, {c}, {d}, {h}, {k}, {l} };
+    
+
+    vector<rational> rs{ {a}, {b}, {c}, {d}, {h}, {k}, {l} };
     vector<polynomial> evaluated;
+    for (auto& p : projection_sets.front()) {
+      polynomial p_v = evaluate_at(rs, p);
+
+      cout << "evaluated = " << p_v << endl;
+      if (!p_v.is_constant()) {
+	evaluated.push_back(p_v);
+      }
+    }
+
+    vector<polynomial> evaluated_ps;
     for (auto& p : ps) {
       polynomial p_v = evaluate_at(rs, p);
 
       cout << "evaluated = " << p_v << endl;
-      evaluated.push_back(p_v);
+      if (!p_v.is_constant()) {
+	evaluated_ps.push_back(p_v);
+      }
     }
-
-    return build_CAD(evaluated);
+    
+    return base_and_extend({evaluated}, evaluated_ps);
   }
 
   void print_cell(std::ostream& out, const cell& c) {

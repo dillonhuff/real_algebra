@@ -75,11 +75,15 @@ namespace ralg {
   solve_base_projection_set(const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
 
+    cout << "Isolating roots" << endl;
+
     rational tol("1/10000");
     vector<interval> root_intervals;
     for (auto& p : polys) {
       concat(root_intervals, isolate_roots(p, tol));
     }
+
+    cout << "Done isolating roots" << endl;
 
     vector<rational> roots;
     for (auto& it : root_intervals) {
@@ -180,11 +184,11 @@ namespace ralg {
     cells = extend_cells(cells, polys);
 
     return cells;
-    
   }
 
   std::vector<cell>
-  base_and_extend(const std::vector<std::vector<polynomial>>& projection_sets) {
+  base_and_extend(const std::vector<std::vector<polynomial>>& projection_sets,
+		  const std::vector<polynomial>& polys) {
     // Base phase
     std::vector<cell> cells =
       solve_base_projection_set(projection_sets[0]);
@@ -198,7 +202,10 @@ namespace ralg {
     vector<vector<polynomial> > projection_sets =
       build_projection_sets(polys);
 
-    return base_and_extend;
+    cout << "Done with projection" << endl;
+    cout << "# of projection sets = " << projection_sets.size() << endl;
+
+    return base_and_extend(projection_sets, polys);
   }
 
 }
