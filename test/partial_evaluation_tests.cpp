@@ -86,8 +86,8 @@ namespace ralg {
   
   TEST_CASE("Ellipse-Circle Intersection Algorithm") {
 
-    double a = -10;
-    double b = -10;
+    double a = 2;
+    double b = 2;
     double r = 1;
 
     double c = 3;

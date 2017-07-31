@@ -165,6 +165,24 @@ namespace ralg {
     return new_cells;
   }
 
+
+  std::vector<cell>
+  extend_projection_sets(const std::vector<cell>& initial_cells,
+			 const std::vector<std::vector<polynomial>>& projection_sets,
+			 const std::vector<polynomial>& polys) {
+    vector<cell> cells = initial_cells;
+    // Extension phase
+    for (int i = 1; i < projection_sets.size(); i++) {
+      cout << "Extending i = " << i << endl;
+      cells = extend_cells(cells, projection_sets[i]);
+    }
+
+    cells = extend_cells(cells, polys);
+
+    return cells;
+    
+  }
+
   std::vector<cell> build_CAD(const std::vector<polynomial>& polys) {
 
     // Projection phase
@@ -180,15 +198,8 @@ namespace ralg {
       cout << bc.test_pt.back().to_double() << endl;
     }
 
-    // Extension phase
-    for (int i = 1; i < projection_sets.size(); i++) {
-      cout << "Extending i = " << i << endl;
-      cells = extend_cells(cells, projection_sets[i]);
-    }
+    return extend_projection_sets(cells, projection_sets, polys);
 
-    cells = extend_cells(cells, polys);
-
-    return cells;
   }
 
 }
