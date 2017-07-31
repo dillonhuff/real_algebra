@@ -182,8 +182,11 @@ namespace ralg {
 
     // Extension phase
     for (int i = 1; i < projection_sets.size(); i++) {
+      cout << "Extending i = " << i << endl;
       cells = extend_cells(cells, projection_sets[i]);
     }
+
+    cells = extend_cells(cells, polys);
 
     return cells;
   }

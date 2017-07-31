@@ -73,14 +73,15 @@ namespace ralg {
     double h = 2;
     double k = 4;
 
-    // vector<cell> cells = ce_cad( a,  b,  c,  d,  h,  k,  r );
-    
-    // cout << "# of cells = " << cells.size() << endl;
+    vector<cell> cells = ce_cad( a,  b,  c,  d,  h,  k,  r );
 
-    // for (auto& c : cells) {
-    //   print_cell(cout, c);
-    //   cout << endl;
-    // }
+    cout << "Cell dimension = " << cells.front().test_pt.size() << endl;
+    cout << "# of cells = " << cells.size() << endl;
+
+    for (auto& c : cells) {
+      print_cell(cout, c);
+      cout << endl;
+    }
   }
 
 }
