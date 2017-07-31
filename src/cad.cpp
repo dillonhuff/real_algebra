@@ -183,23 +183,22 @@ namespace ralg {
     
   }
 
+  std::vector<cell>
+  base_and_extend(const std::vector<std::vector<polynomial>>& projection_sets) {
+    // Base phase
+    std::vector<cell> cells =
+      solve_base_projection_set(projection_sets[0]);
+
+    return extend_projection_sets(cells, projection_sets, polys);
+  }
+
   std::vector<cell> build_CAD(const std::vector<polynomial>& polys) {
 
     // Projection phase
     vector<vector<polynomial> > projection_sets =
       build_projection_sets(polys);
 
-    // Base phase
-    std::vector<cell> cells =
-      solve_base_projection_set(projection_sets[0]);
-
-    cout << "# of base cells = " << cells.size() << endl;
-    for (auto& bc : cells) {
-      cout << bc.test_pt.back().to_double() << endl;
-    }
-
-    return extend_projection_sets(cells, projection_sets, polys);
-
+    return base_and_extend;
   }
 
 }
