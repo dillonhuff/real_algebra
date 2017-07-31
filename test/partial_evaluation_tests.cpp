@@ -46,14 +46,22 @@ namespace ralg {
 		      const std::vector<polynomial>& ps) {
 
     // Build the evaluated projection sets
-    vector<polynomial> evaluated;
-    for (auto& p : projection_sets.front()) {
-      polynomial p_v = evaluate_at(rs, p);
+    vector<vector<polynomial> > evaluated;
 
-      cout << "evaluated = " << p_v << endl;
-      if (!p_v.is_constant()) {
-	evaluated.push_back(p_v);
+    for (auto& projection_set : projection_sets) {
+
+      vector<polynomial> evaluated_set;
+
+      for (auto& p : projection_set) {
+	polynomial p_v = evaluate_at(rs, p);
+
+	cout << "evaluated = " << p_v << endl;
+	if (!p_v.is_constant()) {
+	  evaluated_set.push_back(p_v);
+	}
       }
+
+      evaluated.push_back(evaluated_set);
     }
 
     // Build the evaluated final formula
@@ -67,9 +75,10 @@ namespace ralg {
       }
     }
     
-    return base_and_extend({evaluated}, evaluated_ps);
+    return base_and_extend(evaluated, evaluated_ps);
   }
 
+  // Add formula evaluation at each cell
   vector<cell> ce_cad(const double a,
 		      const double b,
 		      const double c,
