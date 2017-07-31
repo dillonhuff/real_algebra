@@ -40,19 +40,12 @@ namespace ralg {
     return {circle, ellipse};
   }
 
-  vector<cell> ce_cad(const double a,
-		      const double b,
-		      const double c,
-		      const double d,
-		      const double h,
-		      const double k,
-		      const double l) {
-    vector<polynomial> ps = ce_polynomials();
-    vector<vector<polynomial> > projection_sets{mccallum_project(8, ps)};
+  std::vector<cell>
+  evaluate_and_extend(const std::vector<rational>& rs,
+		      const std::vector<std::vector<polynomial>>& projection_sets,
+		      const std::vector<polynomial>& ps) {
 
-    
-
-    vector<rational> rs{ {a}, {b}, {c}, {d}, {h}, {k}, {l} };
+    // Build the evaluated projection sets
     vector<polynomial> evaluated;
     for (auto& p : projection_sets.front()) {
       polynomial p_v = evaluate_at(rs, p);
@@ -63,6 +56,7 @@ namespace ralg {
       }
     }
 
+    // Build the evaluated final formula
     vector<polynomial> evaluated_ps;
     for (auto& p : ps) {
       polynomial p_v = evaluate_at(rs, p);
@@ -74,6 +68,20 @@ namespace ralg {
     }
     
     return base_and_extend({evaluated}, evaluated_ps);
+  }
+
+  vector<cell> ce_cad(const double a,
+		      const double b,
+		      const double c,
+		      const double d,
+		      const double h,
+		      const double k,
+		      const double l) {
+    vector<polynomial> ps = ce_polynomials();
+    vector<vector<polynomial> > projection_sets{mccallum_project(8, ps)};
+    vector<rational> rs{ {a}, {b}, {c}, {d}, {h}, {k}, {l} };
+
+    return evaluate_and_extend(rs, projection_sets, ps);
   }
 
   void print_cell(std::ostream& out, const cell& c) {
