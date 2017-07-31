@@ -1,12 +1,13 @@
 #include "catch.hpp"
 
+#include <ralg/cad.h>
 #include <ralg/projection.h>
 
 using namespace std;
 
 namespace ralg {
 
-  TEST_CASE("Ellipse-Circle Intersection Algorithm") {
+  vector<polynomial> ce_polynomials() {
     monomial a_m(1, {1, 0, 0, 0, 0, 0, 0, 0, 0}, 9);
     monomial b_m(1, {0, 1, 0, 0, 0, 0, 0, 0, 0}, 9);
     monomial r_m(1, {0, 0, 1, 0, 0, 0, 0, 0, 0}, 9);
@@ -36,26 +37,50 @@ namespace ralg {
 
     cout << "Ellipse = " << ellipse << endl;
 
-    auto ps = mccallum_project(8, {circle, ellipse});
+    return {circle, ellipse};
+  }
 
-    cout << "McCallum Projection Size = " << ps.size() << endl;
-    
-    REQUIRE(ps.size() > 0);
+  vector<cell> ce_cad(const double a, const double b, const double c, const double d, const double h, const double k, const double l ) {
+    vector<polynomial> ps = ce_polynomials();
 
+    vector<rational> rs{{a}, {b}, {c}, {d}, {h}, {k}, {l} };
+    vector<polynomial> evaluated;
     for (auto& p : ps) {
-      cout << p << endl;
-      REQUIRE(p.num_vars() == 8);
+      polynomial p_v = evaluate_at(rs, p);
+
+      cout << "evaluated = " << p_v << endl;
+      evaluated.push_back(p_v);
     }
 
-    auto ps2 = mccallum_project(7, ps);
+    return build_CAD(evaluated);
+  }
 
-    cout << "McCallum Projection Size 2 = " << ps2.size() << endl;
-    for (auto& p : ps2) {
-      cout << "# of monomials = " << p.num_monos() << endl;
-      for (int i = 0; i < p.num_vars(); i++) {
-	cout << "degreee wrt " << i << " = " << degree_wrt(i, p) << endl;
-      }
+  void print_cell(std::ostream& out, const cell& c) {
+    for (auto& r : c.test_pt) {
+      out << r << " ";
     }
+  }
+
+  TEST_CASE("Ellipse-Circle Intersection Algorithm") {
+
+    double a = -1;
+    double b = -1;
+    double r = 1000000;
+
+    double c = 3;
+    double d = 1;
+
+    double h = 2;
+    double k = 4;
+
+    // vector<cell> cells = ce_cad( a,  b,  c,  d,  h,  k,  r );
+    
+    // cout << "# of cells = " << cells.size() << endl;
+
+    // for (auto& c : cells) {
+    //   print_cell(cout, c);
+    //   cout << endl;
+    // }
   }
 
 }

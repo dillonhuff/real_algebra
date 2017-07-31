@@ -175,6 +175,28 @@ namespace ralg {
 
     // cout << "Condition number = " << condition_num << endl;
   }
+
+  TEST_CASE("Partially evaluating a polynomial ") {
+    monomial m_x(1, {1, 0, 0}, 3);
+    monomial m_y(1, {0, 1, 0}, 3);
+    monomial m_z(1, {0, 0, 1}, 3);
+
+    polynomial x({m_x}, 3);
+    polynomial y({m_y}, 3);
+    polynomial z({m_z}, 3);
+
+    polynomial p = x*x + y*x + z;
+
+    cout << "p = " << p << endl;
+
+    polynomial expected = delete_var(0, 2*2 + 2*y + z);
+
+    vector<rational> rs = {2};
+    polynomial res = evaluate_at(rs, p);
+
+    REQUIRE(res == expected);
+
+  }
 	     
 
 }

@@ -106,6 +106,8 @@ namespace ralg {
 
   monomial evaluate_at(const std::vector<rational>& test_pt,
 		       const monomial& m) {
+    assert(test_pt.size() <= m.num_vars());
+    
     rational res = m.coeff();
 
     for (int i = 0; i < test_pt.size(); i++) {
@@ -115,14 +117,19 @@ namespace ralg {
       }
     }
 
-    return monomial(res, {m.power(m.num_vars() - 1)}, 1);
+    vector<int> powers{m.power(m.num_vars() - test_pt.size())};
+    for (int i = test_pt.size(); i < m.num_vars(); i++) {
+      powers.push_back(m.power(i));
+    }
+
+    return monomial(res, powers, m.num_vars() - test_pt.size());
   }
 
   polynomial evaluate_at(const std::vector<rational>& test_pt,
 			 const polynomial& p) {
-    assert(test_pt.size() == (p.num_vars() - 1));
+    assert(test_pt.size() <= p.num_vars());
 
-    polynomial sum = zero_polynomial(1);
+    polynomial sum = zero_polynomial(p.num_vars() - test_pt.size());
 
     for (int i = 0; i < p.num_monos(); i++) {
       monomial m = evaluate_at(test_pt, p.monomial(i));
