@@ -86,9 +86,9 @@ namespace ralg {
   
   TEST_CASE("Ellipse-Circle Intersection Algorithm") {
 
-    double a = -1;
-    double b = -1;
-    double r = 1000000;
+    double a = -10;
+    double b = -10;
+    double r = 1;
 
     double c = 3;
     double d = 1;
@@ -102,15 +102,23 @@ namespace ralg {
     cout << "# of cells = " << cells.size() << endl;
 
     for (auto& cl : cells) {
-      print_cell_as_double(cout, cl);
-      cout << endl;
-      cout << "Point in circle = " << in_circle(a, b, r,
-						cl.test_pt[0].to_double(),
-						cl.test_pt[1].to_double()) << endl;
+      // print_cell_as_double(cout, cl);
+      // cout << endl;
 
-      cout << "Point in ellipse = " << in_ellipse(c, d, h, k,
-						  cl.test_pt[0].to_double(),
-						  cl.test_pt[1].to_double()) << endl;
+      bool in_c = in_circle(a, b, r,
+			    cl.test_pt[0].to_double(),
+			    cl.test_pt[1].to_double());
+
+      bool in_e = in_ellipse(c, d, h, k,
+			     cl.test_pt[0].to_double(),
+			     cl.test_pt[1].to_double());
+      // cout << "Point in circle = " << in_c << endl;
+      // cout << "Point in ellipse = " << in_e << end;
+
+      if (in_c && in_e) {
+	print_cell_as_double(cout, cl);
+	cout << endl;
+      }
 
     }
   }
