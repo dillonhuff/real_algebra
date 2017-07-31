@@ -191,6 +191,8 @@ namespace ralg {
 
     polynomial expected = delete_var(0, 2*2 + 2*y + z);
 
+    //cout << "expected = " << expected << endl;
+
     vector<rational> rs = {2};
     polynomial res = evaluate_at(rs, p);
 

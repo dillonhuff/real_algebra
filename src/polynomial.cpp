@@ -117,7 +117,7 @@ namespace ralg {
       }
     }
 
-    vector<int> powers{m.power(m.num_vars() - test_pt.size())};
+    vector<int> powers;//{m.num_vars() - test_pt.size()};
     for (int i = test_pt.size(); i < m.num_vars(); i++) {
       powers.push_back(m.power(i));
     }
