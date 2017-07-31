@@ -122,13 +122,6 @@ namespace ralg {
 			  const polynomial& f,
 			  const polynomial& g) {
 
-    cout << "Computing subresultant" << endl;
-    cout << "f = " << f << endl;
-    cout << "g = " << g << endl;
-
-    cout << "# vars in f = " << f.num_vars() << endl;
-    cout << "# vars in g = " << g.num_vars() << endl;
-
     if (ind == degree_wrt(var_num, g) + 1) {
       return f;
     }

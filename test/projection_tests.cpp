@@ -48,7 +48,15 @@ namespace ralg {
       REQUIRE(p.num_vars() == 8);
     }
 
-    auto ps2 = mccallum_project(7, ps);
+    // auto ps2 = mccallum_project(7, ps);
+
+    // cout << "McCallum Projection Size 2 = " << ps2.size() << endl;
+    // for (auto& p : ps2) {
+    //   cout << "# of monomials = " << p.num_monos() << endl;
+    //   for (int i = 0; i < p.num_vars(); i++) {
+    // 	cout << "degreee wrt " << i << " = " << degree_wrt(i, p) << endl;
+    //   }
+    // }
   }
 
   TEST_CASE("One polynomial example") {

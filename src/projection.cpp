@@ -193,7 +193,15 @@ namespace ralg {
 
     concat(proj1, resultants(var_num, polys));
 
-    return proj1;
+    vector<polynomial> final;
+    for (auto& p : proj1) {
+      if (!p.is_constant() && !elem(p, final)) {
+	final.push_back(p);
+      }
+    }
+    
+    return final;
+    
   }
   
 }

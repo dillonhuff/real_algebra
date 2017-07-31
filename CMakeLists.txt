@@ -37,7 +37,8 @@ SET(TEST_FILES ./test/cad_tests.cpp
 	       ./test/division_tests.cpp
 	       ./test/groebner_tests.cpp
 	       ./test/arithmetic_tests.cpp
-	       ./test/matrix_tests.cpp)
+	       ./test/matrix_tests.cpp
+	       ./test/partial_evaluation_tests.cpp)
 
 
 add_executable(all-tests ${TEST_FILES})
