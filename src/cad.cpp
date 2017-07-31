@@ -202,9 +202,6 @@ namespace ralg {
     vector<vector<polynomial> > projection_sets =
       build_projection_sets(polys);
 
-    cout << "Done with projection" << endl;
-    cout << "# of projection sets = " << projection_sets.size() << endl;
-
     return base_and_extend(projection_sets, polys);
   }
 

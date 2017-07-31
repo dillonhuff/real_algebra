@@ -48,7 +48,7 @@ namespace ralg {
 		      const double k,
 		      const double l) {
     vector<polynomial> ps = ce_polynomials();
-    vector<vector<polynomial> > projection_sets{project(8, ps)};
+    vector<vector<polynomial> > projection_sets{mccallum_project(8, ps)};
 
     
 
