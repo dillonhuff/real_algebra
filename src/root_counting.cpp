@@ -56,12 +56,41 @@ namespace ralg {
     }
 
     int num_changes = 0;
-    for (int i = 0; i < signs.size() - 1; i++) {
-      if (signs[i] != signs[i + 1]) {
+
+
+    int start_loc = 0;
+    while (signs[start_loc] == 0) {
+      start_loc++;
+    }
+
+    if (start_loc > 0) {
+      num_changes++;
+    }
+
+    int current_sign = signs[start_loc];
+    for (int i = start_loc; i < signs.size(); i++) {
+      if (signs[i] == 0) {
+	continue;
+      }
+
+      if (signs[i] != current_sign) {
 	num_changes++;
       }
+      current_sign = signs[i];
+      // if (signs[i] != signs[i + 1]) {
+      // 	num_changes++;
+      // }
     }
+
     return num_changes;
+
+    // int num_changes = 0;
+    // for (int i = 0; i < signs.size() - 1; i++) {
+    //   if (signs[i] != signs[i + 1]) {
+    // 	num_changes++;
+    //   }
+    // }
+    // return num_changes;
   }
 
   vector<polynomial> sturm_chain(const polynomial& p) {
@@ -169,19 +198,20 @@ namespace ralg {
 
   int num_roots_in_interval(const interval& it,
 			    const std::vector<polynomial>& sturm_chain) {
+    // cout << "Interval = " << it << endl;
     // cout << "Sturm chain" << endl;
     // for (auto& p : sturm_chain) {
     //   cout << p << endl;
     // }
 
     vector<int> neg_signs = signs_at(it.start, sturm_chain);
-    // cout << "Neg signs at " << it.start << endl;
+    // cout << "Signs at " << it.start << endl;
     // for (auto s : neg_signs) {
     //   cout << s << endl;
     // }
 
     vector<int> pos_signs = signs_at(it.end, sturm_chain);
-    // cout << "Pos signs" << endl;
+    // cout << "Signs at " << it.end << endl;
     // for (auto s : pos_signs) {
     //   cout << s << endl;
     // }
@@ -313,6 +343,8 @@ namespace ralg {
 
   interval refine_root_interval(const interval& it,
 				const std::vector<polynomial>& chain) {
+    assert(num_roots_in_interval(it, chain) == 1);
+
     rational two(2);
     rational mid = (it.end.value + it.start.value) / two;
 
@@ -338,6 +370,11 @@ namespace ralg {
 			const std::vector<polynomial>& chain,
 			const rational& max_interval_width) {
     assert(is_finite(it));
+
+    // for (auto& c : chain) {
+    //   assert(evaluate_at(it.start.value, c) != 0);
+    //   assert(evaluate_at(it.end.value, c) != 0);
+    // }
 
     interval ref_it = it;
     while (width(ref_it) > max_interval_width) {

@@ -6,6 +6,30 @@ using namespace std;
 
 namespace ralg {
 
+  TEST_CASE("Sign changes") {
+
+    SECTION("Two sign changes one value") {
+      vector<int> sgns{1, 1, -1, 1, 1};
+
+      REQUIRE(num_sign_changes(sgns) == 2);
+    }
+
+    SECTION("Two sign changes interrupted") {
+      vector<int> sgns{1, -1, -1, -1, 1};
+
+      REQUIRE(num_sign_changes(sgns) == 2);
+    }
+
+    SECTION("One sign change") {
+      vector<int> sgns{0, 0, -1};
+
+      REQUIRE(num_sign_changes(sgns) == 1);
+    }
+    
+  }
+    
+
+  
 
   TEST_CASE("Root counting") {
     monomial xv({"1"}, {1}, 1);

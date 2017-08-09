@@ -43,5 +43,7 @@ namespace ralg {
   interval isolate_root(const interval& it,
 			const std::vector<polynomial>& chain,
 			const rational& max_interval_width);
-  
+
+  int num_sign_changes(const std::vector<int>& signs);
+
 }
