@@ -40,4 +40,8 @@ namespace ralg {
   std::ostream& operator<<(std::ostream& out, const interval_pt& pt);
   std::ostream& operator<<(std::ostream& out, const interval& it);
 
+  interval isolate_root(const interval& it,
+			const std::vector<polynomial>& chain,
+			const rational& max_interval_width);
+  
 }

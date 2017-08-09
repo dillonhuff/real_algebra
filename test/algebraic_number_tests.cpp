@@ -2,6 +2,8 @@
 
 #include "ralg/algebraic_number.h"
 
+using namespace std;
+
 namespace ralg {
 
   TEST_CASE("Create 0 number") {
@@ -23,11 +25,15 @@ namespace ralg {
 
     polynomial p = x*x - 2;
 
-    interval i(-10, false, 10, false);
+    rational_interval i(0, true, 10, true);
 
     algnum a(p, i);
 
-    
+    double d = a.decimal_approximation(0.0001);
+
+    cout << "Decimal approximation = " << d << endl;
+
+    REQUIRE(fabs(d - sqrt(2)) < 0.0001);
   }
   
 }
