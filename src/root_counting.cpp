@@ -169,17 +169,22 @@ namespace ralg {
 
   int num_roots_in_interval(const interval& it,
 			    const std::vector<polynomial>& sturm_chain) {
+    cout << "Sturm chain" << endl;
+    for (auto& p : sturm_chain) {
+      cout << p << endl;
+    }
+
     vector<int> neg_signs = signs_at(it.start, sturm_chain);
-    // cout << "Neg signs" << endl;
-    // for (auto s : neg_signs) {
-    //   cout << s << endl;
-    // }
+    cout << "Neg signs at " << it.start << endl;
+    for (auto s : neg_signs) {
+      cout << s << endl;
+    }
 
     vector<int> pos_signs = signs_at(it.end, sturm_chain);
-    // cout << "Pos signs" << endl;
-    // for (auto s : pos_signs) {
-    //   cout << s << endl;
-    // }
+    cout << "Pos signs" << endl;
+    for (auto s : pos_signs) {
+      cout << s << endl;
+    }
 
     int neg_changes = num_sign_changes(neg_signs);
     int pos_changes = num_sign_changes(pos_signs);
@@ -321,6 +326,9 @@ namespace ralg {
       return left;
     }
 
+
+    cout << "Original interval = " << it << endl;
+    cout << "Right interval = " << right << endl;
     assert(num_roots_in_interval(right, chain) == 1);
 
     return right;
