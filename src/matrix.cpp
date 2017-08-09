@@ -149,4 +149,75 @@ namespace ralg {
     return d;
   }
 
+  polynomial lc(const int var_num,
+		const polynomial& p) {
+    // TODO: Accelerate the horribly slow general purpose call
+    auto coeffs = coefficients_wrt(p, var_num);
+    return coeffs.back();
+  }
+
+  polynomial prem(const int var_num, const polynomial& p, const polynomial& q) {
+    assert(false);
+  }
+
+  polynomial divide_wrt(const int var_num, const polynomial& p, const polynomial& q) {
+    assert(false);
+  }
+  
+  std::vector<polynomial> subresultants_wrt(const int i,
+					    const polynomial& p,
+					    const polynomial& q) {
+    assert(p.num_vars() == q.num_vars());
+    assert(degree_wrt(i, p) >= degree_wrt(i, q));
+    assert(degree_wrt(i, q) >= 1);
+
+    vector<polynomial> S;
+    polynomial s = pow(lc(i, q), degree_wrt(i, p) - degree_wrt(i, q));
+
+    cout << "s = " << s << endl;
+
+    polynomial A = q;
+    polynomial B = prem(i, p, q);
+
+    while (true) {
+      int d = degree_wrt(i, A);
+      int e = degree_wrt(i, B);
+
+      if (is_zero(B)) {
+	break;
+      }
+
+      S.push_back(B);
+
+      int delta = d - e;
+
+      polynomial C = const_poly(0, p.num_vars());
+      if (delta > 1) {
+	// TODO: Add proper C value computation
+	polynomial tmp_num = pow(lc(i, B), delta - 1) * B;
+	polynomial tmp_denom = pow(s, delta - 1);
+
+	C = divide_wrt(i, tmp_num, tmp_denom);
+	
+	S.push_back(C);
+      } else {
+	C = B;
+      }
+
+      if (e == 0) {
+	break;
+      }
+
+      // Add B value update
+      polynomial tmp_num = prem(i, A, -1*B);
+      polynomial tmp_denom = pow(s, delta)*lc(i, A);
+      B = divide_wrt(i, tmp_num, tmp_denom);
+
+      A = C;
+
+      s = lc(i, A);
+    }
+
+    return S;
+  }
 }

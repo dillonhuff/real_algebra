@@ -139,7 +139,17 @@ namespace ralg {
     polynomial c({m_c}, 4);
     polynomial x({m_x}, 4);
 
-    
+    polynomial p = a*x*x + b*x + c;
+
+    polynomial pd = derivative_wrt(3, p);
+
+    vector<polynomial> subresultants =
+      subresultants_wrt(3, p, pd);
+
+    cout << "Subresultants" << endl;
+    for (auto& sub : subresultants) {
+      cout << sub << endl;
+    }
   }
 
 

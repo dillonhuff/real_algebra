@@ -94,4 +94,7 @@ namespace ralg {
   matrix build_k_subsection(const int k,
 			    const matrix& m);
 
+  std::vector<polynomial> subresultants_wrt(const int i,
+					    const polynomial& p,
+					    const polynomial& q);
 }
