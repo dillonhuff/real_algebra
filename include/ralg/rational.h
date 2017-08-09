@@ -15,6 +15,8 @@ namespace ralg {
       mpq_init(val);
       mpq_set(val, tmp);
       mpq_canonicalize(val);
+
+      //      mpq_clear(tmp);
     }
 
     rational(const int value) {
@@ -77,7 +79,12 @@ namespace ralg {
       mpq_t prod;
       mpq_init(prod);
       mpq_div(prod, val, l.val);
-      return rational(prod);
+
+      
+      rational p(prod);
+      mpq_clear(prod);
+
+      return p;
     }
 
     int cmp(const rational& other) const {
