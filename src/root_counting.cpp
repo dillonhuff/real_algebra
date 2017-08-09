@@ -321,6 +321,8 @@ namespace ralg {
       return left;
     }
 
+    assert(num_roots_in_interval(right, chain) == 1);
+
     return right;
   }
 
