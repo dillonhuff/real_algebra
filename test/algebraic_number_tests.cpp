@@ -15,5 +15,17 @@ namespace ralg {
 
     REQUIRE(!a.in_interval(12));
   }
+
+  TEST_CASE("Square root of 2") {
+    monomial x_m(1, {1}, 1);
+
+    polynomial x({x_m}, 1);
+
+    polynomial p = x*x - 2;
+
+    interval i(-1, false, 1, false);
+
+    algnum a(p, i);
+  }
   
 }

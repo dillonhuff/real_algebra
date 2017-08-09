@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ralg/rational.h>
+#include <ralg/polynomial.h>
 
 #include <cassert>
 
@@ -47,10 +47,14 @@ namespace ralg {
 
   class algebraic_number {
   protected:
+    polynomial p;
     interval i;
 
   public:
-    algebraic_number(const int val) : i(val) {}
+    algebraic_number(const int val) : p({}, 1), i(val) {}
+
+    algebraic_number(const polynomial& p_p,
+		     const interval& i_p) : p(p_p), i(i_p) {}
 
     bool in_interval(const int val) const {
       rational r(val);
