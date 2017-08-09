@@ -128,5 +128,19 @@ namespace ralg {
     }
   }
 
+  TEST_CASE("Ducos unoptimized resultant test") {
+    monomial m_a(1, {1, 0, 0, 0}, 4);
+    monomial m_b(1, {0, 1, 0, 0}, 4);
+    monomial m_c(1, {0, 0, 1, 0}, 4);
+    monomial m_x(1, {0, 0, 0, 1}, 4);
+
+    polynomial a({m_a}, 4);
+    polynomial b({m_b}, 4);
+    polynomial c({m_c}, 4);
+    polynomial x({m_x}, 4);
+
+    
+  }
+
 
 }
