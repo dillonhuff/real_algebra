@@ -52,7 +52,7 @@ namespace ralg {
 
     double d = sum.decimal_approximation(0.0001);
 
-    cout << "Decimal approximation = " << d << endl;
+    cout << "Decimal approximation of 2*sqrt(2) = " << d << endl;
 
     REQUIRE(fabs(d - 2*sqrt(2)) < 0.0001);
     

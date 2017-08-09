@@ -13,7 +13,7 @@ namespace ralg {
   public:
     rational(mpq_t tmp) {
       mpq_init(val);
-      mpq_swap(val, tmp);
+      mpq_set(val, tmp);
       mpq_canonicalize(val);
     }
 
@@ -48,14 +48,22 @@ namespace ralg {
       mpq_t sum;
       mpq_init(sum);
       mpq_add(sum, val, l.val);
-      return rational(sum);
+      rational s(sum);
+
+      mpq_clear(sum);
+
+      return s;
     }
 
     rational times(const rational& l) const {
       mpq_t prod;
       mpq_init(prod);
       mpq_mul(prod, val, l.val);
-      return rational(prod);
+      rational p(prod);
+
+      mpq_clear(prod);
+
+      return p;
     }
 
     // rational lcm(const rational& l) const {
@@ -88,8 +96,19 @@ namespace ralg {
       mpq_t prod;
       mpq_init(prod);
       mpq_abs(prod, val);
-      return rational(prod);
+      rational p(prod);
+
+      mpq_clear(prod);
+
+      return p;
     }
+
+    // ~rational() {
+    //   std::cout << "Deleting ";
+    //   print(std::cout);
+    //   std::cout << std::endl;
+    //   mpq_clear(val);
+    // }
     
   };
 
