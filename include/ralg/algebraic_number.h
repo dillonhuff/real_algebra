@@ -51,7 +51,9 @@ namespace ralg {
     interval i;
 
   public:
-    algebraic_number(const int val) : p({}, 1), i(val) {}
+    algebraic_number(const int val) :
+      p({monomial(1, {1}, 1), monomial(rational(val), {0}, 1)}, 1),
+      i(val) {}
 
     algebraic_number(const polynomial& p_p,
 		     const interval& i_p) : p(p_p), i(i_p) {}

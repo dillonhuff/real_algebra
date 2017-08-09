@@ -30,12 +30,12 @@ namespace ralg {
 
     polynomial circle = pow(x - a, 2) + pow(y - b, 2) - pow(r, 2);
 
-    cout << "circle = " << circle << endl;
+    //cout << "circle = " << circle << endl;
 
     polynomial ellipse =
       k*k*pow(x - c, 2) + h*h*pow(y - d, 2) - k*k*h*h;
 
-    cout << "Ellipse = " << ellipse << endl;
+    //cout << "Ellipse = " << ellipse << endl;
 
     return {circle, ellipse};
   }
@@ -55,7 +55,7 @@ namespace ralg {
       for (auto& p : projection_set) {
 	polynomial p_v = evaluate_at(rs, p);
 
-	cout << "evaluated = " << p_v << endl;
+	//cout << "evaluated = " << p_v << endl;
 	if (!p_v.is_constant()) {
 	  evaluated_set.push_back(p_v);
 	}
