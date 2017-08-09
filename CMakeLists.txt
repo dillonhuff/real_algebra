@@ -19,7 +19,8 @@ SET(RALG_HEADERS ./include/ralg/polynomial.h
 	      ./include/ralg/root_counting.h
 	      ./include/ralg/cad.h
 	      ./include/ralg/algorithm.h
-	      ./include/ralg/check.h)
+	      ./include/ralg/check.h
+	      ./include/ralg/algebraic_number.h)
 
 SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/groebner.cpp
@@ -27,7 +28,8 @@ SET(SRC_FILES ./src/polynomial.cpp
 	      ./src/matrix.cpp
 	      ./src/projection.cpp
 	      ./src/root_counting.cpp
-	      ./src/cad.cpp)
+	      ./src/cad.cpp
+	      ./src/algebraic_number.cpp)
 
 add_library(ralg ${SRC_FILES})
 

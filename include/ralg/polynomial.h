@@ -407,6 +407,15 @@ namespace ralg {
     return polynomial({cm}, num_vars);
   }
 
+  inline polynomial const_poly(const rational coeff, const int num_vars) {
+    std::vector<int> zeros;
+    for (int i = 0; i < num_vars; i++) {
+      zeros.push_back(0);
+    }
+    monomial cm(coeff, zeros, num_vars);
+    return polynomial({cm}, num_vars);
+  }
+  
   inline polynomial operator+(const polynomial& x,
 			      const polynomial& y) {
     return x.plus(y);
@@ -428,6 +437,11 @@ namespace ralg {
   }
 
   inline polynomial operator*(const int c,
+			      const polynomial& y) {
+    return const_poly(c, y.num_vars())*y;
+  }
+
+  inline polynomial operator*(const rational& c,
 			      const polynomial& y) {
     return const_poly(c, y.num_vars())*y;
   }

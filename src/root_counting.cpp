@@ -77,20 +77,9 @@ namespace ralg {
 	num_changes++;
       }
       current_sign = signs[i];
-      // if (signs[i] != signs[i + 1]) {
-      // 	num_changes++;
-      // }
     }
 
     return num_changes;
-
-    // int num_changes = 0;
-    // for (int i = 0; i < signs.size() - 1; i++) {
-    //   if (signs[i] != signs[i + 1]) {
-    // 	num_changes++;
-    //   }
-    // }
-    // return num_changes;
   }
 
   vector<polynomial> sturm_chain(const polynomial& p) {

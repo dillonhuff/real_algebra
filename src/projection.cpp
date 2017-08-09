@@ -127,7 +127,7 @@ namespace ralg {
 	final.push_back(p);
       }
     }
-    
+
     return final;
   }
 

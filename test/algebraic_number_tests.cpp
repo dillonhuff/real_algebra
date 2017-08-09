@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "ralg/algebraic_number.h"
+#include <ralg/algebraic_number.h>
 
 using namespace std;
 
@@ -35,6 +35,27 @@ namespace ralg {
     cout << "Decimal approximation = " << d << endl;
 
     REQUIRE(fabs(d - sqrt(2)) < 0.0001);
+  }
+
+  TEST_CASE("Add algebraic numbers") {
+    monomial x_m(1, {1}, 1);
+
+    polynomial x({x_m}, 1);
+
+    polynomial p = x*x - 2;
+
+    rational_interval i(1, true, 10, true);
+
+    algnum a(p, i);
+    algnum b(p, i);
+    algnum sum = a + b;
+
+    double d = sum.decimal_approximation(0.0001);
+
+    cout << "Decimal approximation = " << d << endl;
+
+    REQUIRE(fabs(d - 2*sqrt(2)) < 0.0001);
+    
   }
 
 }

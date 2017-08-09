@@ -116,8 +116,23 @@ namespace ralg {
 
       return i.midpoint().to_double();
     }
+
+    algebraic_number plus(algebraic_number& other);
+
+    rational_interval get_interval() const {
+      return i;
+    }
+
+    void refine_by_half();
   };
 
 
+  inline algebraic_number operator+(algebraic_number& a,
+				    algebraic_number& b) {
+    return a.plus(b);
+  }
+
   typedef algebraic_number algnum;
+
+
 }

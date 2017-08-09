@@ -10,5 +10,8 @@ namespace ralg {
   std::vector<polynomial>
   mccallum_project(const int var_num,
 		   const std::vector<polynomial>& polys);
-  
+
+  polynomial resultant(const int var_num,
+		       const polynomial& f,
+		       const polynomial& g);
 }
