@@ -144,9 +144,6 @@ namespace ralg {
     }
 
     ~rational() {
-      //std::cout << "Deleting ";
-      //print(std::cout);
-      //std::cout << std::endl;
       mpq_clear(val);
     }
     
