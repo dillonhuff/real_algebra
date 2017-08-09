@@ -34,7 +34,7 @@ namespace ralg {
 
   // Assumes cells are sorted along the last dimension
   std::vector<cell> insert_mid_cells(const std::vector<cell>& base_cells) {
-    cout << "Inserting mid cells" << endl;
+    //cout << "Inserting mid cells" << endl;
     //assert(base_cells.size() > 0);
     if (base_cells.size() == 0) { return {}; }
 
@@ -124,7 +124,7 @@ namespace ralg {
 				const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
     
-    cout << "Extending cells of " << polys.size() << " polynomials" << endl;
+    //cout << "Extending cells of " << polys.size() << " polynomials" << endl;
 
     vector<polynomial> upolys;
     for (auto& p : polys) {
@@ -166,7 +166,7 @@ namespace ralg {
       concat(new_cells, extend_cell(cell, polys));
     }
 
-    cout << "new cells size = " << new_cells.size() << endl;
+    //cout << "new cells size = " << new_cells.size() << endl;
     return new_cells;
   }
 
@@ -178,7 +178,7 @@ namespace ralg {
     vector<cell> cells = initial_cells;
     // Extension phase
     for (int i = 1; i < projection_sets.size(); i++) {
-      cout << "Extending i = " << i << endl;
+      //cout << "Extending i = " << i << endl;
       cells = extend_cells(cells, projection_sets[i]);
     }
 

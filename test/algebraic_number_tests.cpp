@@ -23,9 +23,11 @@ namespace ralg {
 
     polynomial p = x*x - 2;
 
-    interval i(-1, false, 1, false);
+    interval i(-10, false, 10, false);
 
     algnum a(p, i);
+
+    
   }
   
 }
