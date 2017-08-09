@@ -11,12 +11,18 @@ namespace ralg {
     mpq_t val;
 
   public:
-    rational(mpq_t tmp) {
+
+    rational() {
       mpq_init(val);
+    }
+
+    rational(const mpq_t& tmp) {
+      mpq_init(val);
+      //mpq_swap(val, tmp);
       mpq_set(val, tmp);
       mpq_canonicalize(val);
 
-      //      mpq_clear(tmp);
+      //mpq_clear(tmp);
     }
 
     rational(const int value) {
@@ -44,6 +50,10 @@ namespace ralg {
 	return true;
       }
       return false;
+    }
+
+    void clear() {
+      mpq_clear(val);
     }
 
     rational plus(const rational& l) const {
@@ -111,9 +121,9 @@ namespace ralg {
     }
 
     // ~rational() {
-    //   std::cout << "Deleting ";
-    //   print(std::cout);
-    //   std::cout << std::endl;
+    //   //std::cout << "Deleting ";
+    //   //print(std::cout);
+    //   //std::cout << std::endl;
     //   mpq_clear(val);
     // }
     
