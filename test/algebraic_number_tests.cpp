@@ -26,6 +26,7 @@ namespace ralg {
     polynomial p = x*x - 2;
 
     rational_interval i(1, true, 10, true);
+    //rational_interval i(0, true, 10, true);
 
     algnum a(p, i);
 

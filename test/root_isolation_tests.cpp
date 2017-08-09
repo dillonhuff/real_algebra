@@ -171,4 +171,16 @@ namespace ralg {
     
   }
 
+  TEST_CASE("Refine around square root of 2") {
+    monomial x_m(1, {1}, 1);
+
+    polynomial x({x_m}, 1);
+    polynomial p = x*x - 2;
+
+    interval it{ipt(0), ipt(10)};
+    interval i = isolate_root(it, sturm_chain(p), rational(0.0001));
+
+    REQUIRE(is_finite(i));
+  }
+
 }
