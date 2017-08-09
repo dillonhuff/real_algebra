@@ -25,6 +25,15 @@ namespace ralg {
       //mpq_clear(tmp);
     }
 
+    rational(const rational& other) {
+      mpq_init(val);
+      //mpq_swap(val, tmp);
+      mpq_set(val, other.val);
+      mpq_canonicalize(val);
+
+      //mpq_clear(tmp);
+    }
+    
     rational(const int value) {
       mpq_init(val);
       mpq_set_str(val, std::to_string(value).c_str(), 10);
@@ -42,6 +51,20 @@ namespace ralg {
       mpq_set_str(val, value.c_str(), 10);
       mpq_canonicalize(val);
     }
+
+    rational& operator=(const rational& other) {
+      if (&other == this) {
+	return *this;
+      }
+
+      mpq_init(val);
+      mpq_set(val, other.val);
+      mpq_canonicalize(val);
+      // std::cout << "copy assignment of A\n";
+      // std::swap(n, other.n);
+      // std::swap(s1, other.s1);
+      return *this;
+    }    
 
     int sign() const { return mpq_sgn(val); }
 
@@ -120,12 +143,12 @@ namespace ralg {
       return p;
     }
 
-    // ~rational() {
-    //   //std::cout << "Deleting ";
-    //   //print(std::cout);
-    //   //std::cout << std::endl;
-    //   mpq_clear(val);
-    // }
+    ~rational() {
+      //std::cout << "Deleting ";
+      //print(std::cout);
+      //std::cout << std::endl;
+      mpq_clear(val);
+    }
     
   };
 

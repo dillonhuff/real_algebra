@@ -15,6 +15,14 @@ namespace ralg {
     REQUIRE(r == f);
   }
 
+  TEST_CASE("Delete if on rationals") {
+    vector<rational> rs{1, 3, 2, 4, 6, -4};
+
+    delete_if(rs, [](const rational& r) { return r < 1; });
+
+    REQUIRE(rs.size() == 5);
+  }
+
   TEST_CASE("Constructing polynomial of that should become 8") {
     monomial eight(8, {0}, 1);
     monomial px(1, {1}, 1);
