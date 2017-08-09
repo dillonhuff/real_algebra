@@ -27,9 +27,6 @@ namespace ralg {
     }
     
   }
-    
-
-  
 
   TEST_CASE("Root counting") {
     monomial xv({"1"}, {1}, 1);
