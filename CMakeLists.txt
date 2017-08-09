@@ -31,7 +31,8 @@ SET(SRC_FILES ./src/polynomial.cpp
 
 add_library(ralg ${SRC_FILES})
 
-SET(TEST_FILES ./test/cad_tests.cpp
+SET(TEST_FILES ./test/algebraic_number_tests.cpp
+	       ./test/cad_tests.cpp
 	       ./test/root_isolation_tests.cpp
 	       ./test/projection_tests.cpp
 	       ./test/division_tests.cpp

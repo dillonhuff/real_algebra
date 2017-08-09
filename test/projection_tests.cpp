@@ -44,7 +44,6 @@ namespace ralg {
     REQUIRE(ps.size() > 0);
 
     for (auto& p : ps) {
-      cout << p << endl;
       REQUIRE(p.num_vars() == 8);
     }
 

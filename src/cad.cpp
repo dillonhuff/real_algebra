@@ -18,7 +18,7 @@ namespace ralg {
     vector<vector<polynomial> > projected;
     vector<polynomial> to_project = polys;
     for (int i = n_vars - 1; i > 0; i--) {
-      cout << "To project size = " << to_project.size() << endl;
+      //cout << "To project size = " << to_project.size() << endl;
       projected.push_back(project(i, to_project));
       to_project = projected.back();
     }
@@ -38,7 +38,7 @@ namespace ralg {
     //assert(base_cells.size() > 0);
     if (base_cells.size() == 0) { return {}; }
 
-    cout << "creating mid cells" << endl;
+    //cout << "creating mid cells" << endl;
 
     vector<cell> mcells;
 
@@ -75,7 +75,7 @@ namespace ralg {
   solve_base_projection_set(const std::vector<polynomial>& polys) {
     assert(polys.size() > 0);
 
-    cout << "Isolating roots" << endl;
+    //cout << "Isolating roots" << endl;
 
     rational tol("1/10000");
     vector<interval> root_intervals;
@@ -83,7 +83,7 @@ namespace ralg {
       concat(root_intervals, isolate_roots(p, tol));
     }
 
-    cout << "Done isolating roots" << endl;
+    //cout << "Done isolating roots" << endl;
 
     vector<rational> roots;
     for (auto& it : root_intervals) {
@@ -98,17 +98,17 @@ namespace ralg {
 	     });
     roots.erase(last, roots.end());
 
-    cout << "roots" << endl;
-    for (auto& r : roots) {
-      cout << r.to_double() << endl;
-    }
+    // cout << "roots" << endl;
+    // for (auto& r : roots) {
+    //   cout << r.to_double() << endl;
+    // }
 
     vector<cell> base_cells;
     for (auto& r : roots) {
       base_cells.push_back({{r}});
     }
 
-    cout << "# of base cells = " << base_cells.size() << endl;
+    //cout << "# of base cells = " << base_cells.size() << endl;
 
     return insert_mid_cells(base_cells);
   }
@@ -130,20 +130,21 @@ namespace ralg {
     for (auto& p : polys) {
       auto up = evaluate_at(previous_cell.test_pt, p);
 
-      cout << "p evaluates to " << up << endl;
+      //cout << "p evaluates to " << up << endl;
       for (int i = 0; i < up.num_monos(); i++) {
 	auto m = up.monomial(i);
-	cout << "coefficient = " << m.coeff().to_double() << endl;
+	//cout << "coefficient = " << m.coeff().to_double() << endl;
       }
 
       upolys.push_back(up);
     }
 
     auto cell_tops = solve_base_projection_set(upolys);
-    cout << "*********** cell tops " << endl;
-    for (auto& c : cell_tops) {
-      cout << c << endl;
-    }
+
+    // cout << "*********** cell tops " << endl;
+    // for (auto& c : cell_tops) {
+    //   cout << c << endl;
+    // }
     
     vector<cell> cells;
     for (auto& c : cell_tops) {
