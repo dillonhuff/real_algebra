@@ -603,4 +603,8 @@ namespace ralg {
 
   rational condition_number(const int coeff_num, const rational& root, const polynomial& p);
 
+  polynomial prem(const int var_num, const polynomial& p, const polynomial& q);
+
+  polynomial divide_wrt(const int var_num, const polynomial& p, const polynomial& q);
+  
 }

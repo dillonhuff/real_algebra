@@ -184,4 +184,18 @@ namespace ralg {
     return polynomial{ms, p.num_vars() - 1};
   }
 
+
+  polynomial prem(const int var_num, const polynomial& p, const polynomial& q) {
+    assert(false);
+  }
+
+  polynomial
+  divide_wrt(const int var_num,
+	     const polynomial& p,
+	     const polynomial& q) {
+    assert(degree_wrt(var_num, p) >= degree_wrt(var_num, q));
+
+    return p;
+  }
+  
 }
