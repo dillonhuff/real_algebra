@@ -149,13 +149,6 @@ namespace ralg {
     return d;
   }
 
-  polynomial lc(const int var_num,
-		const polynomial& p) {
-    // TODO: Accelerate the horribly slow general purpose call
-    auto coeffs = coefficients_wrt(p, var_num);
-    return coeffs.back();
-  }
-  
   std::vector<polynomial> subresultants_wrt(const int i,
 					    const polynomial& p,
 					    const polynomial& q) {

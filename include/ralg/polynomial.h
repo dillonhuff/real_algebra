@@ -606,5 +606,8 @@ namespace ralg {
   polynomial prem(const int var_num, const polynomial& p, const polynomial& q);
 
   polynomial divide_wrt(const int var_num, const polynomial& p, const polynomial& q);
+
+  polynomial lc(const int var_num,
+		const polynomial& p);
   
 }

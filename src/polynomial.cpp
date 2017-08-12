@@ -185,6 +185,21 @@ namespace ralg {
   }
 
 
+  polynomial lc(const int var_num,
+		const polynomial& p) {
+    // TODO: Accelerate this horribly slow general purpose call
+    auto coeffs = coefficients_wrt(p, var_num);
+    return coeffs.back();
+  }
+
+  polynomial lt(const int var_num,
+		const polynomial& p) {
+    auto lc = lc(var_num, p);
+    int deg = degree_wrt(var_num, p);
+
+    assert(false);
+  }
+  
   polynomial prem(const int var_num, const polynomial& p, const polynomial& q) {
     assert(false);
   }
@@ -195,6 +210,10 @@ namespace ralg {
 	     const polynomial& q) {
     assert(degree_wrt(var_num, p) >= degree_wrt(var_num, q));
 
+    polynomial p_lt = lt(var_num, p);
+    polynomial q_lt = lt(var_num, q);
+
+    
     return p;
   }
   
