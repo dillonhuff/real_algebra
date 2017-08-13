@@ -37,6 +37,25 @@ namespace ralg {
     return monomial(m.coeff(), vars, m.num_vars() - 1);
   }
 
+  monomial insert_var(const int var_num, const monomial& m) {
+    vector<int> vars;
+    bool inserted = false;
+    for (int i = 0; i < m.num_vars(); i++) {
+      if (i != var_num) {
+	vars.push_back(m.power(i));
+      } else {
+	vars.push_back(0);
+	inserted = true;
+      }
+    }
+
+    if (!inserted) {
+      vars.push_back(0);
+    }
+
+    return monomial(m.coeff(), vars, m.num_vars() + 1);
+  }
+  
   polynomial var_polynomial(const int var_num,
 			    const int num_vars) {
     rational coeff(1);
@@ -63,14 +82,17 @@ namespace ralg {
       auto& m = p.monomial(i);
       int x_deg = m.power(var_num);
       monomial_groups[x_deg].push_back(delete_var(var_num, m));
+      //monomial_groups[x_deg].push_back(m);
     }
 
     vector<polynomial> polys;
     for (auto& ms : monomial_groups) {
       if (ms.size() > 0) {
 	polys.push_back(polynomial(ms, p.num_vars() - 1));
+	//polys.push_back(polynomial(ms, p.num_vars()));
       } else {
 	polys.push_back(zero_polynomial(p.num_vars() - 1));
+	//polys.push_back(zero_polynomial(p.num_vars()));
       }
     }
     return polys;
@@ -199,6 +221,15 @@ namespace ralg {
     return polynomial{ms, p.num_vars() - 1};
   }
 
+  polynomial insert_var(const int var_num, const polynomial& p) {
+    vector<monomial> ms;
+    for (int i = 0; i < p.num_monos(); i++) {
+      const class monomial& m = p.monomial(i);
+      ms.push_back(insert_var(var_num, m));
+    }
+    return polynomial{ms, p.num_vars() + 1};
+  }
+  
 
   polynomial lc(const int var_num,
 		const polynomial& p) {
@@ -209,7 +240,7 @@ namespace ralg {
 
   polynomial lt(const int var_num,
 		const polynomial& p) {
-    auto lcof = lc(var_num, p);
+    auto lcof = insert_var(var_num, lc(var_num, p));
     int deg = degree_wrt(var_num, p);
 
     polynomial xp = pow(var_polynomial(var_num, p.num_vars()), deg);
