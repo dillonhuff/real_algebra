@@ -52,21 +52,6 @@ namespace ralg {
     return M_k;
   }
 
-  // polynomial var_polynomial(const int var_num,
-  // 			    const int num_vars) {
-  //   rational coeff(1);
-  //   vector<int> vars;
-  //   for (int i = 0; i < num_vars; i++) {
-  //     if (i == var_num) {
-  // 	vars.push_back(1);
-  //     } else {
-  // 	vars.push_back(0);
-  //     }
-  //   }
-  //   monomial var_mono(coeff, vars, num_vars);
-  //   return polynomial({var_mono}, num_vars);
-  // }
-
   matrix build_k_subsection(const int k,
 			    const matrix& m) {
     matrix m_k(m.num_rows(), m.num_rows(), m.num_vars());

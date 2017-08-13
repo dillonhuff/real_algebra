@@ -209,10 +209,12 @@ namespace ralg {
 
   polynomial lt(const int var_num,
 		const polynomial& p) {
-    //auto lcof = lc(var_num, p);
-    //int deg = degree_wrt(var_num, p);
+    auto lcof = lc(var_num, p);
+    int deg = degree_wrt(var_num, p);
 
-    assert(false);
+    polynomial xp = pow(var_polynomial(var_num, p.num_vars()), deg);
+
+    return lcof * xp;
   }
   
   polynomial prem(const int var_num, const polynomial& p, const polynomial& q) {
