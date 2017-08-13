@@ -97,4 +97,8 @@ namespace ralg {
   std::vector<polynomial> subresultants_wrt(const int i,
 					    const polynomial& p,
 					    const polynomial& q);
+
+  polynomial var_polynomial(const int var_num,
+			    const int num_vars);
+
 }
