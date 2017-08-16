@@ -238,6 +238,12 @@ namespace ralg {
     return coeffs.back();
   }
 
+  polynomial lc_nv(const int var_num,
+		const polynomial& p) {
+    auto lcof = insert_var(var_num, lc(var_num, p));
+    return lcof;
+  }
+  
   polynomial lt(const int var_num,
 		const polynomial& p) {
     auto lcof = insert_var(var_num, lc(var_num, p));
@@ -248,7 +254,29 @@ namespace ralg {
     return lcof * xp;
   }
   
-  polynomial prem(const int var_num, const polynomial& p, const polynomial& q) {
+  polynomial prem(const int var_num, const polynomial& u, const polynomial& v) {
+    assert(u.num_vars() == v.num_vars());
+
+    if (degree_wrt(var_num, u) <= degree_wrt(var_num, v)) {
+      return u;
+    }
+
+    polynomial w = u;
+    int delta = degree_wrt(var_num, u) - degree_wrt(var_num, v);
+
+    while (true) {
+      int k = degree_wrt(var_num, w) - degree_wrt(var_num, v);
+      w = lc_nv(var_num, v) * w - lc_nv(var_num, w) * pow(var_polynomial(var_num, u.num_vars()), k)*v;
+
+      if (is_zero(w)) {
+	return const_poly(0, u.num_vars());
+      } else if (degree_wrt(var_num, w) < degree_wrt(var_num, v)) {
+	return w * pow(lc_nv(var_num, v), k);
+      } else if (k > delta + 1) {
+	w = w * pow(lc_nv(var_num, v), k - (delta + 1));
+      }
+    }
+
     assert(false);
   }
 
@@ -261,7 +289,9 @@ namespace ralg {
     polynomial p_lt = lt(var_num, p);
     polynomial q_lt = lt(var_num, q);
 
-    
+    // The problem is that I need to recursively divide with respect to
+    // another variable. How does libpoly handle this?
+    //polynomial ps = divide_wrt(var_num, );
     return p;
   }
   
