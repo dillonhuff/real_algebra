@@ -242,6 +242,59 @@ namespace ralg {
 
       REQUIRE(r == const_poly(1, 1));
     }
+
+    SECTION("a + 2 divided by a + 2") {
+      monomial m_a(1, {1, 0}, 2);
+
+      polynomial a({m_a}, 2);
+
+      polynomial expected = const_poly(1, 2);
+
+      //REQUIRE(expected == divide_wrt(1, a + 2, a + 2));
+      
+    }
+
+    SECTION("a + 2 divided by a + 2 with respect to a") {
+      monomial m_a(1, {1, 0}, 2);
+
+      polynomial a({m_a}, 2);
+
+      polynomial expected = const_poly(1, 2);
+
+      REQUIRE(expected == divide_wrt(0, a + 2, a + 2));
+      
+    }
+    
+    SECTION("a^2 + 4a + 4 divided by a + 2") {
+      monomial m_a(1, {1, 0}, 2);
+
+      polynomial a({m_a}, 2);
+
+      polynomial p = a*a + 4*a + 4;
+      polynomial q = a + 2;
+      polynomial expected = a + 2;
+
+      REQUIRE(expected*expected - p == const_poly(0, 2));
+
+      REQUIRE(expected == divide_wrt(0, p, q));
+    }
+
+    SECTION("(a^2 + 4a + 4)*x^2 + (a + 2) divided by (a + 2)") {
+      monomial m_x(1, {0, 1}, 2);
+      monomial m_a(1, {1, 0}, 2);
+
+      polynomial x({m_x}, 2);
+      polynomial a({m_a}, 2);
+
+      polynomial p = (a + 2)*(a + 2)*x*x + (a + 2);
+      polynomial q = a + 2;
+
+      polynomial expected = (a + 2)*x*x + 1;
+
+      //polynomial result = divide_wrt(1, p, q);
+
+      //REQUIRE(expected == result);
+    }
   }
 
 

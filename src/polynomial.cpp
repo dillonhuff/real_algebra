@@ -318,16 +318,21 @@ namespace ralg {
 	rational r = la.monomial(0).coeff() / lq.monomial(0).coeff();
 	return const_poly(r, p.num_vars());
       }
+
+      cout << "lq = " << lq << endl;
+      cout << "la = " << la << endl;
       
       int next_var = 0;
       bool found_var = false;
       for (int i = 0; i < p.num_vars(); i++) {
-	if ((i != var_num) && (degree_wrt(i, lq) >= degree_wrt(i, la))) {
+	if ((i != var_num) && (degree_wrt(i, la) >= degree_wrt(i, lq))) {
 	  found_var = true;
 	  next_var = i;
 	  break;
 	}
       }
+
+      cout << "next var = " << endl;
       
       assert(found_var);
 
@@ -339,19 +344,6 @@ namespace ralg {
 
     return k;
 
-    // polynomial r = p;
-    // while (!is_zero(r)) {
-    //   polynomial p_lt = lt(var_num, p);
-    //   polynomial q_lt = lt(var_num, q);
-
-    //   //r = r - q*;
-
-    // }
-
-    // The problem is that I need to recursively divide with respect to
-    // another variable. How does libpoly handle this?
-    //polynomial ps = divide_wrt(var_num, );
-    //return a;
   }
   
 }
