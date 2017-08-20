@@ -210,7 +210,14 @@ namespace ralg {
 	     
   TEST_CASE("Polynomial long division") {
 
-    SECTION("Two Constants") {
+    SECTION("Two constants") {
+      polynomial q = const_poly(5, 1);
+      polynomial p = const_poly(10, 1);
+
+      REQUIRE(divide_wrt(0, p, q) == const_poly(2, 1));
+    }
+
+    SECTION("2x and 1") {
       monomial m_x(1, {1}, 1);
 
       polynomial x({m_x}, 1);
