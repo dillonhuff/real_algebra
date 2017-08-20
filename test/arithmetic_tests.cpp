@@ -210,6 +210,19 @@ namespace ralg {
 	     
   TEST_CASE("Polynomial long division") {
 
+    SECTION("Zero and complicated polynomial") {
+      monomial m_x(1, {1, 0}, 2);
+      monomial m_y(1, {0, 1}, 2);
+
+      polynomial x({m_x}, 2);
+      polynomial y({m_y}, 2);
+
+      polynomial q = x*x*x*y + 3*y*x - 1;
+      polynomial p = const_poly(0, 2);
+
+      REQUIRE(divide_wrt(1, p, q) == const_poly(0, 2));
+    }
+    
     SECTION("Two constants") {
       polynomial q = const_poly(5, 1);
       polynomial p = const_poly(10, 1);

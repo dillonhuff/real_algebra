@@ -285,13 +285,59 @@ namespace ralg {
   divide_wrt(const int var_num,
 	     const polynomial& p,
 	     const polynomial& q) {
+
     assert(p.num_vars() == q.num_vars());
+    assert(!is_zero(q));
+
+    if (is_zero(p)) {
+      return const_poly(0, p.num_vars());
+    }
+    
     assert(degree_wrt(var_num, p) >= degree_wrt(var_num, q));
 
+    if (p.is_constant() && q.is_constant()) {
+      rational r = p.monomial(0).coeff() / q.monomial(0).coeff();
+      return const_poly(r, p.num_vars());
+    }
+    
     polynomial a = p;
     polynomial k = const_poly(0, p.num_vars());
 
-    return p;
+    int m = degree_wrt(var_num, q);
+
+    while (!is_zero(a)) {
+      cout << "a = " << a << endl;
+
+      int n = degree_wrt(var_num, a);
+      polynomial x_nm = pow(var_polynomial(var_num, p.num_vars()), n - m);
+
+      polynomial lq = lc_nv(var_num, q);
+      polynomial la = lc_nv(var_num, a);
+
+      if (lq.is_constant() && la.is_constant()) {
+	rational r = la.monomial(0).coeff() / lq.monomial(0).coeff();
+	return const_poly(r, p.num_vars());
+      }
+      
+      int next_var = 0;
+      bool found_var = false;
+      for (int i = 0; i < p.num_vars(); i++) {
+	if ((i != var_num) && (degree_wrt(i, lq) >= degree_wrt(i, la))) {
+	  found_var = true;
+	  next_var = i;
+	  break;
+	}
+      }
+      
+      assert(found_var);
+
+      polynomial lk = divide_wrt(next_var, la, lq);
+      k = k + x_nm*lk;
+      a = a - x_nm*lk * q;
+
+    }
+
+    return k;
 
     // polynomial r = p;
     // while (!is_zero(r)) {
